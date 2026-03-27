@@ -50,7 +50,7 @@ export function ResetPasswordForm() {
 
   if (!token) {
     return (
-      <p className="text-sm text-destructive text-center">
+      <p className="text-destructive text-center text-sm">
         Invalid or expired reset link. Please request a new one.
       </p>
     );

@@ -24,7 +24,7 @@ export function WatchlistGrid() {
 
   if (error) {
     return (
-      <div className="py-16 text-center text-muted-foreground">
+      <div className="text-muted-foreground py-16 text-center">
         <p>Failed to load watchlist. Please try again.</p>
       </div>
     );
@@ -34,7 +34,7 @@ export function WatchlistGrid() {
     return (
       <div className="py-24 text-center">
         <p className="mb-4 text-lg font-medium">Your watchlist is empty</p>
-        <p className="mb-6 text-sm text-muted-foreground">
+        <p className="text-muted-foreground mb-6 text-sm">
           Search for movies and TV shows to add them here
         </p>
         <Button asChild>

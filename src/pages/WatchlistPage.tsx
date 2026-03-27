@@ -10,7 +10,7 @@ export function WatchlistPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">My Watchlist</h1>
         {count > 0 && (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             {count} {count === 1 ? "title" : "titles"}
           </p>
         )}

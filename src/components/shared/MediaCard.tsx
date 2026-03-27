@@ -26,23 +26,18 @@ export function MediaCard({
 
   return (
     <Card className="flex flex-col overflow-hidden">
-      <div className="relative aspect-[2/3] overflow-hidden bg-muted">
+      <div className="bg-muted relative aspect-[2/3] overflow-hidden">
         <img src={posterUrl} alt={title} className="h-full w-full object-cover" />
-        <Badge
-          variant="secondary"
-          className="absolute top-2 left-2 uppercase text-xs"
-        >
+        <Badge variant="secondary" className="absolute top-2 left-2 text-xs uppercase">
           {mediaType === "tv" ? "TV" : "Movie"}
         </Badge>
       </div>
       <CardContent className="flex flex-1 flex-col gap-2 p-3">
         <div>
-          <h3 className="line-clamp-1 font-semibold text-sm">{title}</h3>
-          {year && <p className="text-xs text-muted-foreground">{year}</p>}
+          <h3 className="line-clamp-1 text-sm font-semibold">{title}</h3>
+          {year && <p className="text-muted-foreground text-xs">{year}</p>}
         </div>
-        {overview && (
-          <p className="line-clamp-3 text-xs text-muted-foreground">{overview}</p>
-        )}
+        {overview && <p className="text-muted-foreground line-clamp-3 text-xs">{overview}</p>}
         {actions && <div className="mt-auto pt-2">{actions}</div>}
       </CardContent>
     </Card>

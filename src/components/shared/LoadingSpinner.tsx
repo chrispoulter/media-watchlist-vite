@@ -6,5 +6,5 @@ interface LoadingSpinnerProps {
 }
 
 export function LoadingSpinner({ className }: LoadingSpinnerProps) {
-  return <Loader2 className={cn("h-6 w-6 animate-spin text-muted-foreground", className)} />;
+  return <Loader2 className={cn("text-muted-foreground h-6 w-6 animate-spin", className)} />;
 }

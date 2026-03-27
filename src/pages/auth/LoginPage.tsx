@@ -19,12 +19,7 @@ export function LoginPage() {
             <CardDescription>Sign in to your account</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button
-              variant="outline"
-              className="w-full"
-              type="button"
-              onClick={handleGoogleSignIn}
-            >
+            <Button variant="outline" className="w-full" type="button" onClick={handleGoogleSignIn}>
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -48,7 +43,7 @@ export function LoginPage() {
 
             <div className="relative">
               <Separator />
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
+              <span className="bg-card text-muted-foreground absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 text-xs">
                 or
               </span>
             </div>
@@ -57,9 +52,9 @@ export function LoginPage() {
           </CardContent>
         </Card>
 
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-center text-sm">
           Don't have an account?{" "}
-          <Link to="/register" className="underline underline-offset-4 hover:text-foreground">
+          <Link to="/register" className="hover:text-foreground underline underline-offset-4">
             Sign up
           </Link>
         </p>

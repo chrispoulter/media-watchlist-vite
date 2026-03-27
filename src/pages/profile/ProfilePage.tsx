@@ -16,7 +16,7 @@ export function ProfilePage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Profile</h1>
-        <p className="text-sm text-muted-foreground">Manage your account settings</p>
+        <p className="text-muted-foreground text-sm">Manage your account settings</p>
       </div>
 
       <Tabs defaultValue="profile">

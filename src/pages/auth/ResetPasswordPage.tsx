@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
 import { ResetPasswordForm } from "@/features/auth/reset-password-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function ResetPasswordPage() {
   return (
@@ -22,8 +16,8 @@ export function ResetPasswordPage() {
           </CardContent>
         </Card>
 
-        <p className="text-center text-sm text-muted-foreground">
-          <Link to="/login" className="underline underline-offset-4 hover:text-foreground">
+        <p className="text-muted-foreground text-center text-sm">
+          <Link to="/login" className="hover:text-foreground underline underline-offset-4">
             Back to sign in
           </Link>
         </p>

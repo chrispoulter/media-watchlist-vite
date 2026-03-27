@@ -24,7 +24,7 @@ export function SearchPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Search</h1>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           Find movies and TV shows to add to your watchlist
         </p>
       </div>
@@ -47,11 +47,11 @@ export function SearchPage() {
 
           {!isLoading && searchResults && (
             <>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 {searchResults.totalResults} results for "{searchQuery}"
               </p>
               {searchResults.results.length === 0 ? (
-                <div className="py-16 text-center text-muted-foreground">
+                <div className="text-muted-foreground py-16 text-center">
                   <p>No results found. Try a different search term.</p>
                 </div>
               ) : (
@@ -71,7 +71,7 @@ export function SearchPage() {
       )}
 
       {searchQuery.trim().length === 0 && (
-        <div className="py-24 text-center text-muted-foreground">
+        <div className="text-muted-foreground py-24 text-center">
           <p>Start typing to search for movies and TV shows</p>
         </div>
       )}

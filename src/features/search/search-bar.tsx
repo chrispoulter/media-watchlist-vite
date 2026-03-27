@@ -22,7 +22,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
   return (
     <div className="flex gap-2">
       <div className="relative flex-1">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           type="search"
           placeholder="Search movies and TV shows..."
@@ -34,7 +34,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
       <select
         value={type}
         onChange={(e) => setType(e.target.value as FilterType)}
-        className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        className="border-input bg-background ring-offset-background focus:ring-ring rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-offset-2 focus:outline-none"
       >
         <option value="multi">All</option>
         <option value="movie">Movies</option>

@@ -87,7 +87,7 @@ export function LoginForm() {
                     id="rememberMe"
                     checked={field.value}
                     onChange={field.onChange}
-                    className="h-4 w-4 rounded border-input"
+                    className="border-input h-4 w-4 rounded"
                   />
                 </FormControl>
                 <FormLabel htmlFor="rememberMe" className="cursor-pointer font-normal">
@@ -98,7 +98,7 @@ export function LoginForm() {
           />
           <a
             href="/forgot-password"
-            className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+            className="text-muted-foreground text-sm underline-offset-4 hover:underline"
           >
             Forgot password?
           </a>

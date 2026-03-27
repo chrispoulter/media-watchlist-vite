@@ -17,7 +17,8 @@ export function UserMenu() {
 
   const user = session?.user as AppUser | undefined;
   const initials = user
-    ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase() || user.email[0].toUpperCase()
+    ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase() ||
+      user.email[0].toUpperCase()
     : "?";
 
   const handleSignOut = async () => {
@@ -40,7 +41,7 @@ export function UserMenu() {
       <DropdownMenuContent align="end" className="w-48">
         <div className="px-2 py-1.5">
           <p className="text-sm font-medium">{user?.name}</p>
-          <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+          <p className="text-muted-foreground truncate text-xs">{user?.email}</p>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => navigate("/profile")}>

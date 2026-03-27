@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
 import { ForgotPasswordForm } from "@/features/auth/forgot-password-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function ForgotPasswordPage() {
   return (
@@ -15,17 +9,15 @@ export function ForgotPasswordPage() {
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Forgot your password?</CardTitle>
-            <CardDescription>
-              Enter your email and we'll send you a reset link
-            </CardDescription>
+            <CardDescription>Enter your email and we'll send you a reset link</CardDescription>
           </CardHeader>
           <CardContent>
             <ForgotPasswordForm />
           </CardContent>
         </Card>
 
-        <p className="text-center text-sm text-muted-foreground">
-          <Link to="/login" className="underline underline-offset-4 hover:text-foreground">
+        <p className="text-muted-foreground text-center text-sm">
+          <Link to="/login" className="hover:text-foreground underline underline-offset-4">
             Back to sign in
           </Link>
         </p>

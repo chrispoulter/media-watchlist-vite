@@ -23,11 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 interface TwoFactorSettingsProps {
   twoFactorEnabled: boolean;
@@ -151,7 +147,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <ShieldOff className="h-5 w-5 text-muted-foreground" />
+        <ShieldOff className="text-muted-foreground h-5 w-5" />
         <span className="text-sm font-medium">Two-factor authentication is</span>
         <Badge variant="outline">Disabled</Badge>
       </div>
@@ -194,10 +190,10 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
       {step === "qr" && (
         <div className="space-y-4">
           <div>
-            <p className="text-sm font-medium mb-2">
+            <p className="mb-2 text-sm font-medium">
               Scan this QR code with your authenticator app:
             </p>
-            <div className="rounded-lg border bg-white p-4 inline-block">
+            <div className="inline-block rounded-lg border bg-white p-4">
               <img
                 src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(totpUri)}`}
                 alt="TOTP QR Code"
@@ -205,7 +201,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 height={200}
               />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground break-all">
+            <p className="text-muted-foreground mt-2 text-xs break-all">
               Or enter manually: <code className="font-mono text-xs">{totpUri}</code>
             </p>
           </div>

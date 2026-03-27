@@ -25,9 +25,7 @@ export function UpdateProfileForm() {
     defaultValues: {
       firstName: user?.firstName ?? "",
       lastName: user?.lastName ?? "",
-      dateOfBirth: user?.dateOfBirth
-        ? new Date(user.dateOfBirth).toISOString().split("T")[0]
-        : "",
+      dateOfBirth: user?.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split("T")[0] : "",
     },
   });
 
