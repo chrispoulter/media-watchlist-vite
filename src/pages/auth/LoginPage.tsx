@@ -7,7 +7,10 @@ import { authClient } from "@/lib/auth-client";
 
 export function LoginPage() {
   const handleGoogleSignIn = async () => {
-    await authClient.signIn.social({ provider: "google" });
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: `${window.location.origin}/watchlist`,
+    });
   };
 
   return (

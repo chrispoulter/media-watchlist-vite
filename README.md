@@ -19,6 +19,7 @@ Connects to [media-watchlist-api](https://github.com/chrispoulter/media-watchlis
 ## Features
 
 ### Authentication
+
 - Register with email, password, first name, last name, and date of birth
 - Register / sign in with Google OAuth
 - Sign in with email and password (remember me option)
@@ -26,12 +27,14 @@ Connects to [media-watchlist-api](https://github.com/chrispoulter/media-watchlis
 - Forgot password / reset password via email link
 
 ### Watchlist
+
 - Search TMDB for movies and TV shows with debounced input and type filter (All / Movies / TV)
 - Add titles to your watchlist directly from search results
 - View your full watchlist as a poster grid
 - Remove titles from your watchlist
 
 ### Profile
+
 - Update name and date of birth
 - Change email address
 - Change password (revokes other sessions)
@@ -60,20 +63,20 @@ The app will be available at `http://localhost:5173`. API requests are proxied t
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|---|---|---|
+| Variable       | Description                         | Default                 |
+| -------------- | ----------------------------------- | ----------------------- |
 | `VITE_API_URL` | Base URL of the media-watchlist-api | `http://localhost:3000` |
 
 ## Available Scripts
 
-| Script | Description |
-|---|---|
-| `npm run dev` | Start Vite dev server with HMR |
-| `npm run build` | Type check and build for production |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format all files with Prettier |
-| `npm run format:check` | Check formatting without writing |
+| Script                 | Description                          |
+| ---------------------- | ------------------------------------ |
+| `npm run dev`          | Start Vite dev server with HMR       |
+| `npm run build`        | Type check and build for production  |
+| `npm run preview`      | Preview the production build locally |
+| `npm run lint`         | Run ESLint                           |
+| `npm run format`       | Format all files with Prettier       |
+| `npm run format:check` | Check formatting without writing     |
 
 ## Docker
 
@@ -109,18 +112,18 @@ The nginx config includes `try_files $uri /index.html` for SPA routing and aggre
 
 Two GitHub Actions workflows are included:
 
-| Workflow | Trigger | Steps |
-|---|---|---|
-| `ci-dev.yml` | Push to any branch except `main`; PRs to `main` | Type check → lint → format check |
-| `ci-release.yml` | Push to `main` | Type check → lint → format check → build → deploy to Render |
+| Workflow         | Trigger                                         | Steps                                                       |
+| ---------------- | ----------------------------------------------- | ----------------------------------------------------------- |
+| `ci-dev.yml`     | Push to any branch except `main`; PRs to `main` | Type check → lint → format check                            |
+| `ci-release.yml` | Push to `main`                                  | Type check → lint → format check → build → deploy to Render |
 
 ### Required GitHub Secrets
 
-| Secret | Description |
-|---|---|
-| `VITE_API_URL` | Production API base URL |
-| `RENDER_API_KEY` | Render API key for triggering deploys |
-| `RENDER_SERVICE_ID` | Render static site service ID |
+| Secret              | Description                           |
+| ------------------- | ------------------------------------- |
+| `VITE_API_URL`      | Production API base URL               |
+| `RENDER_API_KEY`    | Render API key for triggering deploys |
+| `RENDER_SERVICE_ID` | Render static site service ID         |
 
 ## Project Structure
 
