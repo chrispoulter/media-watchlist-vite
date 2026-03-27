@@ -34,10 +34,10 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-      - name: Trigger Render Deploy
-        run: |
-          curl -f -X POST \
-            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-            -H "Content-Type: application/json" \
-            "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
-            -d '{}'
+      # - name: Trigger Render Deploy
+      #   run: |
+      #     curl -f -X POST \
+      #       -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+      #       -H "Content-Type: application/json" \
+      #       "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+      #       -d '{}'
