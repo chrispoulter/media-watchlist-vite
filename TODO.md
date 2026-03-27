@@ -3,7 +3,7 @@
 - vite react typescript spa
 - tailwind v4
 - shadcn/ui
-- react-query (connecting to media-library-api)
+- react-query (connecting to media-library-api C:\Users\ChrisPoulter\Source\media-watchlist-api)
 - react-hook-form
 - zod validation
 - prettier formatting

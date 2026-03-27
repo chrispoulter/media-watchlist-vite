@@ -1,0 +1,43 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+import { RootLayout } from "@/components/layout/RootLayout";
+import { RequireAuth } from "@/components/auth/RequireAuth";
+import { RequireGuest } from "@/components/auth/RequireGuest";
+
+import { LoginPage } from "@/pages/auth/LoginPage";
+import { RegisterPage } from "@/pages/auth/RegisterPage";
+import { TwoFactorPage } from "@/pages/auth/TwoFactorPage";
+import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
+import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
+import { WatchlistPage } from "@/pages/WatchlistPage";
+import { SearchPage } from "@/pages/SearchPage";
+import { ProfilePage } from "@/pages/profile/ProfilePage";
+
+export default function App() {
+  return (
+    <Routes>
+      <Route element={<RootLayout />}>
+        {/* Guest-only routes */}
+        <Route element={<RequireGuest />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        </Route>
+
+        {/* Public routes */}
+        <Route path="/two-factor" element={<TwoFactorPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+        {/* Protected routes */}
+        <Route element={<RequireAuth />}>
+          <Route path="/watchlist" element={<WatchlistPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route>
+
+        {/* Default redirect */}
+        <Route path="/" element={<Navigate to="/watchlist" replace />} />
+        <Route path="*" element={<Navigate to="/watchlist" replace />} />
+      </Route>
+    </Routes>
+  );
+}

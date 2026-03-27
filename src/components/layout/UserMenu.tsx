@@ -1,0 +1,61 @@
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { User, LogOut, Settings } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { authClient, type AppUser } from "@/lib/auth-client";
+
+export function UserMenu() {
+  const { data: session } = authClient.useSession();
+  const navigate = useNavigate();
+
+  const user = session?.user as AppUser | undefined;
+  const initials = user
+    ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase() || user.email[0].toUpperCase()
+    : "?";
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    toast.success("Signed out");
+    navigate("/login");
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="focus:outline-none">
+          <Avatar className="h-8 w-8 cursor-pointer">
+            <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-48">
+        <div className="px-2 py-1.5">
+          <p className="text-sm font-medium">{user?.name}</p>
+          <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+        </div>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => navigate("/profile")}>
+          <Settings className="mr-2 h-4 w-4" />
+          Profile
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+          <LogOut className="mr-2 h-4 w-4" />
+          Sign out
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+// Re-export for use in other places
+export { User };

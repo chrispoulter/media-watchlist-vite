@@ -1,0 +1,113 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
+import { loginSchema, type LoginFormValues } from "./schemas";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+export function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state as { from?: Location })?.from?.pathname ?? "/watchlist";
+
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "", rememberMe: false },
+  });
+
+  const onSubmit = async (values: LoginFormValues) => {
+    setIsLoading(true);
+    const { error } = await authClient.signIn.email({
+      email: values.email,
+      password: values.password,
+      rememberMe: values.rememberMe,
+    });
+    setIsLoading(false);
+
+    if (error) {
+      toast.error(error.message ?? "Sign in failed");
+      return;
+    }
+
+    navigate(from, { replace: true });
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="john@example.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" placeholder="••••••••" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex items-center justify-between">
+          <FormField
+            control={form.control}
+            name="rememberMe"
+            render={({ field }) => (
+              <FormItem className="flex items-center gap-2 space-y-0">
+                <FormControl>
+                  <input
+                    type="checkbox"
+                    id="rememberMe"
+                    checked={field.value}
+                    onChange={field.onChange}
+                    className="h-4 w-4 rounded border-input"
+                  />
+                </FormControl>
+                <FormLabel htmlFor="rememberMe" className="cursor-pointer font-normal">
+                  Remember me
+                </FormLabel>
+              </FormItem>
+            )}
+          />
+          <a
+            href="/forgot-password"
+            className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+          >
+            Forgot password?
+          </a>
+        </div>
+
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? "Signing in..." : "Sign in"}
+        </Button>
+      </form>
+    </Form>
+  );
+}
