@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-import {
-  twoFactorSchema,
-  type TwoFactorFormValues,
-  recoveryCodeSchema,
-  type RecoveryCodeFormValues,
-} from "./schemas";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -27,25 +20,30 @@ export function TwoFactorForm() {
   const [useRecoveryCode, setUseRecoveryCode] = useState(false);
   const navigate = useNavigate();
 
-  const totpForm = useForm<TwoFactorFormValues>({
-    resolver: zodResolver(twoFactorSchema),
-    defaultValues: { code: "" },
-  });
-
-  const recoveryForm = useForm<RecoveryCodeFormValues>({
-    resolver: zodResolver(recoveryCodeSchema),
+  const form = useForm<{ code: string }>({
     defaultValues: { code: "" },
   });
 
   const handleToggle = () => {
-    totpForm.reset();
-    recoveryForm.reset();
+    form.reset();
+    form.clearErrors();
     setUseRecoveryCode((prev) => !prev);
   };
 
-  const onSubmitTotp = async (values: TwoFactorFormValues) => {
+  const onSubmit = async (values: { code: string }) => {
+    if (!useRecoveryCode && values.code.length !== 6) {
+      form.setError("code", { message: "Code must be 6 digits" });
+      return;
+    }
+    if (useRecoveryCode && !values.code.trim()) {
+      form.setError("code", { message: "Recovery code is required" });
+      return;
+    }
+
     setIsLoading(true);
-    const { error } = await authClient.twoFactor.verifyTotp({ code: values.code });
+    const { error } = useRecoveryCode
+      ? await authClient.twoFactor.verifyBackupCode({ code: values.code })
+      : await authClient.twoFactor.verifyTotp({ code: values.code });
     setIsLoading(false);
 
     if (error) {
@@ -56,83 +54,48 @@ export function TwoFactorForm() {
     navigate("/watchlist");
   };
 
-  const onSubmitRecovery = async (values: RecoveryCodeFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.twoFactor.verifyBackupCode({ code: values.code });
-    setIsLoading(false);
-
-    if (error) {
-      toast.error(error.message ?? "Invalid recovery code");
-      return;
-    }
-
-    navigate("/watchlist");
-  };
-
-  if (useRecoveryCode) {
-    return (
-      <Form {...recoveryForm}>
-        <form onSubmit={recoveryForm.handleSubmit(onSubmitRecovery)} className="space-y-6">
-          <p className="text-muted-foreground text-center text-sm">
-            Enter one of your backup recovery codes
-          </p>
-          <FormField
-            control={recoveryForm.control}
-            name="code"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Recovery code</FormLabel>
-                <FormControl>
-                  <Input {...field} className="font-mono" placeholder="xxxxxxxxxx" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Verifying..." : "Verify"}
-          </Button>
-          <Button type="button" variant="link" className="w-full" onClick={handleToggle}>
-            Use authenticator app instead
-          </Button>
-        </form>
-      </Form>
-    );
-  }
-
   return (
-    <Form {...totpForm}>
-      <form onSubmit={totpForm.handleSubmit(onSubmitTotp)} className="space-y-6">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <p className="text-muted-foreground text-center text-sm">
-          Enter the 6-digit code from your authenticator app
+          {useRecoveryCode
+            ? "Enter one of your backup recovery codes"
+            : "Enter the 6-digit code from your authenticator app"}
         </p>
+
         <FormField
-          control={totpForm.control}
+          control={form.control}
           name="code"
           render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>Authentication code</FormLabel>
+            <FormItem className={useRecoveryCode ? "" : "flex flex-col items-center"}>
+              <FormLabel>{useRecoveryCode ? "Recovery code" : "Authentication code"}</FormLabel>
               <FormControl>
-                <InputOTP maxLength={6} {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
+                {useRecoveryCode ? (
+                  <Input {...field} className="font-mono" placeholder="xxxxxxxxxx" autoFocus />
+                ) : (
+                  <InputOTP maxLength={6} {...field}>
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
+                )}
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? "Verifying..." : "Verify"}
         </Button>
+
         <Button type="button" variant="link" className="w-full" onClick={handleToggle}>
-          Use recovery code instead
+          {useRecoveryCode ? "Use authenticator app instead" : "Use recovery code instead"}
         </Button>
       </form>
     </Form>
