@@ -30,6 +30,12 @@ export const twoFactorSchema = z.object({
 
 export type TwoFactorFormValues = z.infer<typeof twoFactorSchema>;
 
+export const recoveryCodeSchema = z.object({
+  code: z.string().min(1, "Recovery code is required"),
+});
+
+export type RecoveryCodeFormValues = z.infer<typeof recoveryCodeSchema>;
+
 export const forgotPasswordSchema = z.object({
   email: z.string().email("Invalid email address"),
 });

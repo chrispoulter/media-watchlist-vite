@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { TwoFactorForm } from "@/features/auth/two-factor-form";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function TwoFactorPage() {
   return (
@@ -9,7 +9,6 @@ export function TwoFactorPage() {
         <Card>
           <CardHeader className="space-y-1 text-center">
             <CardTitle className="text-2xl">Two-factor authentication</CardTitle>
-            <CardDescription>Enter the 6-digit code from your authenticator app</CardDescription>
           </CardHeader>
           <CardContent>
             <TwoFactorForm />
