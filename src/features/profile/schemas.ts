@@ -44,3 +44,9 @@ export const disableTwoFactorSchema = z.object({
 });
 
 export type DisableTwoFactorFormValues = z.infer<typeof disableTwoFactorSchema>;
+
+export const regenerateBackupCodesSchema = z.object({
+  password: z.string().min(1, "Password is required"),
+});
+
+export type RegenerateBackupCodesFormValues = z.infer<typeof regenerateBackupCodesSchema>;

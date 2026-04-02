@@ -8,9 +8,11 @@ import {
   enableTwoFactorSchema,
   verifyTotpSchema,
   disableTwoFactorSchema,
+  regenerateBackupCodesSchema,
   type EnableTwoFactorFormValues,
   type VerifyTotpFormValues,
   type DisableTwoFactorFormValues,
+  type RegenerateBackupCodesFormValues,
 } from "./schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,8 +32,18 @@ interface TwoFactorSettingsProps {
 }
 
 export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) {
-  const [step, setStep] = useState<"idle" | "password" | "qr" | "verify" | "disable">("idle");
+  const [step, setStep] = useState<
+    | "idle"
+    | "password"
+    | "qr"
+    | "verify"
+    | "disable"
+    | "backup-codes"
+    | "regen-codes-password"
+    | "regen-codes-show"
+  >("idle");
   const [totpUri, setTotpUri] = useState<string>("");
+  const [backupCodes, setBackupCodes] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const enableForm = useForm<EnableTwoFactorFormValues>({
@@ -49,6 +61,11 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
     defaultValues: { password: "" },
   });
 
+  const regenForm = useForm<RegenerateBackupCodesFormValues>({
+    resolver: zodResolver(regenerateBackupCodesSchema),
+    defaultValues: { password: "" },
+  });
+
   const handleEnable = async (values: EnableTwoFactorFormValues) => {
     setIsLoading(true);
     const result = await authClient.twoFactor.enable({ password: values.password });
@@ -61,6 +78,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
 
     if (result.data?.totpURI) {
       setTotpUri(result.data.totpURI);
+      setBackupCodes(result.data.backupCodes ?? []);
       setStep("qr");
     }
   };
@@ -76,8 +94,32 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
     }
 
     toast.success("Two-factor authentication enabled");
+    setStep("backup-codes");
+  };
+
+  const handleBackupCodesDone = () => {
     setStep("idle");
     window.location.reload();
+  };
+
+  const handleRegenBackupCodes = async (values: RegenerateBackupCodesFormValues) => {
+    setIsLoading(true);
+    const result = await authClient.twoFactor.generateBackupCodes({ password: values.password });
+    setIsLoading(false);
+
+    if (result.error) {
+      toast.error(result.error.message ?? "Failed to regenerate backup codes");
+      return;
+    }
+
+    setBackupCodes(result.data?.backupCodes ?? []);
+    regenForm.reset();
+    setStep("regen-codes-show");
+  };
+
+  const handleCopyAllCodes = () => {
+    navigator.clipboard.writeText(backupCodes.join("\n"));
+    toast.success("Backup codes copied to clipboard");
   };
 
   const handleDisable = async (values: DisableTwoFactorFormValues) => {
@@ -107,10 +149,66 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
         </div>
 
         {step === "idle" && (
-          <Button variant="outline" onClick={() => setStep("disable")}>
-            <ShieldOff className="mr-2 h-4 w-4" />
-            Disable 2FA
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => setStep("disable")}>
+              <ShieldOff className="mr-2 h-4 w-4" />
+              Disable 2FA
+            </Button>
+            <Button variant="outline" onClick={() => setStep("regen-codes-password")}>
+              Regenerate backup codes
+            </Button>
+          </div>
+        )}
+
+        {step === "regen-codes-password" && (
+          <Form {...regenForm}>
+            <form onSubmit={regenForm.handleSubmit(handleRegenBackupCodes)} className="space-y-4">
+              <FormField
+                control={regenForm.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm with your password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex gap-2">
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? "Regenerating..." : "Regenerate codes"}
+                </Button>
+                <Button type="button" variant="outline" onClick={() => setStep("idle")}>
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          </Form>
+        )}
+
+        {step === "regen-codes-show" && (
+          <div className="space-y-4">
+            <p className="text-sm font-medium">
+              Your new backup codes. The old codes are now invalid.
+            </p>
+            <div className="grid grid-cols-2 gap-2 rounded-md border p-4">
+              {backupCodes.map((code) => (
+                <code key={code} className="font-mono text-sm select-all">
+                  {code}
+                </code>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
+                Copy all
+              </Button>
+              <Button type="button" onClick={() => setStep("idle")}>
+                Done
+              </Button>
+            </div>
+          </div>
         )}
 
         {step === "disable" && (
@@ -244,6 +342,29 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
             </div>
           </form>
         </Form>
+      )}
+
+      {step === "backup-codes" && (
+        <div className="space-y-4">
+          <p className="text-sm font-medium">
+            Save your backup codes. Each code can only be used once.
+          </p>
+          <div className="grid grid-cols-2 gap-2 rounded-md border p-4">
+            {backupCodes.map((code) => (
+              <code key={code} className="font-mono text-sm select-all">
+                {code}
+              </code>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
+              Copy all
+            </Button>
+            <Button type="button" onClick={handleBackupCodesDone}>
+              I've saved my codes
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );
