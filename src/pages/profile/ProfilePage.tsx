@@ -6,6 +6,7 @@ import { UpdateEmailForm } from "@/features/profile/update-email-form";
 import { ChangePasswordForm } from "@/features/profile/change-password-form";
 import { TwoFactorSettings } from "@/features/profile/two-factor-settings";
 import { DeleteAccountDialog } from "@/features/profile/delete-account-dialog";
+import { LinkedAccounts } from "@/features/profile/linked-accounts";
 import { authClient, type AppUser } from "@/lib/auth-client";
 
 export function ProfilePage() {
@@ -69,6 +70,18 @@ export function ProfilePage() {
               </CardHeader>
               <CardContent>
                 <TwoFactorSettings twoFactorEnabled={twoFactorEnabled} />
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Linked accounts</CardTitle>
+                <CardDescription>
+                  Connect your account to a third-party provider for passwordless sign-in
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <LinkedAccounts />
               </CardContent>
             </Card>
           </TabsContent>
