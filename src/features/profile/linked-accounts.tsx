@@ -99,7 +99,13 @@ export function LinkedAccounts() {
   };
 
   if (isLoadingAccounts) {
-    return <div className="space-y-3">{PROVIDERS.map((p) => <Skeleton key={p.id} className="h-10 w-full" />)}</div>;
+    return (
+      <div className="space-y-3">
+        {PROVIDERS.map((p) => (
+          <Skeleton key={p.id} className="h-10 w-full" />
+        ))}
+      </div>
+    );
   }
 
   return (
@@ -136,7 +142,9 @@ export function LinkedAccounts() {
                   {inFlight ? "Disconnecting..." : "Disconnect"}
                 </Button>
               ) : (
-                <span title={`You need at least one other sign-in method before disconnecting ${provider.label}`}>
+                <span
+                  title={`You need at least one other sign-in method before disconnecting ${provider.label}`}
+                >
                   <Button variant="outline" size="sm" disabled>
                     Disconnect
                   </Button>
