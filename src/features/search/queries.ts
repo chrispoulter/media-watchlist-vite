@@ -14,7 +14,7 @@ export function useSearch(query: string, type: SearchType = "multi", page = 1) {
     queryKey: searchKeys.results(query, type, page),
     queryFn: async () => {
       const { data } = await api.get<SearchResponse>("/api/search", {
-        params: { query, type, page },
+        params: { q: query, type, page },
       });
       return data;
     },
