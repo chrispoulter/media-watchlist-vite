@@ -79,6 +79,7 @@ export function LinkedAccounts() {
     const result = await authClient.linkSocial({
       provider: providerId as Parameters<typeof authClient.linkSocial>[0]["provider"],
       callbackURL: window.location.href,
+      errorCallbackURL: `${window.location.origin}/auth/error`,
     });
     setActionProvider(null);
     if (result?.error) {

@@ -8,6 +8,7 @@ import { RegisterPage } from "@/pages/auth/RegisterPage";
 import { TwoFactorPage } from "@/pages/auth/TwoFactorPage";
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
+import { AuthErrorPage } from "@/pages/auth/AuthErrorPage";
 import { WatchlistPage } from "@/pages/WatchlistPage";
 import { SearchPage } from "@/pages/SearchPage";
 import { ProfilePage } from "@/pages/profile/ProfilePage";
@@ -26,6 +27,7 @@ export default function App() {
         {/* Public routes */}
         <Route path="/two-factor" element={<TwoFactorPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/auth/error" element={<AuthErrorPage />} />
 
         {/* Protected routes */}
         <Route element={<RequireAuth />}>
