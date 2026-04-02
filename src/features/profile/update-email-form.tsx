@@ -36,7 +36,7 @@ export function UpdateEmailForm() {
       return;
     }
 
-    toast.success("Email updated. Please check your inbox to verify.");
+    toast.success("Email updated");
     form.reset();
   };
 

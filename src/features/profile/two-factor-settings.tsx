@@ -99,7 +99,6 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
 
   const handleBackupCodesDone = () => {
     setStep("idle");
-    window.location.reload();
   };
 
   const handleRegenBackupCodes = async (values: RegenerateBackupCodesFormValues) => {
@@ -206,6 +205,29 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
               </Button>
               <Button type="button" onClick={() => setStep("idle")}>
                 Done
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {step === "backup-codes" && (
+          <div className="space-y-4">
+            <p className="text-sm font-medium">
+              Save your backup codes. Each code can only be used once.
+            </p>
+            <div className="grid grid-cols-2 gap-2 rounded-md border p-4">
+              {backupCodes.map((code) => (
+                <code key={code} className="font-mono text-sm select-all">
+                  {code}
+                </code>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
+                Copy all
+              </Button>
+              <Button type="button" onClick={handleBackupCodesDone}>
+                I've saved my codes
               </Button>
             </div>
           </div>
