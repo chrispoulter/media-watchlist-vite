@@ -58,7 +58,7 @@ export function ProfilePage() {
             <Card>
               <CardHeader>
                 <CardTitle>Email address</CardTitle>
-                <CardDescription>Update your email address</CardDescription>
+                <CardDescription>Update your email address — a verification link will be sent to confirm the change</CardDescription>
               </CardHeader>
               <CardContent>
                 <UpdateEmailForm />
