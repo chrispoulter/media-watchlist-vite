@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { UpdateProfileForm } from "@/features/profile/update-profile-form";
 import { UpdateEmailForm } from "@/features/profile/update-email-form";
 import { ChangePasswordForm } from "@/features/profile/change-password-form";
+import { SetPassword } from "@/features/profile/set-password";
 import { TwoFactorSettings } from "@/features/profile/two-factor-settings";
 import { DeleteAccountDialog } from "@/features/profile/delete-account-dialog";
 import { LinkedAccounts } from "@/features/profile/linked-accounts";
@@ -12,6 +14,20 @@ import { authClient, type AppUser } from "@/lib/auth-client";
 export function ProfilePage() {
   const { data: session } = authClient.useSession();
   const twoFactorEnabled = !!(session?.user as AppUser | undefined)?.twoFactorEnabled;
+
+  const [accounts, setAccounts] = useState<{ providerId: string }[]>([]);
+  const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
+
+  useEffect(() => {
+    authClient.listAccounts().then((result) => {
+      if (!result.error) {
+        setAccounts((result.data as { providerId: string }[]) ?? []);
+      }
+      setIsLoadingAccounts(false);
+    });
+  }, []);
+
+  const hasCredentialAccount = accounts.some((a) => a.providerId === "credential");
 
   return (
     <div className="space-y-6">
@@ -53,11 +69,17 @@ export function ProfilePage() {
           <TabsContent value="security" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Change password</CardTitle>
-                <CardDescription>Update your password</CardDescription>
+                <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
+                <CardDescription>
+                  {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <ChangePasswordForm />
+                {isLoadingAccounts ? null : hasCredentialAccount ? (
+                  <ChangePasswordForm />
+                ) : (
+                  <SetPassword email={session?.user.email ?? ""} />
+                )}
               </CardContent>
             </Card>
 
