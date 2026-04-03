@@ -18,13 +18,13 @@ export function SearchResultCard({ result, watchlistItems }: SearchResultCardPro
   const isInWatchlist =
     added ||
     watchlistItems?.some(
-      (item) => item.tmdbId === result.id && item.mediaType === result.mediaType
+      (item) => item.tmdbId === result.tmdbId && item.mediaType === result.mediaType
     );
 
   const handleAdd = async () => {
     const { error } = await addMutation
       .mutateAsync({
-        tmdbId: result.id,
+        tmdbId: result.tmdbId,
         mediaType: result.mediaType,
         title: result.title,
         posterPath: result.posterPath,

@@ -37,7 +37,7 @@ export function SearchPage() {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {Array.from({ length: 10 }).map((_, i) => (
                 <div key={i} className="space-y-2">
-                  <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+                  <Skeleton className="aspect-2/3 w-full rounded-lg" />
                   <Skeleton className="h-4 w-3/4" />
                   <Skeleton className="h-3 w-1/2" />
                 </div>
@@ -58,7 +58,7 @@ export function SearchPage() {
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                   {searchResults.results.map((result) => (
                     <SearchResultCard
-                      key={`${result.mediaType}-${result.id}`}
+                      key={`${result.mediaType}-${result.tmdbId}`}
                       result={result}
                       watchlistItems={watchlistItems}
                     />

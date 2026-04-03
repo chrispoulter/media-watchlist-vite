@@ -13,7 +13,7 @@ export interface WatchlistItem {
 }
 
 export interface SearchResult {
-  id: number;
+  tmdbId: number;
   mediaType: MediaType;
   title: string;
   posterPath: string | null;
