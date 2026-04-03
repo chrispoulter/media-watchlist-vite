@@ -71,9 +71,15 @@ export function TwoFactorForm() {
               <FormLabel>{useRecoveryCode ? "Recovery code" : "Authentication code"}</FormLabel>
               <FormControl>
                 {useRecoveryCode ? (
-                  <Input {...field} className="font-mono" placeholder="xxxxxxxxxx" autoFocus />
+                  <Input
+                    {...field}
+                    className="font-mono"
+                    placeholder="xxxxxxxxxx"
+                    autoFocus
+                    autoComplete="off"
+                  />
                 ) : (
-                  <InputOTP maxLength={6} {...field}>
+                  <InputOTP maxLength={6} autoComplete="one-time-code" {...field}>
                     <InputOTPGroup>
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />

@@ -95,7 +95,12 @@ export function UpdateEmailForm() {
               <FormItem>
                 <FormLabel>New email address</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="new@example.com" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="new@example.com"
+                    autoComplete="email"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

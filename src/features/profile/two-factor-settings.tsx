@@ -169,7 +169,12 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                   <FormItem>
                     <FormLabel>Confirm with your password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="••••••••"
+                        autoComplete="current-password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -243,7 +248,12 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                   <FormItem>
                     <FormLabel>Confirm with your password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="••••••••"
+                        autoComplete="current-password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -289,7 +299,12 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 <FormItem>
                   <FormLabel>Confirm with your password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="••••••••"
+                      autoComplete="current-password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -339,7 +354,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 <FormItem>
                   <FormLabel>Enter the 6-digit code from your app</FormLabel>
                   <FormControl>
-                    <InputOTP maxLength={6} {...field}>
+                    <InputOTP maxLength={6} autoComplete="one-time-code" {...field}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />

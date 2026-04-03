@@ -59,7 +59,7 @@ export function UpdateProfileForm() {
               <FormItem>
                 <FormLabel>First name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input autoComplete="given-name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -72,7 +72,7 @@ export function UpdateProfileForm() {
               <FormItem>
                 <FormLabel>Last name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input autoComplete="family-name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -87,7 +87,7 @@ export function UpdateProfileForm() {
             <FormItem>
               <FormLabel>Date of birth</FormLabel>
               <FormControl>
-                <Input type="date" {...field} />
+                <Input type="date" autoComplete="bday" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
