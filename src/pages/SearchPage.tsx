@@ -4,20 +4,15 @@ import { SearchResultCard } from "@/features/search/search-result-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSearch } from "@/features/search/queries";
 import { useWatchlist } from "@/features/watchlist/queries";
-import type { MediaType } from "@/types";
-
-type FilterType = MediaType | "multi";
 
 export function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchType, setSearchType] = useState<FilterType>("multi");
 
-  const { data: searchResults, isLoading } = useSearch(searchQuery, searchType);
+  const { data: searchResults, isLoading } = useSearch(searchQuery);
   const { data: watchlistItems } = useWatchlist();
 
-  const handleSearch = useCallback((query: string, type: FilterType) => {
+  const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
-    setSearchType(type);
   }, []);
 
   return (

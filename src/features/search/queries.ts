@@ -1,20 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
-import type { SearchResponse, MediaType } from "@/types";
-
-type SearchType = MediaType | "multi";
+import type { SearchResponse } from "@/types";
 
 export const searchKeys = {
-  results: (query: string, type: SearchType, page: number) =>
-    ["search", query, type, page] as const,
+  results: (query: string) => ["search", query] as const,
 };
 
-export function useSearch(query: string, type: SearchType = "multi", page = 1) {
+export function useSearch(query: string) {
   return useQuery({
-    queryKey: searchKeys.results(query, type, page),
+    queryKey: searchKeys.results(query),
     queryFn: async () => {
       const { data } = await api.get<SearchResponse>("/api/search", {
-        params: { q: query, type, page },
+        params: { q: query },
       });
       return data;
     },
