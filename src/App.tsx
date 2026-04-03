@@ -12,6 +12,7 @@ import { AuthErrorPage } from "@/pages/auth/AuthErrorPage";
 import { WatchlistPage } from "@/pages/WatchlistPage";
 import { SearchPage } from "@/pages/SearchPage";
 import { ProfilePage } from "@/pages/profile/ProfilePage";
+import { NotFoundPage } from "@/pages/NotFoundPage";
 
 export default function App() {
   return (
@@ -38,7 +39,7 @@ export default function App() {
 
         {/* Default redirect */}
         <Route path="/" element={<Navigate to="/watchlist" replace />} />
-        <Route path="*" element={<Navigate to="/watchlist" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
