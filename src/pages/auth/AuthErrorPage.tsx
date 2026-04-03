@@ -12,8 +12,6 @@ const ERROR_MESSAGES: Record<string, string> = {
   unable_to_link_account:
     "Unable to link this account. Please try again or contact support if the issue persists.",
   invalid_code: "The authentication code was invalid or expired. Please try signing in again.",
-  state_mismatch:
-    "Your sign-in session has expired or may have been tampered with. Please try signing in again.",
   unable_to_get_user_info:
     "Could not retrieve your account information from Google. Please try again.",
   email_not_found:

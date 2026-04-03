@@ -19,7 +19,7 @@ export function NotFoundPage() {
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full">
-              <Link to="/">Go to Watchlist</Link>
+              <Link to="/">Home</Link>
             </Button>
           </CardContent>
         </Card>
