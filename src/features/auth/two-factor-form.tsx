@@ -51,7 +51,7 @@ export function TwoFactorForm() {
       return;
     }
 
-    navigate("/watchlist");
+    navigate("/");
   };
 
   return (

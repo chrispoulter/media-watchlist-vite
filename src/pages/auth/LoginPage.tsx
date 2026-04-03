@@ -9,7 +9,7 @@ export function LoginPage() {
   const handleGoogleSignIn = async () => {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: `${window.location.origin}/watchlist`,
+      callbackURL: `${window.location.origin}/`,
       errorCallbackURL: `${window.location.origin}/auth/error`,
     });
   };

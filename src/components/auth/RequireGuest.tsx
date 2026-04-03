@@ -14,7 +14,7 @@ export function RequireGuest() {
   }
 
   if (session) {
-    return <Navigate to="/watchlist" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;

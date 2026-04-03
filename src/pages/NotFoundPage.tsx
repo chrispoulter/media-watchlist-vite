@@ -9,17 +9,17 @@ export function NotFoundPage() {
       <div className="w-full max-w-sm space-y-4">
         <Card>
           <CardHeader className="space-y-1">
-            <div className="flex justify-center mb-2">
-              <FileQuestion className="h-12 w-12 text-muted-foreground" />
+            <div className="mb-2 flex justify-center">
+              <FileQuestion className="text-muted-foreground h-12 w-12" />
             </div>
-            <CardTitle className="text-2xl text-center">Page not found</CardTitle>
+            <CardTitle className="text-center text-2xl">Page not found</CardTitle>
             <CardDescription className="text-center">
               The page you're looking for doesn't exist.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full">
-              <Link to="/watchlist">Go to Watchlist</Link>
+              <Link to="/">Go to Watchlist</Link>
             </Button>
           </CardContent>
         </Card>

@@ -19,7 +19,7 @@ export function Header() {
         {session && (
           <nav className="flex items-center gap-1">
             <NavLink
-              to="/watchlist"
+              to="/"
               className={({ isActive }) =>
                 cn(
                   "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",

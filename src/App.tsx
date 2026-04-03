@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { RootLayout } from "@/components/layout/RootLayout";
 import { RequireAuth } from "@/components/auth/RequireAuth";
 import { RequireGuest } from "@/components/auth/RequireGuest";
@@ -32,13 +32,11 @@ export default function App() {
 
         {/* Protected routes */}
         <Route element={<RequireAuth />}>
-          <Route path="/watchlist" element={<WatchlistPage />} />
+          <Route path="/" element={<WatchlistPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
 
-        {/* Default redirect */}
-        <Route path="/" element={<Navigate to="/watchlist" replace />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

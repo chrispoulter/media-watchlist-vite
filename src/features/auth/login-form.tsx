@@ -20,7 +20,7 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as { from?: Location })?.from?.pathname ?? "/watchlist";
+  const from = (location.state as { from?: Location })?.from?.pathname ?? "/";
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),

@@ -51,7 +51,7 @@ export function RegisterForm() {
     }
 
     toast.success("Account created! Welcome.");
-    navigate("/watchlist");
+    navigate("/");
   };
 
   return (
