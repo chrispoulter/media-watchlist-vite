@@ -10,6 +10,7 @@ export function RegisterPage() {
     await authClient.signIn.social({
       provider: "google",
       callbackURL: `${window.location.origin}/watchlist`,
+      errorCallbackURL: `${window.location.origin}/auth/error`,
     });
   };
 
