@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { useSearchParams } from "react-router-dom";
 import { authClient } from "@/lib/auth-client";
 import { updateEmailSchema, type UpdateEmailFormValues } from "./schemas";
 import { Button } from "@/components/ui/button";
@@ -16,10 +17,26 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+const verificationErrorMessages: Record<string, string> = {
+  USER_NOT_FOUND: "This verification link has already been used or has expired.",
+};
+
 export function UpdateEmailForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [pendingEmail, setPendingEmail] = useState<string | null>(null);
   const { data: session } = authClient.useSession();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error) {
+      toast.error(verificationErrorMessages[error] ?? "Email verification failed.");
+      setSearchParams((prev) => {
+        prev.delete("error");
+        return prev;
+      });
+    }
+  }, []);
 
   const form = useForm<UpdateEmailFormValues>({
     resolver: zodResolver(updateEmailSchema),
