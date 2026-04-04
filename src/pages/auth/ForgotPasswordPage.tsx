@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 export function ForgotPasswordPage() {
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center py-8">
+    <div className="flex flex-1 items-center justify-center">
       <div className="w-full max-w-sm space-y-4">
         <Card>
           <CardHeader className="space-y-1">
