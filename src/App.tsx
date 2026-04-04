@@ -11,7 +11,10 @@ import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
 import { AuthErrorPage } from "@/pages/auth/AuthErrorPage";
 import { WatchlistPage } from "@/pages/WatchlistPage";
 import { SearchPage } from "@/pages/SearchPage";
-import { ProfilePage } from "@/pages/profile/ProfilePage";
+import { ProfileLayout } from "@/pages/profile/ProfileLayout";
+import { ProfileTab } from "@/pages/profile/ProfileTab";
+import { SecurityTab } from "@/pages/profile/SecurityTab";
+import { DangerTab } from "@/pages/profile/DangerTab";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 
 export default function App() {
@@ -34,7 +37,11 @@ export default function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<WatchlistPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfileLayout />}>
+            <Route index element={<ProfileTab />} />
+            <Route path="security" element={<SecurityTab />} />
+            <Route path="danger" element={<DangerTab />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
