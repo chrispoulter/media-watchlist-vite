@@ -123,7 +123,7 @@ export function LinkedAccounts() {
               <div>
                 <p className="text-sm font-medium">{provider.label}</p>
                 {linked ? (
-                  <Badge variant="secondary" className="bg-green-100 text-green-700">
+                  <Badge variant="secondary" className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
                     Connected
                   </Badge>
                 ) : (
