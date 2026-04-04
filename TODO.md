@@ -7,7 +7,7 @@
 
 ## Bugfixes
 
-- login / register / and all vertical centered pages have scroll bar
+-
 
 ## Future
 
