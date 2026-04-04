@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { Film, Search, BookMarked } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { UserMenu } from "./UserMenu";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
@@ -49,12 +50,15 @@ export function Header() {
           </nav>
         )}
 
-        {session && (
-          <div className="flex items-center gap-2">
-            <Separator orientation="vertical" className="h-5" />
-            <UserMenu />
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          {session && (
+            <>
+              <Separator orientation="vertical" className="h-5" />
+              <UserMenu />
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
