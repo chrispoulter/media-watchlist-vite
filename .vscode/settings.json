@@ -1,11 +1,8 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
   "files.exclude": {
     "**/node_modules": true
   },
-  "tailwindCSS.experimental.configFile": null
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }
