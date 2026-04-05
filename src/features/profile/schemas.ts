@@ -9,7 +9,7 @@ export const updateProfileSchema = z.object({
 export type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export const updateEmailSchema = z.object({
-  newEmail: z.string().email("Invalid email address"),
+  newEmail: z.email("Invalid email address"),
 });
 
 export type UpdateEmailFormValues = z.infer<typeof updateEmailSchema>;
