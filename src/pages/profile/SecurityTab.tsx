@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ChangePasswordForm } from "@/features/profile/change-password-form";
 import { SetPassword } from "@/features/profile/set-password";
 import { TwoFactorSettings } from "@/features/profile/two-factor-settings";
@@ -28,13 +29,28 @@ export function SecurityTab() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
-          <CardDescription>
-            {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
-          </CardDescription>
+          {isLoadingAccounts ? (
+            <>
+              <Skeleton className="h-6 w-36" />
+              <Skeleton className="mt-1 h-4 w-52" />
+            </>
+          ) : (
+            <>
+              <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
+              <CardDescription>
+                {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
+              </CardDescription>
+            </>
+          )}
         </CardHeader>
         <CardContent>
-          {isLoadingAccounts ? null : hasCredentialAccount ? (
+          {isLoadingAccounts ? (
+            <div className="space-y-3">
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-9 w-24" />
+            </div>
+          ) : hasCredentialAccount ? (
             <ChangePasswordForm />
           ) : (
             <SetPassword email={session?.user.email ?? ""} />
