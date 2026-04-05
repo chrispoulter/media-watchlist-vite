@@ -6,6 +6,7 @@ import { RequireGuest } from "@/components/auth/RequireGuest";
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { RegisterPage } from "@/pages/auth/RegisterPage";
 import { TwoFactorPage } from "@/pages/auth/TwoFactorPage";
+import { RecoveryCodePage } from "@/pages/auth/RecoveryCodePage";
 import { ForgotPasswordPage } from "@/pages/auth/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/pages/auth/ResetPasswordPage";
 import { AuthErrorPage } from "@/pages/auth/AuthErrorPage";
@@ -30,6 +31,7 @@ export default function App() {
 
         {/* Public routes */}
         <Route path="/two-factor" element={<TwoFactorPage />} />
+        <Route path="/two-factor/recovery" element={<RecoveryCodePage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/auth/error" element={<AuthErrorPage />} />
 

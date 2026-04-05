@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,26 +13,27 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 
-const twoFactorSchema = z.object({
-  code: z.string().length(6, "Code must be 6 digits"),
+const recoveryCodeSchema = z.object({
+  code: z.string().min(1, "Recovery code is required"),
 });
 
-type TwoFactorFormValues = z.infer<typeof twoFactorSchema>;
+type RecoveryCodeFormValues = z.infer<typeof recoveryCodeSchema>;
 
-export function TwoFactorForm() {
-  const [isLoading, setIsLoading] = useState(false);
+export function RecoveryCodeForm() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<TwoFactorFormValues>({
-    resolver: zodResolver(twoFactorSchema),
+  const form = useForm<RecoveryCodeFormValues>({
+    resolver: zodResolver(recoveryCodeSchema),
     defaultValues: { code: "" },
   });
 
-  const onSubmit = async (values: TwoFactorFormValues) => {
+  const onSubmit = async (values: RecoveryCodeFormValues) => {
     setIsLoading(true);
-    const { error } = await authClient.twoFactor.verifyTotp({ code: values.code });
+    const { error } = await authClient.twoFactor.verifyBackupCode({ code: values.code });
     setIsLoading(false);
 
     if (error) {
@@ -48,26 +48,23 @@ export function TwoFactorForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <p className="text-muted-foreground text-center text-sm">
-          Enter the 6-digit code from your authenticator app
+          Enter one of your backup recovery codes
         </p>
 
         <FormField
           control={form.control}
           name="code"
           render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>Authentication code</FormLabel>
+            <FormItem>
+              <FormLabel>Recovery code</FormLabel>
               <FormControl>
-                <InputOTP maxLength={6} autoComplete="one-time-code" {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
+                <Input
+                  {...field}
+                  className="font-mono"
+                  placeholder="xxxxx-xxxxx"
+                  autoFocus
+                  autoComplete="off"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,7 +76,7 @@ export function TwoFactorForm() {
         </Button>
 
         <Button type="button" variant="link" className="w-full" asChild>
-          <Link to="/two-factor/recovery">Use recovery code instead</Link>
+          <Link to="/two-factor">Use authenticator app instead</Link>
         </Button>
       </form>
     </Form>
