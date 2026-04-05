@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { authClient } from "@/lib/auth-client";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import { authClient } from "@/lib/auth-client";
 
 export function RequireGuest() {
   const { data: session, isPending } = authClient.useSession();

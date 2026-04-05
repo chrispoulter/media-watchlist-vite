@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 import { LogOut, Settings } from "lucide-react";
 import {
   DropdownMenu,
@@ -15,14 +14,14 @@ export function UserMenu() {
   const { data: session } = authClient.useSession();
   const navigate = useNavigate();
 
-  const user = session?.user;
-  const initials = user ? (user.name?.[0]?.toUpperCase() ?? "?") : "?";
-
   const handleSignOut = async () => {
     await authClient.signOut();
-    toast.success("Signed out");
     navigate("/login");
   };
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <DropdownMenu>
@@ -30,15 +29,15 @@ export function UserMenu() {
         <button className="focus:outline-none">
           <Avatar className="h-8 w-8 cursor-pointer">
             <AvatarFallback className="bg-primary text-primary-foreground text-xs">
-              {initials}
+              {session?.user?.name?.[0]?.toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <div className="px-2 py-1.5">
-          <p className="truncate text-sm font-medium">{user?.name}</p>
-          <p className="text-muted-foreground truncate text-xs">{user?.email}</p>
+          <p className="truncate text-sm font-medium">{session?.user?.name}</p>
+          <p className="text-muted-foreground truncate text-xs">{session?.user?.email}</p>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => navigate("/profile")}>
