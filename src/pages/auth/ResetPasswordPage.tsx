@@ -4,24 +4,27 @@ import { ResetPasswordForm } from "@/features/auth/reset-password-form";
 
 export function ResetPasswordPage() {
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <div className="w-full max-w-sm space-y-4">
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Reset your password</CardTitle>
-            <CardDescription>Enter your new password below</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResetPasswordForm />
-          </CardContent>
-        </Card>
+    <>
+      <title>Reset Password | Media Watchlist</title>
+      <div className="flex flex-1 items-center justify-center">
+        <div className="w-full max-w-sm space-y-4">
+          <Card>
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl">Reset your password</CardTitle>
+              <CardDescription>Enter your new password below</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResetPasswordForm />
+            </CardContent>
+          </Card>
 
-        <p className="text-muted-foreground text-center text-sm">
-          <Link to="/login" className="hover:text-foreground underline underline-offset-4">
-            Back to sign in
-          </Link>
-        </p>
+          <p className="text-muted-foreground text-center text-sm">
+            <Link to="/login" className="hover:text-foreground underline underline-offset-4">
+              Back to sign in
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

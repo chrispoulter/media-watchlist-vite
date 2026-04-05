@@ -6,34 +6,37 @@ import { SocialSignInButtons } from "@/components/auth/SocialSignInButtons";
 
 export function LoginPage() {
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <div className="w-full max-w-md space-y-4">
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Welcome back</CardTitle>
-            <CardDescription>Sign in to your account</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <SocialSignInButtons />
+    <>
+      <title>Login | Media Watchlist</title>
+      <div className="flex flex-1 items-center justify-center">
+        <div className="w-full max-w-md space-y-4">
+          <Card>
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl">Welcome back</CardTitle>
+              <CardDescription>Sign in to your account</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <SocialSignInButtons />
 
-            <div className="relative">
-              <Separator />
-              <span className="bg-card text-muted-foreground absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 text-xs">
-                or
-              </span>
-            </div>
+              <div className="relative">
+                <Separator />
+                <span className="bg-card text-muted-foreground absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 text-xs">
+                  or
+                </span>
+              </div>
 
-            <LoginForm />
-          </CardContent>
-        </Card>
+              <LoginForm />
+            </CardContent>
+          </Card>
 
-        <p className="text-muted-foreground text-center text-sm">
-          Don't have an account?{" "}
-          <Link to="/register" className="hover:text-foreground underline underline-offset-4">
-            Sign up
-          </Link>
-        </p>
+          <p className="text-muted-foreground text-center text-sm">
+            Don't have an account?{" "}
+            <Link to="/register" className="hover:text-foreground underline underline-offset-4">
+              Sign up
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

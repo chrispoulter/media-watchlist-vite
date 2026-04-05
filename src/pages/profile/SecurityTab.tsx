@@ -26,67 +26,70 @@ export function SecurityTab() {
   const hasCredentialAccount = accounts.some((a) => a.providerId === "credential");
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          {isLoadingAccounts ? (
-            <>
-              <Skeleton className="h-6 w-36" />
-              <Skeleton className="mt-1 h-4 w-52" />
-            </>
-          ) : (
-            <>
-              <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
-              <CardDescription>
-                {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
-              </CardDescription>
-            </>
-          )}
-        </CardHeader>
-        <CardContent>
-          {isLoadingAccounts ? (
-            <div className="space-y-3">
-              <Skeleton className="h-10 w-full" />
-              <Skeleton className="h-10 w-full" />
-              <Skeleton className="h-9 w-24" />
-            </div>
-          ) : hasCredentialAccount ? (
-            <ChangePasswordForm />
-          ) : (
-            <SetPassword email={session?.user.email ?? ""} />
-          )}
-        </CardContent>
-      </Card>
+    <>
+      <title>Security | Media Watchlist</title>
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            {isLoadingAccounts ? (
+              <>
+                <Skeleton className="h-6 w-36" />
+                <Skeleton className="mt-1 h-4 w-52" />
+              </>
+            ) : (
+              <>
+                <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
+                <CardDescription>
+                  {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
+                </CardDescription>
+              </>
+            )}
+          </CardHeader>
+          <CardContent>
+            {isLoadingAccounts ? (
+              <div className="space-y-3">
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-9 w-24" />
+              </div>
+            ) : hasCredentialAccount ? (
+              <ChangePasswordForm />
+            ) : (
+              <SetPassword email={session?.user.email ?? ""} />
+            )}
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Two-factor authentication</CardTitle>
-          <CardDescription>
-            Add an extra layer of security to your account using an authenticator app
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <TwoFactorSettings twoFactorEnabled={twoFactorEnabled} />
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Two-factor authentication</CardTitle>
+            <CardDescription>
+              Add an extra layer of security to your account using an authenticator app
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TwoFactorSettings twoFactorEnabled={twoFactorEnabled} />
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Linked accounts</CardTitle>
-          <CardDescription>
-            Connect your account to a third-party provider for passwordless sign-in
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {isLoadingAccounts ? (
-            <div className="space-y-3">
-              <Skeleton className="h-10 w-full" />
-            </div>
-          ) : (
-            <LinkedAccounts initialAccounts={accounts} />
-          )}
-        </CardContent>
-      </Card>
-    </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Linked accounts</CardTitle>
+            <CardDescription>
+              Connect your account to a third-party provider for passwordless sign-in
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {isLoadingAccounts ? (
+              <div className="space-y-3">
+                <Skeleton className="h-10 w-full" />
+              </div>
+            ) : (
+              <LinkedAccounts initialAccounts={accounts} />
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 }
