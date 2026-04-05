@@ -42,7 +42,7 @@ export function SetPassword({ email }: SetPasswordProps) {
       <p className="text-muted-foreground text-sm">
         You currently sign in with Google. Add a password to also sign in with your email address.
       </p>
-      <Button onClick={handleSend} disabled={status === "loading"}>
+      <Button onClick={handleSend} disabled={status === "loading"} className="w-full sm:w-auto">
         {status === "loading" ? "Sending..." : "Send password setup email"}
       </Button>
     </div>

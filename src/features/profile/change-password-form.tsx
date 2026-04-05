@@ -101,7 +101,7 @@ export function ChangePasswordForm() {
           )}
         />
 
-        <Button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
           {isLoading ? "Changing..." : "Change password"}
         </Button>
       </form>

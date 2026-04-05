@@ -107,7 +107,7 @@ export function UpdateEmailForm() {
             )}
           />
 
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
             {isLoading ? "Sending verification..." : "Update email"}
           </Button>
         </form>

@@ -151,7 +151,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
         </div>
 
         {step === "idle" && (
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <Button variant="outline" onClick={() => setStep("disable")}>
               <ShieldOff className="mr-2 h-4 w-4" />
               Disable 2FA
@@ -183,7 +183,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                   </FormItem>
                 )}
               />
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row">
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? "Regenerating..." : "Regenerate codes"}
                 </Button>
@@ -207,7 +207,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 </code>
               ))}
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
                 Copy all
               </Button>
@@ -230,7 +230,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 </code>
               ))}
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
                 Copy all
               </Button>
@@ -262,7 +262,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                   </FormItem>
                 )}
               />
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 sm:flex-row">
                 <Button type="submit" variant="destructive" disabled={isLoading}>
                   {isLoading ? "Disabling..." : "Disable 2FA"}
                 </Button>
@@ -286,7 +286,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
       </div>
 
       {step === "idle" && (
-        <Button onClick={() => setStep("password")}>
+        <Button onClick={() => setStep("password")} className="w-full sm:w-auto">
           <ShieldCheck className="mr-2 h-4 w-4" />
           Enable 2FA
         </Button>
@@ -313,7 +313,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 </FormItem>
               )}
             />
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? "Continuing..." : "Continue"}
               </Button>
@@ -343,7 +343,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
               Or enter manually: <code className="font-mono text-xs">{totpUri}</code>
             </p>
           </div>
-          <Button onClick={() => setStep("verify")}>I've scanned the code</Button>
+          <Button onClick={() => setStep("verify")} className="w-full sm:w-auto">I've scanned the code</Button>
         </div>
       )}
 
@@ -372,7 +372,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 </FormItem>
               )}
             />
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? "Verifying..." : "Verify & enable"}
               </Button>
@@ -396,7 +396,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
               </code>
             ))}
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
               Copy all
             </Button>
