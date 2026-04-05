@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Film, Search, BookMarked, Menu } from "lucide-react";
+import { Film, Search, BookMarked, Menu, type LucideIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { UserMenu } from "./UserMenu";
@@ -11,6 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+
+const navItems: { to: string; label: string; icon: LucideIcon }[] = [
+  { to: "/", label: "Watchlist", icon: BookMarked },
+  { to: "/search", label: "Search", icon: Search },
+];
 
 export function Header() {
   const { data: session } = authClient.useSession();
@@ -28,34 +33,23 @@ export function Header() {
           <div className="flex items-center">
             {/* Desktop nav */}
             <nav className="hidden items-center gap-1 sm:flex">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  cn(
-                    "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                    isActive
-                      ? "bg-secondary text-secondary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  )
-                }
-              >
-                <BookMarked className="h-4 w-4" />
-                Watchlist
-              </NavLink>
-              <NavLink
-                to="/search"
-                className={({ isActive }) =>
-                  cn(
-                    "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                    isActive
-                      ? "bg-secondary text-secondary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  )
-                }
-              >
-                <Search className="h-4 w-4" />
-                Search
-              </NavLink>
+              {navItems.map(({ to, label, icon: Icon }) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-secondary text-secondary-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    )
+                  }
+                >
+                  <Icon className="h-4 w-4" />
+                  {label}
+                </NavLink>
+              ))}
             </nav>
 
             {/* Mobile hamburger */}
@@ -66,14 +60,12 @@ export function Header() {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center">
-                <DropdownMenuItem onClick={() => navigate("/")}>
-                  <BookMarked className="h-4 w-4" />
-                  Watchlist
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/search")}>
-                  <Search className="h-4 w-4" />
-                  Search
-                </DropdownMenuItem>
+                {navItems.map(({ to, label, icon: Icon }) => (
+                  <DropdownMenuItem key={to} onClick={() => navigate(to)}>
+                    <Icon className="h-4 w-4" />
+                    {label}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
