@@ -5,11 +5,10 @@ import { ChangePasswordForm } from "@/features/profile/change-password-form";
 import { SetPassword } from "@/features/profile/set-password";
 import { TwoFactorSettings } from "@/features/profile/two-factor-settings";
 import { LinkedAccounts, type Account } from "@/features/profile/linked-accounts";
-import { authClient, type AppUser } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 export function SecurityTab() {
   const { data: session } = authClient.useSession();
-  const twoFactorEnabled = !!(session?.user as AppUser | undefined)?.twoFactorEnabled;
 
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
@@ -17,12 +16,13 @@ export function SecurityTab() {
   useEffect(() => {
     authClient.listAccounts().then((result) => {
       if (!result.error) {
-        setAccounts((result.data as Account[]) ?? []);
+        setAccounts(result.data ?? []);
       }
       setIsLoadingAccounts(false);
     });
   }, []);
 
+  const twoFactorEnabled = !!session?.user?.twoFactorEnabled;
   const hasCredentialAccount = accounts.some((a) => a.providerId === "credential");
 
   return (
