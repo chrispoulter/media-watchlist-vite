@@ -4,9 +4,9 @@ import type { MediaType } from "@/types";
 
 interface MediaCardProps {
   title: string;
-  posterPath?: string;
-  overview?: string;
-  releaseDate?: string;
+  posterPath: string | null;
+  overview: string;
+  releaseDate: string | null;
   mediaType: MediaType;
   actions?: React.ReactNode;
 }

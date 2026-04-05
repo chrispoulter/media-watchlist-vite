@@ -7,7 +7,7 @@ export interface WatchlistItem {
   mediaType: MediaType;
   title: string;
   posterPath: string | null;
-  overview: string | null;
+  overview: string;
   releaseDate: string | null;
   addedAt: string;
 }
@@ -18,7 +18,7 @@ export interface SearchResult {
   title: string;
   posterPath: string | null;
   overview: string;
-  releaseDate: string;
+  releaseDate: string | null;
 }
 
 export interface SearchResponse {
