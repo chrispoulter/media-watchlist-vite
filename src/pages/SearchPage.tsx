@@ -1,13 +1,12 @@
 import { useState, useCallback } from "react";
-import { SearchBar } from "@/features/search/search-bar";
-import { SearchResultCard } from "@/features/search/search-result-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSearch } from "@/features/search/queries";
+import { SearchBar } from "@/features/search/search-bar";
 import { useWatchlist } from "@/features/watchlist/queries";
+import { SearchResultCard } from "@/features/search/search-result-card";
 
 export function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
-
   const { data: searchResults, isLoading } = useSearch(searchQuery);
   const { data: watchlistItems } = useWatchlist();
 
