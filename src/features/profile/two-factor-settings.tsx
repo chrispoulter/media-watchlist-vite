@@ -339,8 +339,8 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
                 height={200}
               />
             </div>
-            <p className="text-muted-foreground mt-2 text-xs break-all">
-              Or enter manually: <code className="font-mono text-xs">{totpUri}</code>
+            <p className="text-muted-foreground mt-2 text-xs">
+              Or enter manually: <code className="font-mono text-xs break-all">{totpUri}</code>
             </p>
           </div>
           <Button onClick={() => setStep("verify")} className="w-full sm:w-auto">

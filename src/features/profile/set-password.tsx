@@ -27,8 +27,9 @@ export function SetPassword({ email }: SetPasswordProps) {
   if (status === "sent") {
     return (
       <div className="space-y-2">
-        <p className="text-sm break-all">
-          We've sent a link to <strong>{email}</strong> to set up your password.
+        <p className="text-sm">
+          We've sent a link to <strong className="break-all">{email}</strong> to set up your
+          password.
         </p>
         <p className="text-muted-foreground text-sm">
           Once set, you'll be able to sign in with your email address in addition to Google.

@@ -69,8 +69,14 @@ export function UpdateEmailForm() {
         </p>
         <Alert>
           <AlertDescription>
-            A verification link has been sent to <strong>{pendingEmail}</strong>. Click the link in
-            that email to confirm the change. Your current email remains active until then.
+            <p>
+              A verification link has been sent to{" "}
+              <strong className="break-all">{pendingEmail}</strong>.
+            </p>
+            <p>
+              Click the link in that email to confirm the change. Your current email remains active
+              until then.
+            </p>
           </AlertDescription>
         </Alert>
         <Button variant="ghost" size="sm" onClick={() => setPendingEmail(null)}>
