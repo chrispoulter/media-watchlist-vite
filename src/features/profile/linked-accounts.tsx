@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface Account {
+export interface Account {
   id: string;
   providerId: string;
   accountId: string;
@@ -13,6 +13,10 @@ interface Account {
   createdAt: Date;
   updatedAt: Date;
   scopes: string[];
+}
+
+interface LinkedAccountsProps {
+  initialAccounts?: Account[];
 }
 
 interface ProviderConfig {
@@ -48,9 +52,9 @@ const PROVIDERS: ProviderConfig[] = [
   },
 ];
 
-export function LinkedAccounts() {
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
+export function LinkedAccounts({ initialAccounts }: LinkedAccountsProps) {
+  const [accounts, setAccounts] = useState<Account[]>(initialAccounts ?? []);
+  // const [isLoadingAccounts, setIsLoadingAccounts] = useState(!initialAccounts);
   const [actionProvider, setActionProvider] = useState<string | null>(null);
 
   const fetchAccounts = async () => {
@@ -62,14 +66,15 @@ export function LinkedAccounts() {
     setAccounts((result.data as Account[]) ?? []);
   };
 
-  useEffect(() => {
-    const load = async () => {
-      setIsLoadingAccounts(true);
-      await fetchAccounts();
-      setIsLoadingAccounts(false);
-    };
-    load();
-  }, []);
+  // useEffect(() => {
+  //   if (initialAccounts) return;
+  //   const load = async () => {
+  //     setIsLoadingAccounts(true);
+  //     await fetchAccounts();
+  //     setIsLoadingAccounts(false);
+  //   };
+  //   load();
+  // }, []);
 
   const isLinked = (providerId: string) => accounts.some((a) => a.providerId === providerId);
   const canUnlink = (providerId: string) => accounts.some((a) => a.providerId !== providerId);
@@ -99,15 +104,15 @@ export function LinkedAccounts() {
     await fetchAccounts();
   };
 
-  if (isLoadingAccounts) {
-    return (
-      <div className="space-y-3">
-        {PROVIDERS.map((p) => (
-          <Skeleton key={p.id} className="h-10 w-full" />
-        ))}
-      </div>
-    );
-  }
+  // if (isLoadingAccounts) {
+  //   return (
+  //     <div className="space-y-3">
+  //       {PROVIDERS.map((p) => (
+  //         <Skeleton key={p.id} className="h-10 w-full" />
+  //       ))}
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="space-y-4">
