@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Film, Search, BookMarked, Menu, type LucideIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
@@ -18,8 +18,6 @@ const navItems: { to: string; label: string; icon: LucideIcon }[] = [
 
 export function Header() {
   const { data: session } = authClient.useSession();
-  const navigate = useNavigate();
-
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
@@ -60,9 +58,11 @@ export function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center">
                 {navItems.map(({ to, label, icon: Icon }) => (
-                  <DropdownMenuItem key={to} onClick={() => navigate(to)}>
-                    <Icon className="h-4 w-4" />
-                    {label}
+                  <DropdownMenuItem key={to} asChild>
+                    <Link to={to}>
+                      <Icon className="h-4 w-4" />
+                      {label}
+                    </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
