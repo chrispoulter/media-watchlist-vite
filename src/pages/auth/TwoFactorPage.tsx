@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { TwoFactorForm } from "@/features/auth/two-factor-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { TwoFactorForm } from "@/features/auth/two-factor-form";
 
 export function TwoFactorPage() {
   return (

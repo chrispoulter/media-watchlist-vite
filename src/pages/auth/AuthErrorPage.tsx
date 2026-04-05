@@ -1,8 +1,8 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { AlertCircle } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const ERROR_MESSAGES: Record<string, string> = {
   "email_doesn't_match":

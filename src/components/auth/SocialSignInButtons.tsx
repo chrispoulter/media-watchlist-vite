@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import { PROVIDERS } from "@/lib/auth-providers";
+import { authProviders } from "@/lib/auth-providers";
 
 export function SocialSignInButtons() {
   const handleSignIn = async (provider: string) => {
@@ -13,7 +13,7 @@ export function SocialSignInButtons() {
 
   return (
     <>
-      {PROVIDERS.map((provider) => (
+      {authProviders.map((provider) => (
         <Button
           key={provider.id}
           variant="outline"

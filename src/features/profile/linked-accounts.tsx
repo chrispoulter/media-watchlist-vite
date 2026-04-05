@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import { PROVIDERS } from "@/lib/auth-providers";
+import { authProviders } from "@/lib/auth-providers";
 // import { Skeleton } from "@/components/ui/skeleton";
 
 export interface Account {
@@ -84,7 +84,7 @@ export function LinkedAccounts({ initialAccounts }: LinkedAccountsProps) {
 
   return (
     <div className="space-y-4">
-      {PROVIDERS.map((provider) => {
+      {authProviders.map((provider) => {
         const linked = isLinked(provider.id);
         const unlinkable = canUnlink(provider.id);
         const inFlight = actionProvider === provider.id;

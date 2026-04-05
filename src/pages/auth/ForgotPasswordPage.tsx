@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { ForgotPasswordForm } from "@/features/auth/forgot-password-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ForgotPasswordForm } from "@/features/auth/forgot-password-form";
 
 export function ForgotPasswordPage() {
   return (

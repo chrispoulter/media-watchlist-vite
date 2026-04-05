@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { ResetPasswordForm } from "@/features/auth/reset-password-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ResetPasswordForm } from "@/features/auth/reset-password-form";
 
 export function ResetPasswordPage() {
   return (

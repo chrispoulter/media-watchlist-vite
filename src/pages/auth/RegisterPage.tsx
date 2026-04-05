@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { RegisterForm } from "@/features/auth/register-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { SocialSignInButtons } from "@/components/auth/SocialSignInButtons";
+import { RegisterForm } from "@/features/auth/register-form";
 
 export function RegisterPage() {
   return (
