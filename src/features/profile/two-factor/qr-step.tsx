@@ -9,9 +9,7 @@ export function QrStep({ totpUri, onContinue }: QrStepProps) {
   return (
     <div className="space-y-4">
       <div>
-        <p className="mb-2 text-sm font-medium">
-          Scan this QR code with your authenticator app:
-        </p>
+        <p className="mb-2 text-sm font-medium">Scan this QR code with your authenticator app:</p>
         <div className="bg-card inline-block rounded-lg border p-4">
           <img
             src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(totpUri)}`}

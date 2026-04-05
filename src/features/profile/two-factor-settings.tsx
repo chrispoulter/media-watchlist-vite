@@ -79,10 +79,7 @@ export function TwoFactorSettings() {
         )}
 
         {step === "disable" && (
-          <DisableStep
-            onSuccess={() => setStep("idle")}
-            onCancel={() => setStep("idle")}
-          />
+          <DisableStep onSuccess={() => setStep("idle")} onCancel={() => setStep("idle")} />
         )}
       </div>
     );
@@ -96,9 +93,7 @@ export function TwoFactorSettings() {
         <Badge variant="outline">Disabled</Badge>
       </div>
 
-      {step === "idle" && (
-        <IdleDisabledStep onEnable={() => setStep("password")} />
-      )}
+      {step === "idle" && <IdleDisabledStep onEnable={() => setStep("password")} />}
 
       {step === "password" && (
         <EnablePasswordStep
@@ -111,15 +106,10 @@ export function TwoFactorSettings() {
         />
       )}
 
-      {step === "qr" && (
-        <QrStep totpUri={totpUri} onContinue={() => setStep("verify")} />
-      )}
+      {step === "qr" && <QrStep totpUri={totpUri} onContinue={() => setStep("verify")} />}
 
       {step === "verify" && (
-        <VerifyStep
-          onSuccess={() => setStep("backup-codes")}
-          onBack={() => setStep("qr")}
-        />
+        <VerifyStep onSuccess={() => setStep("backup-codes")} onBack={() => setStep("qr")} />
       )}
 
       {step === "backup-codes" && (
