@@ -16,7 +16,7 @@ export function UserMenu() {
   const navigate = useNavigate();
 
   const user = session?.user;
-  const initials = user ? user.name[0].toUpperCase() : "?";
+  const initials = user ? (user.name?.[0]?.toUpperCase() ?? "?") : "?";
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -37,7 +37,7 @@ export function UserMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <div className="px-2 py-1.5">
-          <p className="text-sm font-medium">{user?.name}</p>
+          <p className="truncate text-sm font-medium">{user?.name}</p>
           <p className="text-muted-foreground truncate text-xs">{user?.email}</p>
         </div>
         <DropdownMenuSeparator />

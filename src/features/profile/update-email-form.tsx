@@ -64,7 +64,8 @@ export function UpdateEmailForm() {
     return (
       <div className="space-y-4">
         <p className="text-muted-foreground text-sm">
-          Current email: <span className="text-foreground font-medium">{session?.user.email}</span>
+          Current email:{" "}
+          <span className="text-foreground font-medium break-all">{session?.user.email}</span>
         </p>
         <Alert>
           <AlertDescription>
@@ -83,7 +84,8 @@ export function UpdateEmailForm() {
     <div className="space-y-4">
       <div>
         <p className="text-muted-foreground text-sm">
-          Current email: <span className="text-foreground font-medium">{session?.user.email}</span>
+          Current email:{" "}
+          <span className="text-foreground font-medium break-all">{session?.user.email}</span>
         </p>
       </div>
       <Form {...form}>
