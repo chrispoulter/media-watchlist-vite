@@ -1,154 +1,33 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { toast } from "sonner";
 import { ShieldCheck, ShieldOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
+import { IdleDisabledStep } from "./two-factor/idle-disabled-step";
+import { EnablePasswordStep } from "./two-factor/enable-password-step";
+import { QrStep } from "./two-factor/qr-step";
+import { VerifyStep } from "./two-factor/verify-step";
+import { IdleEnabledStep } from "./two-factor/idle-enabled-step";
+import { DisableStep } from "./two-factor/disable-step";
+import { RegenCodesPasswordStep } from "./two-factor/regen-codes-password-step";
+import { BackupCodesStep } from "./two-factor/backup-codes-step";
 
-const enableTwoFactorSchema = z.object({
-  password: z.string().min(1, "Password is required"),
-});
-
-type EnableTwoFactorFormValues = z.infer<typeof enableTwoFactorSchema>;
-
-const verifyTotpSchema = z.object({
-  code: z.string().length(6, "Code must be 6 digits"),
-});
-
-type VerifyTotpFormValues = z.infer<typeof verifyTotpSchema>;
-
-const disableTwoFactorSchema = z.object({
-  password: z.string().min(1, "Password is required"),
-});
-
-type DisableTwoFactorFormValues = z.infer<typeof disableTwoFactorSchema>;
-
-const regenerateBackupCodesSchema = z.object({
-  password: z.string().min(1, "Password is required"),
-});
-
-type RegenerateBackupCodesFormValues = z.infer<typeof regenerateBackupCodesSchema>;
+type TwoFactorStep =
+  | "idle"
+  | "password"
+  | "qr"
+  | "verify"
+  | "disable"
+  | "backup-codes"
+  | "regen-codes-password"
+  | "regen-codes-show";
 
 export function TwoFactorSettings() {
-  const [step, setStep] = useState<
-    | "idle"
-    | "password"
-    | "qr"
-    | "verify"
-    | "disable"
-    | "backup-codes"
-    | "regen-codes-password"
-    | "regen-codes-show"
-  >("idle");
+  const [step, setStep] = useState<TwoFactorStep>("idle");
   const [totpUri, setTotpUri] = useState<string>("");
   const [backupCodes, setBackupCodes] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = authClient.useSession();
-  
+
   const twoFactorEnabled = session?.user.twoFactorEnabled;
-
-  const enableForm = useForm<EnableTwoFactorFormValues>({
-    resolver: zodResolver(enableTwoFactorSchema),
-    defaultValues: { password: "" },
-  });
-
-  const verifyForm = useForm<VerifyTotpFormValues>({
-    resolver: zodResolver(verifyTotpSchema),
-    defaultValues: { code: "" },
-  });
-
-  const disableForm = useForm<DisableTwoFactorFormValues>({
-    resolver: zodResolver(disableTwoFactorSchema),
-    defaultValues: { password: "" },
-  });
-
-  const regenForm = useForm<RegenerateBackupCodesFormValues>({
-    resolver: zodResolver(regenerateBackupCodesSchema),
-    defaultValues: { password: "" },
-  });
-
-  const handleEnable = async (values: EnableTwoFactorFormValues) => {
-    setIsLoading(true);
-    const result = await authClient.twoFactor.enable({ password: values.password });
-    setIsLoading(false);
-
-    if (result.error) {
-      toast.error(result.error.message ?? "Failed to enable 2FA");
-      return;
-    }
-
-    if (result.data?.totpURI) {
-      setTotpUri(result.data.totpURI);
-      setBackupCodes(result.data.backupCodes ?? []);
-      setStep("qr");
-    }
-  };
-
-  const handleVerify = async (values: VerifyTotpFormValues) => {
-    setIsLoading(true);
-    const result = await authClient.twoFactor.verifyTotp({ code: values.code });
-    setIsLoading(false);
-
-    if (result.error) {
-      toast.error(result.error.message ?? "Invalid code");
-      return;
-    }
-
-    toast.success("Two-factor authentication enabled");
-    setStep("backup-codes");
-  };
-
-  const handleBackupCodesDone = () => {
-    setStep("idle");
-  };
-
-  const handleRegenBackupCodes = async (values: RegenerateBackupCodesFormValues) => {
-    setIsLoading(true);
-    const result = await authClient.twoFactor.generateBackupCodes({ password: values.password });
-    setIsLoading(false);
-
-    if (result.error) {
-      toast.error(result.error.message ?? "Failed to regenerate backup codes");
-      return;
-    }
-
-    setBackupCodes(result.data?.backupCodes ?? []);
-    regenForm.reset();
-    setStep("regen-codes-show");
-  };
-
-  const handleCopyAllCodes = () => {
-    navigator.clipboard.writeText(backupCodes.join("\n"));
-    toast.success("Backup codes copied to clipboard");
-  };
-
-  const handleDisable = async (values: DisableTwoFactorFormValues) => {
-    setIsLoading(true);
-    const result = await authClient.twoFactor.disable({ password: values.password });
-    setIsLoading(false);
-
-    if (result.error) {
-      toast.error(result.error.message ?? "Failed to disable 2FA");
-      return;
-    }
-
-    toast.success("Two-factor authentication disabled");
-    setStep("idle");
-    // window.location.reload();
-  };
 
   if (twoFactorEnabled) {
     return (
@@ -165,127 +44,45 @@ export function TwoFactorSettings() {
         </div>
 
         {step === "idle" && (
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <Button variant="outline" onClick={() => setStep("disable")}>
-              <ShieldOff className="mr-2 h-4 w-4" />
-              Disable 2FA
-            </Button>
-            <Button variant="outline" onClick={() => setStep("regen-codes-password")}>
-              Regenerate backup codes
-            </Button>
-          </div>
+          <IdleEnabledStep
+            onDisable={() => setStep("disable")}
+            onRegenCodes={() => setStep("regen-codes-password")}
+          />
         )}
 
         {step === "regen-codes-password" && (
-          <Form {...regenForm}>
-            <form onSubmit={regenForm.handleSubmit(handleRegenBackupCodes)} className="space-y-4">
-              <FormField
-                control={regenForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm with your password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
-                        autoComplete="current-password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? "Regenerating..." : "Regenerate codes"}
-                </Button>
-                <Button type="button" variant="outline" onClick={() => setStep("idle")}>
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </Form>
+          <RegenCodesPasswordStep
+            onSuccess={(codes) => {
+              setBackupCodes(codes);
+              setStep("regen-codes-show");
+            }}
+            onCancel={() => setStep("idle")}
+          />
         )}
 
         {step === "regen-codes-show" && (
-          <div className="space-y-4">
-            <p className="text-sm font-medium">
-              Your new backup codes. The old codes are now invalid.
-            </p>
-            <div className="grid grid-cols-2 gap-2 rounded-md border p-4">
-              {backupCodes.map((code) => (
-                <code key={code} className="font-mono text-sm select-all">
-                  {code}
-                </code>
-              ))}
-            </div>
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
-                Copy all
-              </Button>
-              <Button type="button" onClick={() => setStep("idle")}>
-                Done
-              </Button>
-            </div>
-          </div>
+          <BackupCodesStep
+            codes={backupCodes}
+            description="Your new backup codes. The old codes are now invalid."
+            doneLabel="Done"
+            onDone={() => setStep("idle")}
+          />
         )}
 
         {step === "backup-codes" && (
-          <div className="space-y-4">
-            <p className="text-sm font-medium">
-              Save your backup codes. Each code can only be used once.
-            </p>
-            <div className="grid grid-cols-2 gap-2 rounded-md border p-4">
-              {backupCodes.map((code) => (
-                <code key={code} className="font-mono text-sm select-all">
-                  {code}
-                </code>
-              ))}
-            </div>
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
-                Copy all
-              </Button>
-              <Button type="button" onClick={handleBackupCodesDone}>
-                I've saved my codes
-              </Button>
-            </div>
-          </div>
+          <BackupCodesStep
+            codes={backupCodes}
+            description="Save your backup codes. Each code can only be used once."
+            doneLabel="I've saved my codes"
+            onDone={() => setStep("idle")}
+          />
         )}
 
         {step === "disable" && (
-          <Form {...disableForm}>
-            <form onSubmit={disableForm.handleSubmit(handleDisable)} className="space-y-4">
-              <FormField
-                control={disableForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm with your password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
-                        autoComplete="current-password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <Button type="submit" variant="destructive" disabled={isLoading}>
-                  {isLoading ? "Disabling..." : "Disable 2FA"}
-                </Button>
-                <Button type="button" variant="outline" onClick={() => setStep("idle")}>
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </Form>
+          <DisableStep
+            onSuccess={() => setStep("idle")}
+            onCancel={() => setStep("idle")}
+          />
         )}
       </div>
     );
@@ -300,127 +97,38 @@ export function TwoFactorSettings() {
       </div>
 
       {step === "idle" && (
-        <Button onClick={() => setStep("password")} className="w-full sm:w-auto">
-          <ShieldCheck className="mr-2 h-4 w-4" />
-          Enable 2FA
-        </Button>
+        <IdleDisabledStep onEnable={() => setStep("password")} />
       )}
 
       {step === "password" && (
-        <Form {...enableForm}>
-          <form onSubmit={enableForm.handleSubmit(handleEnable)} className="space-y-4">
-            <FormField
-              control={enableForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm with your password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="••••••••"
-                      autoComplete="current-password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Continuing..." : "Continue"}
-              </Button>
-              <Button type="button" variant="outline" onClick={() => setStep("idle")}>
-                Cancel
-              </Button>
-            </div>
-          </form>
-        </Form>
+        <EnablePasswordStep
+          onSuccess={(uri, codes) => {
+            setTotpUri(uri);
+            setBackupCodes(codes);
+            setStep("qr");
+          }}
+          onCancel={() => setStep("idle")}
+        />
       )}
 
       {step === "qr" && (
-        <div className="space-y-4">
-          <div>
-            <p className="mb-2 text-sm font-medium">
-              Scan this QR code with your authenticator app:
-            </p>
-            <div className="bg-card inline-block rounded-lg border p-4">
-              <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(totpUri)}`}
-                alt="TOTP QR Code"
-                width={200}
-                height={200}
-              />
-            </div>
-            <p className="text-muted-foreground mt-2 text-xs">
-              Or enter manually: <code className="font-mono text-xs break-all">{totpUri}</code>
-            </p>
-          </div>
-          <Button onClick={() => setStep("verify")} className="w-full sm:w-auto">
-            I've scanned the code
-          </Button>
-        </div>
+        <QrStep totpUri={totpUri} onContinue={() => setStep("verify")} />
       )}
 
       {step === "verify" && (
-        <Form {...verifyForm}>
-          <form onSubmit={verifyForm.handleSubmit(handleVerify)} className="space-y-4">
-            <FormField
-              control={verifyForm.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Enter the 6-digit code from your app</FormLabel>
-                  <FormControl>
-                    <InputOTP maxLength={6} autoComplete="one-time-code" {...field}>
-                      <InputOTPGroup>
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                        <InputOTPSlot index={3} />
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Verifying..." : "Verify & enable"}
-              </Button>
-              <Button type="button" variant="outline" onClick={() => setStep("qr")}>
-                Back
-              </Button>
-            </div>
-          </form>
-        </Form>
+        <VerifyStep
+          onSuccess={() => setStep("backup-codes")}
+          onBack={() => setStep("qr")}
+        />
       )}
 
       {step === "backup-codes" && (
-        <div className="space-y-4">
-          <p className="text-sm font-medium">
-            Save your backup codes. Each code can only be used once.
-          </p>
-          <div className="grid grid-cols-2 gap-2 rounded-md border p-4">
-            {backupCodes.map((code) => (
-              <code key={code} className="font-mono text-sm select-all">
-                {code}
-              </code>
-            ))}
-          </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <Button type="button" variant="outline" onClick={handleCopyAllCodes}>
-              Copy all
-            </Button>
-            <Button type="button" onClick={handleBackupCodesDone}>
-              I've saved my codes
-            </Button>
-          </div>
-        </div>
+        <BackupCodesStep
+          codes={backupCodes}
+          description="Save your backup codes. Each code can only be used once."
+          doneLabel="I've saved my codes"
+          onDone={() => setStep("idle")}
+        />
       )}
     </div>
   );
