@@ -41,7 +41,7 @@ export function AuthErrorPage() {
               <AlertDescription>{message}</AlertDescription>
             </Alert>
             <Button asChild className="w-full">
-              <Link to="/profile">Back to profile</Link>
+              <Link to="/">Home</Link>
             </Button>
           </CardContent>
         </Card>

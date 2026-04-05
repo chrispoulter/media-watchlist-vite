@@ -343,7 +343,9 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
               Or enter manually: <code className="font-mono text-xs">{totpUri}</code>
             </p>
           </div>
-          <Button onClick={() => setStep("verify")} className="w-full sm:w-auto">I've scanned the code</Button>
+          <Button onClick={() => setStep("verify")} className="w-full sm:w-auto">
+            I've scanned the code
+          </Button>
         </div>
       )}
 
