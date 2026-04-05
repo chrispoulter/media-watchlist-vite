@@ -61,7 +61,7 @@ export function Header() {
             {/* Mobile hamburger */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground focus:outline-none sm:hidden">
+                <button className="text-muted-foreground hover:bg-secondary/50 hover:text-foreground flex items-center justify-center rounded-md p-2 transition-colors focus:outline-none sm:hidden">
                   <Menu className="h-5 w-5" />
                 </button>
               </DropdownMenuTrigger>
