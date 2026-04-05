@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { Film, Search, BookMarked, Menu, type LucideIcon } from "lucide-react";
+import { Film, Search, BookMarked, Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
   DropdownMenu,
@@ -11,7 +11,7 @@ import { UserMenu } from "./UserMenu";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
-const navItems: { to: string; label: string; icon: LucideIcon }[] = [
+const navItems = [
   { to: "/", label: "Watchlist", icon: BookMarked },
   { to: "/search", label: "Search", icon: Search },
 ];

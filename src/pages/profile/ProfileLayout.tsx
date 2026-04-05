@@ -1,17 +1,16 @@
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const navItems = [
-  { value: "profile", label: "Profile", path: "/profile" },
-  { value: "security", label: "Security", path: "/profile/security" },
-  { value: "danger", label: "Danger zone", path: "/profile/danger" },
+  { to: "/profile", label: "Profile" },
+  { to: "/profile/security", label: "Security" },
+  { to: "/profile/danger", label: "Danger zone" },
 ];
 
 export function ProfileLayout() {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const activeTab = navItems.find((t) => t.path === pathname)?.value ?? "profile";
+  const activeTab = navItems.find((t) => t.to === pathname)?.to ?? navItems[0].to;
 
   return (
     <div className="space-y-6">
@@ -20,14 +19,11 @@ export function ProfileLayout() {
         <p className="text-muted-foreground text-sm">Manage your account settings</p>
       </div>
 
-      <Tabs
-        value={activeTab}
-        onValueChange={(val) => navigate(navItems.find((t) => t.value === val)!.path)}
-      >
+      <Tabs value={activeTab}>
         <TabsList>
           {navItems.map((tab) => (
-            <TabsTrigger key={tab.value} value={tab.value}>
-              {tab.label}
+            <TabsTrigger key={tab.to} value={tab.to} asChild>
+              <Link to={tab.to}>{tab.label}</Link>
             </TabsTrigger>
           ))}
         </TabsList>
