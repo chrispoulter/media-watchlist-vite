@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { User, LogOut, Settings } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,17 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { authClient, type AppUser } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 export function UserMenu() {
   const { data: session } = authClient.useSession();
   const navigate = useNavigate();
 
-  const user = session?.user as AppUser | undefined;
-  const initials = user
-    ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase() ||
-      user.email[0].toUpperCase()
-    : "?";
+  const user = session?.user;
+  const initials = user ? user.name[0].toUpperCase() : "?";
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -57,6 +54,3 @@ export function UserMenu() {
     </DropdownMenu>
   );
 }
-
-// Re-export for use in other places
-export { User };
