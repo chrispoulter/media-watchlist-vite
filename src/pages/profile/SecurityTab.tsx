@@ -8,8 +8,6 @@ import { LinkedAccounts, type Account } from "@/features/profile/linked-accounts
 import { authClient } from "@/lib/auth-client";
 
 export function SecurityTab() {
-  const { data: session } = authClient.useSession();
-
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
 
@@ -22,7 +20,6 @@ export function SecurityTab() {
     });
   }, []);
 
-  const twoFactorEnabled = !!session?.user?.twoFactorEnabled;
   const hasCredentialAccount = accounts.some((a) => a.providerId === "credential");
 
   return (
@@ -68,7 +65,7 @@ export function SecurityTab() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <TwoFactorSettings twoFactorEnabled={twoFactorEnabled} />
+            <TwoFactorSettings />
           </CardContent>
         </Card>
 

@@ -42,11 +42,7 @@ const regenerateBackupCodesSchema = z.object({
 
 type RegenerateBackupCodesFormValues = z.infer<typeof regenerateBackupCodesSchema>;
 
-interface TwoFactorSettingsProps {
-  twoFactorEnabled: boolean;
-}
-
-export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) {
+export function TwoFactorSettings() {
   const [step, setStep] = useState<
     | "idle"
     | "password"
@@ -60,6 +56,9 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
   const [totpUri, setTotpUri] = useState<string>("");
   const [backupCodes, setBackupCodes] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { data: session } = authClient.useSession();
+  
+  const twoFactorEnabled = session?.user.twoFactorEnabled;
 
   const enableForm = useForm<EnableTwoFactorFormValues>({
     resolver: zodResolver(enableTwoFactorSchema),
