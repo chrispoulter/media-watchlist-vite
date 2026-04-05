@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const TABS = [
+const navItems = [
   { value: "profile", label: "Profile", path: "/profile" },
   { value: "security", label: "Security", path: "/profile/security" },
   { value: "danger", label: "Danger zone", path: "/profile/danger" },
@@ -11,7 +11,7 @@ export function ProfileLayout() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const activeTab = TABS.find((t) => t.path === pathname)?.value ?? "profile";
+  const activeTab = navItems.find((t) => t.path === pathname)?.value ?? "profile";
 
   return (
     <div className="space-y-6">
@@ -22,10 +22,10 @@ export function ProfileLayout() {
 
       <Tabs
         value={activeTab}
-        onValueChange={(val) => navigate(TABS.find((t) => t.value === val)!.path)}
+        onValueChange={(val) => navigate(navItems.find((t) => t.value === val)!.path)}
       >
         <TabsList>
-          {TABS.map((tab) => (
+          {navItems.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>
               {tab.label}
             </TabsTrigger>
