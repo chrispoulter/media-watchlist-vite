@@ -55,7 +55,7 @@ export function SecurityTab() {
             ) : hasCredentialAccount ? (
               <ChangePasswordForm />
             ) : (
-              <SetPassword email={session?.user.email ?? ""} />
+              <SetPassword />
             )}
           </CardContent>
         </Card>

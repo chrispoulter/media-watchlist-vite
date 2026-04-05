@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
 
-interface SetPasswordProps {
-  email: string;
-}
-
-export function SetPassword({ email }: SetPasswordProps) {
+export function SetPassword() {
   const [status, setStatus] = useState<"idle" | "loading" | "sent">("idle");
+  const { data: session } = authClient.useSession();
+
+  const email = session?.user.email ?? "";
 
   const handleSend = async () => {
     setStatus("loading");
@@ -16,11 +15,13 @@ export function SetPassword({ email }: SetPasswordProps) {
       email,
       redirectTo: `${window.location.origin}/reset-password`,
     });
+
     if (error) {
       toast.error(error.message ?? "Failed to send password setup email");
       setStatus("idle");
       return;
     }
+
     setStatus("sent");
   };
 

@@ -1,19 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { toast } from "sonner";
 import { ShieldCheck, ShieldOff } from "lucide-react";
-import { authClient } from "@/lib/auth-client";
-import {
-  enableTwoFactorSchema,
-  verifyTotpSchema,
-  disableTwoFactorSchema,
-  regenerateBackupCodesSchema,
-  type EnableTwoFactorFormValues,
-  type VerifyTotpFormValues,
-  type DisableTwoFactorFormValues,
-  type RegenerateBackupCodesFormValues,
-} from "./schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +16,31 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { authClient } from "@/lib/auth-client";
+
+const enableTwoFactorSchema = z.object({
+  password: z.string().min(1, "Password is required"),
+});
+
+type EnableTwoFactorFormValues = z.infer<typeof enableTwoFactorSchema>;
+
+const verifyTotpSchema = z.object({
+  code: z.string().length(6, "Code must be 6 digits"),
+});
+
+type VerifyTotpFormValues = z.infer<typeof verifyTotpSchema>;
+
+const disableTwoFactorSchema = z.object({
+  password: z.string().min(1, "Password is required"),
+});
+
+type DisableTwoFactorFormValues = z.infer<typeof disableTwoFactorSchema>;
+
+const regenerateBackupCodesSchema = z.object({
+  password: z.string().min(1, "Password is required"),
+});
+
+type RegenerateBackupCodesFormValues = z.infer<typeof regenerateBackupCodesSchema>;
 
 interface TwoFactorSettingsProps {
   twoFactorEnabled: boolean;
@@ -133,7 +148,7 @@ export function TwoFactorSettings({ twoFactorEnabled }: TwoFactorSettingsProps) 
 
     toast.success("Two-factor authentication disabled");
     setStep("idle");
-    window.location.reload();
+    // window.location.reload();
   };
 
   if (twoFactorEnabled) {

@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { toast } from "sonner";
-import { useSearchParams } from "react-router-dom";
-import { authClient } from "@/lib/auth-client";
-import { updateEmailSchema, type UpdateEmailFormValues } from "./schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -16,10 +15,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { authClient } from "@/lib/auth-client";
 
 const verificationErrorMessages: Record<string, string> = {
   USER_NOT_FOUND: "This verification link has already been used or has expired.",
 };
+
+const updateEmailSchema = z.object({
+  newEmail: z.email("Invalid email address"),
+});
+
+type UpdateEmailFormValues = z.infer<typeof updateEmailSchema>;
 
 export function UpdateEmailForm() {
   const [isLoading, setIsLoading] = useState(false);

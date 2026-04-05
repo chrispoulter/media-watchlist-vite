@@ -6,7 +6,7 @@ import { authClient } from "@/lib/auth-client";
 import { authProviders } from "@/lib/auth-providers";
 // import { Skeleton } from "@/components/ui/skeleton";
 
-export interface Account {
+interface Account {
   id: string;
   providerId: string;
   accountId: string;

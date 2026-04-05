@@ -23,8 +23,8 @@ const recoveryCodeSchema = z.object({
 type RecoveryCodeFormValues = z.infer<typeof recoveryCodeSchema>;
 
 export function RecoveryCodeForm() {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm<RecoveryCodeFormValues>({
     resolver: zodResolver(recoveryCodeSchema),

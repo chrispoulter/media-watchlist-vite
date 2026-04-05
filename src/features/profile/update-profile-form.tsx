@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { toast } from "sonner";
-import { authClient, type AppUser } from "@/lib/auth-client";
-import { updateProfileSchema, type UpdateProfileFormValues } from "./schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,29 +13,38 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { authClient } from "@/lib/auth-client";
+
+const updateProfileSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  dateOfBirth: z.string().min(1, "Date of birth is required"),
+});
+
+type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export function UpdateProfileForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = authClient.useSession();
-  const user = session?.user as AppUser | undefined;
+
+  const user = session?.user;
 
   const form = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
-      firstName: user?.firstName ?? "",
-      lastName: user?.lastName ?? "",
-      dateOfBirth: user?.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split("T")[0] : "",
+      firstName: user?.name.split(" ")[0] ?? "", // user?.firstName ?? "",
+      lastName: user?.name.split(" ")[1] ?? "", // user?.lastName ?? "",
+      dateOfBirth: "", // user?.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split("T")[0] : "",
     },
   });
 
   const onSubmit = async (values: UpdateProfileFormValues) => {
     setIsLoading(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (authClient.updateUser as any)({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      dateOfBirth: values.dateOfBirth,
+    const { error } = await authClient.updateUser({
       name: `${values.firstName} ${values.lastName}`,
+      // firstName: values.firstName,
+      // lastName: values.lastName,
+      // dateOfBirth: values.dateOfBirth,
     });
     setIsLoading(false);
 
