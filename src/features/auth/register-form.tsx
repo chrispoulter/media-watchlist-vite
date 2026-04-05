@@ -1,10 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
-import { registerSchema, type RegisterFormValues } from "./schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -15,6 +14,23 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { authClient } from "@/lib/auth-client";
+
+const registerSchema = z
+  .object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    email: z.email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+    dateOfBirth: z.string().min(1, "Date of birth is required"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,14 +50,13 @@ export function RegisterForm() {
 
   const onSubmit = async (values: RegisterFormValues) => {
     setIsLoading(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (authClient.signUp.email as any)({
+    const { error } = await authClient.signUp.email({
       email: values.email,
       password: values.password,
       name: `${values.firstName} ${values.lastName}`,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      dateOfBirth: values.dateOfBirth,
+      // firstName: values.firstName,
+      // lastName: values.lastName,
+      // dateOfBirth: values.dateOfBirth,
     });
     setIsLoading(false);
 

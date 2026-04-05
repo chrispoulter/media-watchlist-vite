@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
-import { forgotPasswordSchema, type ForgotPasswordFormValues } from "./schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,10 +13,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { authClient } from "@/lib/auth-client";
+
+const forgotPasswordSchema = z.object({
+  email: z.email("Invalid email address"),
+});
+
+type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 export function ForgotPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
   const form = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -37,10 +43,10 @@ export function ForgotPasswordForm() {
       return;
     }
 
-    setSent(true);
+    setIsSent(true);
   };
 
-  if (sent) {
+  if (isSent) {
     return (
       <div className="space-y-2 text-center">
         <p className="text-muted-foreground text-sm">
