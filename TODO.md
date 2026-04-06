@@ -2,7 +2,6 @@
 
 - loading state on redirect
 
-
 - axios ????
 - global error handling
 - software version
