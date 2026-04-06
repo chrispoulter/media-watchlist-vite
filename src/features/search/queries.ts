@@ -3,12 +3,12 @@ import { api } from "@/lib/api";
 import type { SearchResponse } from "@/types";
 
 export const searchKeys = {
-  results: (query: string) => ["search", query] as const,
+  search: (query: string) => ["search", query] as const,
 };
 
 export function useSearch(query: string) {
   return useQuery({
-    queryKey: searchKeys.results(query),
+    queryKey: searchKeys.search(query),
     queryFn: async () => {
       const { data } = await api.get<SearchResponse>("/api/search", {
         params: { q: query },

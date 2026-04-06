@@ -3,12 +3,12 @@ import { api } from "@/lib/api";
 import type { WatchlistItem, SearchResult } from "@/types";
 
 export const watchlistKeys = {
-  all: ["watchlist"] as const,
+  watchlist: ["watchlist"] as const,
 };
 
 export function useWatchlist() {
   return useQuery({
-    queryKey: watchlistKeys.all,
+    queryKey: watchlistKeys.watchlist,
     queryFn: async () => {
       const { data } = await api.get<WatchlistItem[]>("/api/watchlist");
       return data;
@@ -24,7 +24,7 @@ export function useAddToWatchlist() {
       return data;
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
+      queryClient.invalidateQueries({ queryKey: watchlistKeys.watchlist });
     },
   });
 }
@@ -36,7 +36,7 @@ export function useRemoveFromWatchlist() {
       await api.delete(`/api/watchlist/${id}`);
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
+      queryClient.invalidateQueries({ queryKey: watchlistKeys.watchlist });
     },
   });
 }
