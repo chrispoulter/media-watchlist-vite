@@ -10,7 +10,7 @@ export function useWatchlist() {
   return useQuery({
     queryKey: watchlistKeys.all,
     queryFn: async () => {
-      const { data } = await api.get<WatchlistItem[]>("/api/watchlist");
+      const data = await api.get<WatchlistItem[]>("/api/watchlist");
       return data;
     },
   });
@@ -18,9 +18,10 @@ export function useWatchlist() {
 
 export function useAddToWatchlist() {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (item: Omit<WatchlistItem, "id" | "addedAt">) => {
-      const { data } = await api.post<WatchlistItem>("/api/watchlist", item);
+      const data = await api.post<WatchlistItem>("/api/watchlist", item);
       return data;
     },
     onSuccess: () => {
@@ -31,6 +32,7 @@ export function useAddToWatchlist() {
 
 export function useRemoveFromWatchlist() {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (id: number) => {
       await api.delete(`/api/watchlist/${id}`);

@@ -12,40 +12,40 @@ interface SearchResultCardProps {
 
 export function SearchResultCard({ result }: SearchResultCardProps) {
   const [confirming, setConfirming] = useState(false);
-  const { mutateAsync: addToWatchlist, isPending: isAdding } = useAddToWatchlist();
-  const { mutateAsync: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
 
-  const handleAdd = async () => {
-    const { error } = await addToWatchlist({
-      tmdbId: result.tmdbId,
-      mediaType: result.mediaType,
-      title: result.title,
-      posterPath: result.posterPath,
-      overview: result.overview,
-      releaseDate: result.releaseDate,
-    });
+  const { mutate: addToWatchlist, isPending: isAdding } = useAddToWatchlist();
 
-    if (error) {
-      toast.error("Failed to add to watchlist");
-    } else {
-      toast.success(`"${result.title}" added to watchlist`);
-    }
+  const { mutate: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
+
+  const handleAdd = () => {
+    addToWatchlist(
+      {
+        tmdbId: result.tmdbId,
+        mediaType: result.mediaType,
+        title: result.title,
+        posterPath: result.posterPath,
+        overview: result.overview,
+        releaseDate: result.releaseDate,
+      },
+      {
+        onSuccess: () => toast.success(`"${result.title}" added to watchlist`),
+        onError: (err) => toast.error(err.message ?? "Failed to add to watchlist"),
+      }
+    );
   };
 
-  const handleRemove = async () => {
+  const handleRemove = () => {
     if (!confirming) {
       setConfirming(true);
       setTimeout(() => setConfirming(false), 3000);
       return;
     }
-    const { error } = await removeFromWatchlist(result.watchlistItemId!);
 
-    if (error) {
-      toast.error("Failed to remove from watchlist");
-    } else {
-      toast.success(`"${result.title}" removed from watchlist`);
-    }
-    setConfirming(false);
+    removeFromWatchlist(result.watchlistItemId!, {
+      onSuccess: () => toast.success(`"${result.title}" removed from watchlist`),
+      onError: (err) => toast.error(err.message ?? "Failed to remove from watchlist"),
+      onSettled: () => setConfirming(false),
+    });
   };
 
   return (

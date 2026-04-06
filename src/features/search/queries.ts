@@ -10,9 +10,10 @@ export function useSearch(query: string) {
   return useQuery({
     queryKey: searchKeys.results(query),
     queryFn: async () => {
-      const { data } = await api.get<SearchResult[]>("/api/search", {
+      const data = await api.get<SearchResult[]>("/api/search", {
         params: { q: query },
       });
+
       return data;
     },
     enabled: query.trim().length >= 2,

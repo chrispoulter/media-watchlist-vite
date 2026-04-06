@@ -12,23 +12,20 @@ interface WatchlistItemCardProps {
 
 export function WatchlistItemCard({ item }: WatchlistItemCardProps) {
   const [confirming, setConfirming] = useState(false);
-  const { mutateAsync: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
+  const { mutate: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
 
-  const handleRemove = async () => {
+  const handleRemove = () => {
     if (!confirming) {
       setConfirming(true);
       setTimeout(() => setConfirming(false), 3000);
       return;
     }
 
-    const { error } = await removeFromWatchlist(item.id);
-
-    if (error) {
-      toast.error("Failed to remove from watchlist");
-    } else {
-      toast.success(`"${item.title}" removed from watchlist`);
-    }
-    setConfirming(false);
+    removeFromWatchlist(item.id, {
+      onSuccess: () => toast.success(`"${item.title}" removed from watchlist`),
+      onError: (err) => toast.error(err.message ?? "Failed to remove from watchlist"),
+      onSettled: () => setConfirming(false),
+    });
   };
 
   return (
