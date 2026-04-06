@@ -12,7 +12,7 @@ interface WatchlistItemCardProps {
 
 export function WatchlistItemCard({ item }: WatchlistItemCardProps) {
   const [confirming, setConfirming] = useState(false);
-  const remove = useRemoveFromWatchlist();
+  const { mutateAsync: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
 
   const handleRemove = async () => {
     if (!confirming) {
@@ -20,10 +20,9 @@ export function WatchlistItemCard({ item }: WatchlistItemCardProps) {
       setTimeout(() => setConfirming(false), 3000);
       return;
     }
-    const { error } = await remove.mutateAsync(item.id).then(
-      () => ({ error: null }),
-      (err: Error) => ({ error: err })
-    );
+
+    const { error } = await removeFromWatchlist(item.id);
+
     if (error) {
       toast.error("Failed to remove from watchlist");
     } else {
@@ -45,7 +44,7 @@ export function WatchlistItemCard({ item }: WatchlistItemCardProps) {
           variant={confirming ? "destructive" : "outline"}
           className="w-full"
           onClick={handleRemove}
-          disabled={remove.isPending}
+          disabled={isRemoving}
         >
           <Trash2 className="mr-1.5 h-3.5 w-3.5" />
           {confirming ? "Confirm remove" : "Remove"}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Search, Watch } from "lucide-react";
+import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { WatchlistItemCard } from "./watchlist-item-card";

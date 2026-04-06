@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSearch } from "./queries";
-import { useWatchlist } from "../watchlist/queries";
 import { SearchBar } from "./search-bar";
 import { SearchResultCard } from "./search-result-card";
 
@@ -21,14 +20,12 @@ function SearchResultsSkeleton() {
 
 export function SearchResultsGrid() {
   const [searchQuery, setSearchQuery] = useState("");
-  const { data: searchResults, isLoading: isSearchLoading } = useSearch(searchQuery);
-  const { data: watchlistItems, isLoading: isWatchlistLoading } = useWatchlist();
+  const { data: searchResults, isLoading } = useSearch(searchQuery);
 
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
   }, []);
 
-  const isLoading = isSearchLoading || isWatchlistLoading;
   return (
     <>
       <SearchBar onSearch={handleSearch} />
@@ -39,20 +36,16 @@ export function SearchResultsGrid() {
 
           {!isLoading && searchResults && (
             <>
-              <p className="text-muted-foreground text-sm">
-                {searchResults.totalResults} results for "{searchQuery}"
-              </p>
-              {searchResults.results.length === 0 ? (
+              {searchResults.length === 0 ? (
                 <div className="text-muted-foreground py-16 text-center">
                   <p>No results found. Try a different search term.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                  {searchResults.results.map((result) => (
+                  {searchResults.map((result) => (
                     <SearchResultCard
                       key={`${result.mediaType}-${result.tmdbId}`}
                       result={result}
-                      watchlistItems={watchlistItems}
                     />
                   ))}
                 </div>

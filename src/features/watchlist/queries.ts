@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
-import type { WatchlistItem, SearchResult } from "@/types";
+import type { WatchlistItem } from "@/types";
 
 export const watchlistKeys = {
   all: ["watchlist"] as const,
@@ -19,7 +19,7 @@ export function useWatchlist() {
 export function useAddToWatchlist() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (item: Omit<SearchResult, "id"> & { tmdbId: number }) => {
+    mutationFn: async (item: Omit<WatchlistItem, "id" | "addedAt">) => {
       const { data } = await api.post<WatchlistItem>("/api/watchlist", item);
       return data;
     },
