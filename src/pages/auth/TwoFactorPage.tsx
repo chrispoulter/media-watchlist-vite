@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TwoFactorForm } from "@/features/auth/two-factor-form";
+import { RecoveryCodeForm } from "@/features/auth/recovery-code-form";
 
 export function TwoFactorPage() {
+  const [mode, setMode] = useState<"totp" | "recovery">("totp");
+
   return (
     <>
       <title>Two-Factor Authentication | Media Watchlist</title>
@@ -13,7 +17,8 @@ export function TwoFactorPage() {
               <CardTitle className="text-2xl">Two-factor authentication</CardTitle>
             </CardHeader>
             <CardContent>
-              <TwoFactorForm />
+              {mode === "totp" && <TwoFactorForm onBack={() => setMode("recovery")} />}
+              {mode === "recovery" && <RecoveryCodeForm onBack={() => setMode("totp")} />}
             </CardContent>
           </Card>
 

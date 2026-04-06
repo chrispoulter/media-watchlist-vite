@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -22,7 +22,11 @@ const recoveryCodeSchema = z.object({
 
 type RecoveryCodeFormValues = z.infer<typeof recoveryCodeSchema>;
 
-export function RecoveryCodeForm() {
+interface RecoveryCodeFormProps {
+  onBack?: () => void;
+}
+
+export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -75,8 +79,8 @@ export function RecoveryCodeForm() {
           {isLoading ? "Verifying..." : "Verify"}
         </Button>
 
-        <Button type="button" variant="link" className="w-full" asChild>
-          <Link to="/two-factor">Use authenticator app instead</Link>
+        <Button type="button" variant="link" className="w-full" onClick={onBack}>
+          Use authenticator app instead
         </Button>
       </form>
     </Form>
