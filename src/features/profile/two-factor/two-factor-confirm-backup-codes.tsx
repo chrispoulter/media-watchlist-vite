@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -13,44 +12,47 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 
-const schema = z.object({
+const generateBackupCodesSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
-type FormValues = z.infer<typeof schema>;
+type GenerateBackupCodesFormValues = z.infer<typeof generateBackupCodesSchema>;
 
-interface DisableStepProps {
-  onSuccess: () => void;
+interface TwoFactorConfirmBackupCodesProps {
+  onRegenerated: (newCodes: string[]) => void;
   onCancel: () => void;
 }
 
-export function DisableStep({ onSuccess, onCancel }: DisableStepProps) {
+export function TwoFactorConfirmBackupCodes({
+  onRegenerated,
+  onCancel,
+}: TwoFactorConfirmBackupCodesProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(schema),
+  const form = useForm<GenerateBackupCodesFormValues>({
+    resolver: zodResolver(generateBackupCodesSchema),
     defaultValues: { password: "" },
   });
 
-  const handleSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: GenerateBackupCodesFormValues) => {
     setIsLoading(true);
-    const result = await authClient.twoFactor.disable({ password: values.password });
+    const result = await authClient.twoFactor.generateBackupCodes({ password: values.password });
     setIsLoading(false);
 
     if (result.error) {
-      toast.error(result.error.message ?? "Failed to disable 2FA");
+      toast.error(result.error.message ?? "Failed to regenerate backup codes");
       return;
     }
 
-    toast.success("Two-factor authentication disabled");
-    onSuccess();
+    onRegenerated(result.data?.backupCodes ?? []);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="password"
@@ -70,8 +72,8 @@ export function DisableStep({ onSuccess, onCancel }: DisableStepProps) {
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" variant="destructive" disabled={isLoading}>
-            {isLoading ? "Disabling..." : "Disable 2FA"}
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Regenerating..." : "Regenerate codes"}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel

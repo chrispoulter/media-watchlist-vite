@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -13,45 +12,45 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 
-const schema = z.object({
+const disableTwoFactorSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
-type FormValues = z.infer<typeof schema>;
+type DisableTwoFactorFormValues = z.infer<typeof disableTwoFactorSchema>;
 
-interface EnablePasswordStepProps {
-  onSuccess: (totpUri: string, backupCodes: string[]) => void;
+interface TwoFactorConfirmDisableProps {
+  onDisabled: () => void;
   onCancel: () => void;
 }
 
-export function EnablePasswordStep({ onSuccess, onCancel }: EnablePasswordStepProps) {
+export function TwoFactorConfirmDisable({ onDisabled, onCancel }: TwoFactorConfirmDisableProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(schema),
+  const form = useForm<DisableTwoFactorFormValues>({
+    resolver: zodResolver(disableTwoFactorSchema),
     defaultValues: { password: "" },
   });
 
-  const handleSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: DisableTwoFactorFormValues) => {
     setIsLoading(true);
-    const result = await authClient.twoFactor.enable({ password: values.password });
+    const result = await authClient.twoFactor.disable({ password: values.password });
     setIsLoading(false);
 
     if (result.error) {
-      toast.error(result.error.message ?? "Failed to enable 2FA");
+      toast.error(result.error.message ?? "Failed to disable 2FA");
       return;
     }
 
-    if (result.data?.totpURI) {
-      onSuccess(result.data.totpURI, result.data.backupCodes ?? []);
-    }
+    toast.success("Two-factor authentication disabled");
+    onDisabled();
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="password"
@@ -71,8 +70,8 @@ export function EnablePasswordStep({ onSuccess, onCancel }: EnablePasswordStepPr
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? "Continuing..." : "Continue"}
+          <Button type="submit" variant="destructive" disabled={isLoading}>
+            {isLoading ? "Disabling..." : "Disable 2FA"}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel

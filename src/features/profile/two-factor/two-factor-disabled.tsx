@@ -1,11 +1,11 @@
 import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface IdleDisabledStepProps {
+interface TwoFactorDisabledProps {
   onEnable: () => void;
 }
 
-export function IdleDisabledStep({ onEnable }: IdleDisabledStepProps) {
+export function TwoFactorDisabled({ onEnable }: TwoFactorDisabledProps) {
   return (
     <Button onClick={onEnable} className="w-full sm:w-auto">
       <ShieldCheck className="mr-2 h-4 w-4" />

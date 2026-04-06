@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 
-interface QrStepProps {
+interface TwoFactorQRCodeProps {
   totpUri: string;
-  onContinue: () => void;
+  onDone: () => void;
 }
 
-export function QrStep({ totpUri, onContinue }: QrStepProps) {
+export const TwoFactorQRCode = ({ totpUri, onDone }: TwoFactorQRCodeProps) => {
   return (
     <div className="space-y-4">
       <div>
@@ -22,9 +22,9 @@ export function QrStep({ totpUri, onContinue }: QrStepProps) {
           Or enter manually: <code className="font-mono text-xs break-all">{totpUri}</code>
         </p>
       </div>
-      <Button onClick={onContinue} className="w-full sm:w-auto">
+      <Button onClick={onDone} className="w-full sm:w-auto">
         I've scanned the code
       </Button>
     </div>
   );
-}
+};

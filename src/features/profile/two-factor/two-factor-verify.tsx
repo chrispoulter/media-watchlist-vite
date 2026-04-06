@@ -15,26 +15,26 @@ import {
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
 
-const schema = z.object({
+const verifyTotpSchema = z.object({
   code: z.string().length(6, "Code must be 6 digits"),
 });
 
-type FormValues = z.infer<typeof schema>;
+type VerifyTotpFormValues = z.infer<typeof verifyTotpSchema>;
 
-interface VerifyStepProps {
+interface TwoFactorVerifyProps {
   onSuccess: () => void;
-  onBack: () => void;
+  onCancel: () => void;
 }
 
-export function VerifyStep({ onSuccess, onBack }: VerifyStepProps) {
+export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(schema),
+  const form = useForm<VerifyTotpFormValues>({
+    resolver: zodResolver(verifyTotpSchema),
     defaultValues: { code: "" },
   });
 
-  const handleSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: VerifyTotpFormValues) => {
     setIsLoading(true);
     const result = await authClient.twoFactor.verifyTotp({ code: values.code });
     setIsLoading(false);
@@ -50,7 +50,7 @@ export function VerifyStep({ onSuccess, onBack }: VerifyStepProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="code"
@@ -77,7 +77,7 @@ export function VerifyStep({ onSuccess, onBack }: VerifyStepProps) {
           <Button type="submit" disabled={isLoading}>
             {isLoading ? "Verifying..." : "Verify & enable"}
           </Button>
-          <Button type="button" variant="outline" onClick={onBack}>
+          <Button type="button" variant="outline" onClick={onCancel}>
             Back
           </Button>
         </div>

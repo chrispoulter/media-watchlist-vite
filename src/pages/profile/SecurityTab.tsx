@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChangePasswordForm } from "@/features/profile/change-password-form";
 import { SetPassword } from "@/features/profile/set-password";
-import { TwoFactorSettings } from "@/features/profile/two-factor-settings";
+import { TwoFactorSettings } from "@/features/profile/two-factor/two-factor-settings";
 import { LinkedAccounts, type Account } from "@/features/profile/linked-accounts";
 import { authClient } from "@/lib/auth-client";
 

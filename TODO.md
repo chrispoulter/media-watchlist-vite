@@ -1,6 +1,5 @@
 # TODO
 
-- multi step/stage pages
 - axios ????
 - loading state on redirect
 - global error handling
