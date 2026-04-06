@@ -8,7 +8,7 @@ export function RequireAuth() {
 
   if (isPending) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex flex-1 items-center justify-center">
         <LoadingSpinner />
       </div>
     );
