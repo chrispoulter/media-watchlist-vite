@@ -5,7 +5,6 @@
 - global error handling
 - software version
 - header layout. just a search icon?
-- poster fallbacks (media-libray)
 
 ## Bugfixes
 

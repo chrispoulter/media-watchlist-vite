@@ -21,9 +21,8 @@ export function MediaCard({
 }: MediaCardProps) {
   const year = releaseDate ? new Date(releaseDate).getFullYear() : undefined;
 
-  const posterUrl = posterPath
-    ? `https://image.tmdb.org/t/p/w300${posterPath}`
-    : "/placeholder.svg";
+  const fallback = mediaType === "tv" ? "/default-tv-show.svg" : "/default-movie.svg";
+  const posterUrl = posterPath ? `https://image.tmdb.org/t/p/w300${posterPath}` : fallback;
 
   return (
     <Card className="flex flex-col overflow-hidden">
@@ -33,7 +32,7 @@ export function MediaCard({
           alt={title}
           className="h-full w-full object-cover"
           onError={(e) => {
-            e.currentTarget.src = "/placeholder.svg";
+            e.currentTarget.src = fallback;
           }}
         />
         <Badge variant="secondary" className="absolute top-2 left-2 text-xs uppercase">
