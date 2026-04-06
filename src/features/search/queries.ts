@@ -9,13 +9,13 @@ export const searchKeys = {
 export function useSearch(query: string) {
   return useQuery({
     queryKey: searchKeys.results(query),
-    queryFn: async () => {
-      const data = await api.get<SearchResult[]>("/api/search", {
-        params: { q: query },
-      });
-
-      return data;
-    },
+    queryFn: ({ signal }) =>
+      api
+        .get("/api/search", {
+          searchParams: { q: query },
+          signal,
+        })
+        .json<SearchResult[]>(),
     enabled: query.trim().length >= 2,
     staleTime: 60_000,
     refetchOnWindowFocus: false,

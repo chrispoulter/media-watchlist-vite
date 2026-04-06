@@ -9,10 +9,7 @@ export const watchlistKeys = {
 export function useWatchlist() {
   return useQuery({
     queryKey: watchlistKeys.all,
-    queryFn: async () => {
-      const data = await api.get<WatchlistItem[]>("/api/watchlist");
-      return data;
-    },
+    queryFn: ({ signal }) => api.get("/api/watchlist", { signal }).json<WatchlistItem[]>(),
   });
 }
 
@@ -20,10 +17,8 @@ export function useAddToWatchlist() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (item: Omit<WatchlistItem, "id" | "addedAt">) => {
-      const data = await api.post<WatchlistItem>("/api/watchlist", item);
-      return data;
-    },
+    mutationFn: (item: Omit<WatchlistItem, "id" | "addedAt">) =>
+      api.post("/api/watchlist", { json: item }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
     },
@@ -34,9 +29,7 @@ export function useRemoveFromWatchlist() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: number) => {
-      await api.delete(`/api/watchlist/${id}`);
-    },
+    mutationFn: (id: number) => api.delete(`/api/watchlist/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
     },
