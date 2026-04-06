@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { RootLayout } from "@/components/layout/RootLayout";
-import { RequireAuth } from "@/components/auth/RequireAuth";
-import { RequireGuest } from "@/components/auth/RequireGuest";
+import { RequireAuth } from "@/components/RequireAuth";
+import { RequireGuest } from "@/components/RequireGuest";
 
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { RegisterPage } from "@/pages/auth/RegisterPage";

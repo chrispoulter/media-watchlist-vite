@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { authClient } from "@/lib/auth-client";
 
 export function RequireAuth() {

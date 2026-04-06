@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { LoginForm } from "@/features/auth/login-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { SocialSignInButtons } from "@/components/auth/SocialSignInButtons";
+import { SocialSignInButtons } from "@/components/SocialSignInButtons";
 
 export function LoginPage() {
   return (
