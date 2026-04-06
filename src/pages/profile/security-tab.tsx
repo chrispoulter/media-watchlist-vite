@@ -6,6 +6,36 @@ import { TwoFactorSettings } from "@/features/profile/two-factor/two-factor-sett
 import { LinkedAccounts } from "@/features/profile/linked-accounts";
 import { useAccounts } from "@/features/profile/queries";
 
+function ChangePasswordCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader>
+        <Skeleton className="h-6 w-36" />
+        <Skeleton className="mt-1 h-4 w-52" />
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-9 w-24" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function LinkedAccountsSkeleton() {
+  return (
+    <div className="space-y-4">
+      <Skeleton className="h-6 w-40" />
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-10 w-full" />
+    </div>
+  );
+}
+
 export function SecurityTab() {
   const { data: accounts = [], isPending } = useAccounts();
 
@@ -15,36 +45,21 @@ export function SecurityTab() {
     <>
       <title>Security | Media Watchlist</title>
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            {isPending ? (
-              <>
-                <Skeleton className="h-6 w-36" />
-                <Skeleton className="mt-1 h-4 w-52" />
-              </>
-            ) : (
-              <>
-                <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
-                <CardDescription>
-                  {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
-                </CardDescription>
-              </>
-            )}
-          </CardHeader>
-          <CardContent>
-            {isPending ? (
-              <div className="space-y-3">
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-9 w-24" />
-              </div>
-            ) : hasCredentialAccount ? (
-              <ChangePasswordForm />
-            ) : (
-              <SetPassword />
-            )}
-          </CardContent>
-        </Card>
+        {isPending ? (
+          <ChangePasswordCardSkeleton />
+        ) : (
+          <Card>
+            <CardHeader>
+              <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
+              <CardDescription>
+                {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {hasCredentialAccount ? <ChangePasswordForm /> : <SetPassword />}
+            </CardContent>
+          </Card>
+        )}
 
         <Card>
           <CardHeader>
@@ -65,15 +80,7 @@ export function SecurityTab() {
               Connect your account to a third-party provider for passwordless sign-in
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            {isPending ? (
-              <div className="space-y-3">
-                <Skeleton className="h-10 w-full" />
-              </div>
-            ) : (
-              <LinkedAccounts />
-            )}
-          </CardContent>
+          <CardContent>{isPending ? <LinkedAccountsSkeleton /> : <LinkedAccounts />}</CardContent>
         </Card>
       </div>
     </>

@@ -15,9 +15,7 @@ export function LinkedAccounts() {
 
   const canUnlink = (providerId: string) => accounts.some((a) => a.providerId !== providerId);
 
-  const handleConnect = (providerId: string) => {
-    linkSocial(providerId);
-  };
+  const handleConnect = (providerId: string) => linkSocial(providerId);
 
   const handleDisconnect = async (providerId: string, label: string) => {
     const { error } = await unlinkAccount(providerId);

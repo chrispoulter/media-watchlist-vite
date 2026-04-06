@@ -44,7 +44,7 @@ export function UpdateEmailForm() {
         return prev;
       });
     }
-  }, []);
+  }, [searchParams, setSearchParams]);
 
   const form = useForm<UpdateEmailFormValues>({
     resolver: zodResolver(updateEmailSchema),

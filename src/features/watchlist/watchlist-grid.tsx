@@ -1,25 +1,29 @@
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, Watch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { WatchlistItemCard } from "./watchlist-item-card";
 import { useWatchlist } from "./queries";
 
+function WatchlistGridSkeleton() {
+  return (
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <div key={i} className="space-y-2">
+          <Skeleton className="aspect-2/3 w-full rounded-lg" />
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-3 w-1/2" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function WatchlistGrid() {
   const { data: items, isLoading, error } = useWatchlist();
 
   if (isLoading) {
-    return (
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="space-y-2">
-            <Skeleton className="aspect-2/3 w-full rounded-lg" />
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-3 w-1/2" />
-          </div>
-        ))}
-      </div>
-    );
+    return <WatchlistGridSkeleton />;
   }
 
   if (error) {
@@ -30,7 +34,7 @@ export function WatchlistGrid() {
     );
   }
 
-  if (!items || items.length === 0) {
+  if (!items) {
     return (
       <div className="py-24 text-center">
         <p className="mb-4 text-lg font-medium">Your watchlist is empty</p>
