@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
+import { useGenerateBackupCodes } from "@/features/profile/queries";
 
 const generateBackupCodesSchema = z.object({
   password: z.string().min(1, "Password is required"),
@@ -30,7 +29,7 @@ export function TwoFactorConfirmBackupCodes({
   onRegenerated,
   onCancel,
 }: TwoFactorConfirmBackupCodesProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: generateBackupCodes, isPending } = useGenerateBackupCodes();
 
   const form = useForm<GenerateBackupCodesFormValues>({
     resolver: zodResolver(generateBackupCodesSchema),
@@ -38,9 +37,7 @@ export function TwoFactorConfirmBackupCodes({
   });
 
   const onSubmit = async (values: GenerateBackupCodesFormValues) => {
-    setIsLoading(true);
-    const result = await authClient.twoFactor.generateBackupCodes({ password: values.password });
-    setIsLoading(false);
+    const result = await generateBackupCodes(values.password);
 
     if (result.error) {
       toast.error(result.error.message ?? "Failed to regenerate backup codes");
@@ -72,8 +69,8 @@ export function TwoFactorConfirmBackupCodes({
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? "Regenerating..." : "Regenerate codes"}
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Regenerating..." : "Regenerate codes"}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel

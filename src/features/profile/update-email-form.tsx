@@ -15,7 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { authClient } from "@/lib/auth-client";
+import { useSession } from "@/features/auth/queries";
+import { useChangeEmail } from "@/features/profile/queries";
 
 const verificationErrorMessages: Record<string, string> = {
   USER_NOT_FOUND: "This verification link has already been used or has expired.",
@@ -28,15 +29,16 @@ const updateEmailSchema = z.object({
 type UpdateEmailFormValues = z.infer<typeof updateEmailSchema>;
 
 export function UpdateEmailForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
-  const { data: session } = authClient.useSession();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+  const { data: session } = useSession();
+  const { mutateAsync: changeEmail, isPending } = useChangeEmail();
 
   useEffect(() => {
     const error = searchParams.get("error");
     if (error) {
       toast.error(verificationErrorMessages[error] ?? "Email verification failed.");
+
       setSearchParams((prev) => {
         prev.delete("error");
         return prev;
@@ -50,12 +52,7 @@ export function UpdateEmailForm() {
   });
 
   const onSubmit = async (values: UpdateEmailFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.changeEmail({
-      newEmail: values.newEmail,
-      callbackURL: `${window.location.origin}/profile`,
-    });
-    setIsLoading(false);
+    const { error } = await changeEmail(values.newEmail);
 
     if (error) {
       toast.error(error.message ?? "Failed to update email");
@@ -121,8 +118,8 @@ export function UpdateEmailForm() {
             )}
           />
 
-          <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
-            {isLoading ? "Sending verification..." : "Update email"}
+          <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
+            {isPending ? "Sending verification..." : "Update email"}
           </Button>
         </form>
       </Form>

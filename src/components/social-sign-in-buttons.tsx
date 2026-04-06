@@ -1,30 +1,30 @@
 import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
+import { useSocialSignIn } from "@/features/auth/queries";
 import { authProviders } from "@/lib/auth-providers";
 
 export function SocialSignInButtons() {
-  const handleSignIn = async (provider: string) => {
-    await authClient.signIn.social({
-      provider,
-      callbackURL: `${window.location.origin}/`,
-      errorCallbackURL: `${window.location.origin}/auth/error`,
-    });
-  };
+  const { mutate: signIn, isPending, variables } = useSocialSignIn();
 
   return (
     <>
-      {authProviders.map((provider) => (
-        <Button
-          key={provider.id}
-          variant="outline"
-          className="w-full"
-          type="button"
-          onClick={() => handleSignIn(provider.id)}
-        >
-          {provider.icon}
-          <span className="ml-2">Continue with {provider.label}</span>
-        </Button>
-      ))}
+      {authProviders.map((provider) => {
+        const isProviderPending = isPending && variables === provider.id;
+        return (
+          <Button
+            key={provider.id}
+            variant="outline"
+            className="w-full"
+            type="button"
+            disabled={isProviderPending}
+            onClick={() => signIn(provider.id)}
+          >
+            {provider.icon}
+            <span className="ml-2">
+              {isProviderPending ? "Connecting..." : `Continue with ${provider.label}`}
+            </span>
+          </Button>
+        );
+      })}
     </>
   );
 }

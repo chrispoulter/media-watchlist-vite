@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
+import { useDisableTwoFactor } from "@/features/profile/queries";
 
 const disableTwoFactorSchema = z.object({
   password: z.string().min(1, "Password is required"),
@@ -27,7 +26,7 @@ interface TwoFactorConfirmDisableProps {
 }
 
 export function TwoFactorConfirmDisable({ onDisabled, onCancel }: TwoFactorConfirmDisableProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: disableTwoFactor, isPending } = useDisableTwoFactor();
 
   const form = useForm<DisableTwoFactorFormValues>({
     resolver: zodResolver(disableTwoFactorSchema),
@@ -35,9 +34,7 @@ export function TwoFactorConfirmDisable({ onDisabled, onCancel }: TwoFactorConfi
   });
 
   const onSubmit = async (values: DisableTwoFactorFormValues) => {
-    setIsLoading(true);
-    const result = await authClient.twoFactor.disable({ password: values.password });
-    setIsLoading(false);
+    const result = await disableTwoFactor(values.password);
 
     if (result.error) {
       toast.error(result.error.message ?? "Failed to disable 2FA");
@@ -70,8 +67,8 @@ export function TwoFactorConfirmDisable({ onDisabled, onCancel }: TwoFactorConfi
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" variant="destructive" disabled={isLoading}>
-            {isLoading ? "Disabling..." : "Disable 2FA"}
+          <Button type="submit" variant="destructive" disabled={isPending}>
+            {isPending ? "Disabling..." : "Disable 2FA"}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel

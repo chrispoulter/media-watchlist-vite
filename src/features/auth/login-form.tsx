@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { authClient } from "@/lib/auth-client";
+import { useSignIn } from "@/features/auth/queries";
 
 const loginSchema = z.object({
   email: z.email("Invalid email address"),
@@ -25,9 +24,9 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { mutateAsync: signIn, isPending } = useSignIn();
 
   const from = location.state?.from?.pathname ?? "/";
 
@@ -37,13 +36,7 @@ export function LoginForm() {
   });
 
   const onSubmit = async (values: LoginFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.signIn.email({
-      email: values.email,
-      password: values.password,
-      rememberMe: values.rememberMe,
-    });
-    setIsLoading(false);
+    const { error } = await signIn(values);
 
     if (error) {
       toast.error(error.message ?? "Sign in failed");
@@ -123,8 +116,8 @@ export function LoginForm() {
           </a>
         </div>
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Signing in..." : "Sign in"}
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Signing in..." : "Sign in"}
         </Button>
       </form>
     </Form>

@@ -1,31 +1,28 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
+import { useSession } from "@/features/auth/queries";
+import { useSetPasswordReset } from "@/features/profile/queries";
 
 export function SetPassword() {
-  const [status, setStatus] = useState<"idle" | "loading" | "sent">("idle");
-  const { data: session } = authClient.useSession();
+  const [sent, setSent] = useState(false);
+  const { data: session } = useSession();
+  const { mutateAsync: requestReset, isPending } = useSetPasswordReset();
 
   const email = session?.user.email ?? "";
 
   const handleSend = async () => {
-    setStatus("loading");
-    const { error } = await authClient.requestPasswordReset({
-      email,
-      redirectTo: `${window.location.origin}/reset-password`,
-    });
+    const { error } = await requestReset(email);
 
     if (error) {
       toast.error(error.message ?? "Failed to send password setup email");
-      setStatus("idle");
       return;
     }
 
-    setStatus("sent");
+    setSent(true);
   };
 
-  if (status === "sent") {
+  if (sent) {
     return (
       <div className="space-y-2">
         <p className="text-sm">
@@ -44,8 +41,8 @@ export function SetPassword() {
       <p className="text-muted-foreground text-sm">
         You currently sign in with Google. Add a password to also sign in with your email address.
       </p>
-      <Button onClick={handleSend} disabled={status === "loading"} className="w-full sm:w-auto">
-        {status === "loading" ? "Sending..." : "Send password setup email"}
+      <Button onClick={handleSend} disabled={isPending} className="w-full sm:w-auto">
+        {isPending ? "Sending..." : "Send password setup email"}
       </Button>
     </div>
   );

@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { LoadingSpinner } from "@/components/loading-spinner";
-import { authClient } from "@/lib/auth-client";
+import { useSession } from "@/features/auth/queries";
 
 export function RequireGuest() {
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending } = useSession();
 
   if (isPending) {
     return (

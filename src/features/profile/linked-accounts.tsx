@@ -1,93 +1,41 @@
-import { useState } from "react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
 import { authProviders } from "@/lib/auth-providers";
-// import { Skeleton } from "@/components/ui/skeleton";
+import { useAccounts, useLinkSocial, useUnlinkAccount } from "@/features/profile/queries";
 
-export interface Account {
-  id: string;
-  providerId: string;
-  accountId: string;
-  userId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  scopes: string[];
-}
+export function LinkedAccounts() {
+  const { data: accounts = [] } = useAccounts();
 
-interface LinkedAccountsProps {
-  initialAccounts?: Account[];
-}
+  const { mutate: linkSocial, isPending: isLinking, variables: linkingProvider } = useLinkSocial();
 
-export function LinkedAccounts({ initialAccounts }: LinkedAccountsProps) {
-  const [accounts, setAccounts] = useState<Account[]>(initialAccounts ?? []);
-  // const [isLoadingAccounts, setIsLoadingAccounts] = useState(!initialAccounts);
-  const [actionProvider, setActionProvider] = useState<string | null>(null);
-
-  const fetchAccounts = async () => {
-    const result = await authClient.listAccounts();
-    if (result.error) {
-      toast.error(result.error.message ?? "Failed to load linked accounts");
-      return;
-    }
-    setAccounts((result.data as Account[]) ?? []);
-  };
-
-  // useEffect(() => {
-  //   if (initialAccounts) return;
-  //   const load = async () => {
-  //     setIsLoadingAccounts(true);
-  //     await fetchAccounts();
-  //     setIsLoadingAccounts(false);
-  //   };
-  //   load();
-  // }, []);
+  const { mutateAsync: unlinkAccount, isPending: isUnlinking } = useUnlinkAccount();
 
   const isLinked = (providerId: string) => accounts.some((a) => a.providerId === providerId);
+
   const canUnlink = (providerId: string) => accounts.some((a) => a.providerId !== providerId);
 
-  const handleConnect = async (providerId: string) => {
-    setActionProvider(providerId);
-    const result = await authClient.linkSocial({
-      provider: providerId as Parameters<typeof authClient.linkSocial>[0]["provider"],
-      callbackURL: window.location.href,
-      errorCallbackURL: `${window.location.origin}/auth/error`,
-    });
-    setActionProvider(null);
-    if (result?.error) {
-      toast.error(result.error.message ?? `Failed to connect ${providerId} account`);
-    }
+  const handleConnect = (providerId: string) => {
+    linkSocial(providerId);
   };
 
   const handleDisconnect = async (providerId: string, label: string) => {
-    setActionProvider(providerId);
-    const result = await authClient.unlinkAccount({ providerId });
-    setActionProvider(null);
-    if (result.error) {
-      toast.error(result.error.message ?? `Failed to disconnect ${label} account`);
+    const { error } = await unlinkAccount(providerId);
+
+    if (error) {
+      toast.error(error.message ?? `Failed to disconnect ${label} account`);
       return;
     }
-    toast.success(`${label} account disconnected`);
-    await fetchAccounts();
-  };
 
-  // if (isLoadingAccounts) {
-  //   return (
-  //     <div className="space-y-3">
-  //       {PROVIDERS.map((p) => (
-  //         <Skeleton key={p.id} className="h-10 w-full" />
-  //       ))}
-  //     </div>
-  //   );
-  // }
+    toast.success(`${label} account disconnected`);
+  };
 
   return (
     <div className="space-y-4">
       {authProviders.map((provider) => {
         const linked = isLinked(provider.id);
         const unlinkable = canUnlink(provider.id);
-        const inFlight = actionProvider === provider.id;
+        const inFlight = (isLinking || isUnlinking) && linkingProvider === provider.id;
 
         return (
           <div key={provider.id} className="flex items-center justify-between">

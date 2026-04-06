@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { authClient } from "@/lib/auth-client";
+import { useForgotPassword } from "@/features/auth/queries";
 
 const forgotPasswordSchema = z.object({
   email: z.email("Invalid email address"),
@@ -22,8 +22,8 @@ const forgotPasswordSchema = z.object({
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 export function ForgotPasswordForm() {
-  const [isLoading, setIsLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const { mutateAsync: forgotPassword, isPending } = useForgotPassword();
 
   const form = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -31,12 +31,7 @@ export function ForgotPasswordForm() {
   });
 
   const onSubmit = async (values: ForgotPasswordFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.requestPasswordReset({
-      email: values.email,
-      redirectTo: `${window.location.origin}/reset-password`,
-    });
-    setIsLoading(false);
+    const { error } = await forgotPassword(values.email);
 
     if (error) {
       toast.error(error.message ?? "Failed to send reset email");
@@ -79,8 +74,8 @@ export function ForgotPasswordForm() {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Sending..." : "Send reset link"}
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Sending..." : "Send reset link"}
         </Button>
       </form>
     </Form>

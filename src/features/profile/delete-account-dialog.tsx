@@ -12,17 +12,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { authClient } from "@/lib/auth-client";
+import { useDeleteUser } from "@/features/profile/queries";
 
 export function DeleteAccountDialog() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { mutateAsync: deleteUser, isPending } = useDeleteUser();
 
   const handleDelete = async () => {
-    setIsLoading(true);
-    const { error } = await authClient.deleteUser();
-    setIsLoading(false);
+    const { error } = await deleteUser();
 
     if (error) {
       toast.error(error.message ?? "Failed to delete account");
@@ -54,8 +52,8 @@ export function DeleteAccountDialog() {
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
-          <Button variant="destructive" onClick={handleDelete} disabled={isLoading}>
-            {isLoading ? "Deleting..." : "Yes, delete my account"}
+          <Button variant="destructive" onClick={handleDelete} disabled={isPending}>
+            {isPending ? "Deleting..." : "Yes, delete my account"}
           </Button>
         </DialogFooter>
       </DialogContent>

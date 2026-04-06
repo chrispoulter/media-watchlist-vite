@@ -8,14 +8,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { authClient } from "@/lib/auth-client";
+import { useSession, useSignOut } from "@/features/auth/queries";
 
 export function UserMenu() {
-  const { data: session } = authClient.useSession();
   const navigate = useNavigate();
+  const { data: session } = useSession();
+  const { mutateAsync: signOut } = useSignOut();
 
   const handleSignOut = async () => {
-    await authClient.signOut();
+    await signOut();
     navigate("/login");
   };
 

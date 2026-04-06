@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { useVerifyTotpLogin } from "@/features/auth/queries";
 
 const twoFactorSchema = z.object({
   code: z.string().length(6, "Code must be 6 digits"),
@@ -27,8 +26,8 @@ interface TwoFactorFormProps {
 }
 
 export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { mutateAsync: verifyTotp, isPending } = useVerifyTotpLogin();
 
   const form = useForm<TwoFactorFormValues>({
     resolver: zodResolver(twoFactorSchema),
@@ -36,9 +35,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
   });
 
   const onSubmit = async (values: TwoFactorFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.twoFactor.verifyTotp({ code: values.code });
-    setIsLoading(false);
+    const { error } = await verifyTotp(values.code);
 
     if (error) {
       toast.error(error.message ?? "Invalid code");
@@ -78,8 +75,8 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Verifying..." : "Verify"}
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Verifying..." : "Verify"}
         </Button>
 
         <Button type="button" variant="link" className="w-full" onClick={onBack}>

@@ -1,24 +1,13 @@
-import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChangePasswordForm } from "@/features/profile/change-password-form";
 import { SetPassword } from "@/features/profile/set-password";
 import { TwoFactorSettings } from "@/features/profile/two-factor/two-factor-settings";
-import { LinkedAccounts, type Account } from "@/features/profile/linked-accounts";
-import { authClient } from "@/lib/auth-client";
+import { LinkedAccounts } from "@/features/profile/linked-accounts";
+import { useAccounts } from "@/features/profile/queries";
 
 export function SecurityTab() {
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
-
-  useEffect(() => {
-    authClient.listAccounts().then((result) => {
-      if (!result.error) {
-        setAccounts(result.data ?? []);
-      }
-      setIsLoadingAccounts(false);
-    });
-  }, []);
+  const { data: accounts = [], isPending } = useAccounts();
 
   const hasCredentialAccount = accounts.some((a) => a.providerId === "credential");
 
@@ -28,7 +17,7 @@ export function SecurityTab() {
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            {isLoadingAccounts ? (
+            {isPending ? (
               <>
                 <Skeleton className="h-6 w-36" />
                 <Skeleton className="mt-1 h-4 w-52" />
@@ -43,7 +32,7 @@ export function SecurityTab() {
             )}
           </CardHeader>
           <CardContent>
-            {isLoadingAccounts ? (
+            {isPending ? (
               <div className="space-y-3">
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
@@ -77,12 +66,12 @@ export function SecurityTab() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {isLoadingAccounts ? (
+            {isPending ? (
               <div className="space-y-3">
                 <Skeleton className="h-10 w-full" />
               </div>
             ) : (
-              <LinkedAccounts initialAccounts={accounts} />
+              <LinkedAccounts />
             )}
           </CardContent>
         </Card>

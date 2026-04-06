@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { authClient } from "@/lib/auth-client";
+import { useVerifyTotpSetup } from "@/features/profile/queries";
 
 const verifyTotpSchema = z.object({
   code: z.string().length(6, "Code must be 6 digits"),
@@ -27,7 +26,7 @@ interface TwoFactorVerifyProps {
 }
 
 export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: verifyTotp, isPending } = useVerifyTotpSetup();
 
   const form = useForm<VerifyTotpFormValues>({
     resolver: zodResolver(verifyTotpSchema),
@@ -35,9 +34,7 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
   });
 
   const onSubmit = async (values: VerifyTotpFormValues) => {
-    setIsLoading(true);
-    const result = await authClient.twoFactor.verifyTotp({ code: values.code });
-    setIsLoading(false);
+    const result = await verifyTotp(values.code);
 
     if (result.error) {
       toast.error(result.error.message ?? "Invalid code");
@@ -74,8 +71,8 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? "Verifying..." : "Verify & enable"}
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Verifying..." : "Verify & enable"}
           </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Back

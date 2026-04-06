@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,7 +12,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { authClient } from "@/lib/auth-client";
+import { useSession } from "@/features/auth/queries";
+import { useUpdateUser } from "@/features/profile/queries";
 
 const updateProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -22,8 +22,8 @@ const updateProfileSchema = z.object({
 type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export function UpdateProfileForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  const { data: session } = authClient.useSession();
+  const { data: session } = useSession();
+  const { mutateAsync: updateUser, isPending } = useUpdateUser();
 
   const user = session?.user;
 
@@ -35,11 +35,7 @@ export function UpdateProfileForm() {
   });
 
   const onSubmit = async (values: UpdateProfileFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.updateUser({
-      name: values.name,
-    });
-    setIsLoading(false);
+    const { error } = await updateUser({ name: values.name });
 
     if (error) {
       toast.error(error.message ?? "Failed to update profile");
@@ -66,8 +62,8 @@ export function UpdateProfileForm() {
           )}
         />
 
-        <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
-          {isLoading ? "Saving..." : "Save changes"}
+        <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
+          {isPending ? "Saving..." : "Save changes"}
         </Button>
       </form>
     </Form>

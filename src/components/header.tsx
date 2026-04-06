@@ -7,8 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSession } from "@/features/auth/queries";
 import { UserMenu } from "./user-menu";
-import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -17,7 +17,8 @@ const navItems = [
 ];
 
 export function Header() {
-  const { data: session } = authClient.useSession();
+  const { data: session } = useSession();
+
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { authClient } from "@/lib/auth-client";
+import { useSignUp } from "@/features/auth/queries";
 
 const registerSchema = z
   .object({
@@ -32,8 +31,8 @@ const registerSchema = z
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { mutateAsync: signUp, isPending } = useSignUp();
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -47,13 +46,11 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (values: RegisterFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.signUp.email({
+    const { error } = await signUp({
       email: values.email,
       password: values.password,
       name: values.name,
     });
-    setIsLoading(false);
 
     if (error) {
       toast.error(error.message ?? "Registration failed");
@@ -138,8 +135,8 @@ export function RegisterForm() {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Creating account..." : "Create account"}
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Creating account..." : "Create account"}
         </Button>
       </form>
     </Form>

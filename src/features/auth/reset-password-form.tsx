@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { authClient } from "@/lib/auth-client";
+import { useResetPassword } from "@/features/auth/queries";
 
 const resetPasswordSchema = z
   .object({
@@ -29,9 +28,9 @@ const resetPasswordSchema = z
 type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
 export function ResetPasswordForm() {
-  const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { mutateAsync: resetPassword, isPending } = useResetPassword();
 
   const token = searchParams.get("token") ?? "";
 
@@ -41,12 +40,7 @@ export function ResetPasswordForm() {
   });
 
   const onSubmit = async (values: ResetPasswordFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.resetPassword({
-      newPassword: values.newPassword,
-      token,
-    });
-    setIsLoading(false);
+    const { error } = await resetPassword({ newPassword: values.newPassword, token });
 
     if (error) {
       toast.error(error.message ?? "Failed to reset password");
@@ -106,8 +100,8 @@ export function ResetPasswordForm() {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Resetting..." : "Reset password"}
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Resetting..." : "Reset password"}
         </Button>
       </form>
     </Form>

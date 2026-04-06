@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { authClient } from "@/lib/auth-client";
+import { useChangePassword } from "@/features/profile/queries";
 
 const changePasswordSchema = z
   .object({
@@ -29,7 +28,7 @@ const changePasswordSchema = z
 type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
 
 export function ChangePasswordForm() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: changePassword, isPending } = useChangePassword();
 
   const form = useForm<ChangePasswordFormValues>({
     resolver: zodResolver(changePasswordSchema),
@@ -37,13 +36,10 @@ export function ChangePasswordForm() {
   });
 
   const onSubmit = async (values: ChangePasswordFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.changePassword({
+    const { error } = await changePassword({
       currentPassword: values.currentPassword,
       newPassword: values.newPassword,
-      revokeOtherSessions: true,
     });
-    setIsLoading(false);
 
     if (error) {
       toast.error(error.message ?? "Failed to change password");
@@ -114,8 +110,8 @@ export function ChangePasswordForm() {
           )}
         />
 
-        <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
-          {isLoading ? "Changing..." : "Change password"}
+        <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
+          {isPending ? "Changing..." : "Change password"}
         </Button>
       </form>
     </Form>

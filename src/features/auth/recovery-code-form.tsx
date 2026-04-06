@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
+import { useVerifyBackupCode } from "@/features/auth/queries";
 
 const recoveryCodeSchema = z.object({
   code: z.string().min(1, "Recovery code is required"),
@@ -27,8 +26,8 @@ interface RecoveryCodeFormProps {
 }
 
 export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { mutateAsync: verifyBackupCode, isPending } = useVerifyBackupCode();
 
   const form = useForm<RecoveryCodeFormValues>({
     resolver: zodResolver(recoveryCodeSchema),
@@ -36,9 +35,7 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
   });
 
   const onSubmit = async (values: RecoveryCodeFormValues) => {
-    setIsLoading(true);
-    const { error } = await authClient.twoFactor.verifyBackupCode({ code: values.code });
-    setIsLoading(false);
+    const { error } = await verifyBackupCode(values.code);
 
     if (error) {
       toast.error(error.message ?? "Invalid code");
@@ -75,8 +72,8 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Verifying..." : "Verify"}
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Verifying..." : "Verify"}
         </Button>
 
         <Button type="button" variant="link" className="w-full" onClick={onBack}>
