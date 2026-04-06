@@ -10,7 +10,7 @@ export function ProfileTab() {
         <Card>
           <CardHeader>
             <CardTitle>Personal information</CardTitle>
-            <CardDescription>Update your name and date of birth</CardDescription>
+            <CardDescription>Update your personal details</CardDescription>
           </CardHeader>
           <CardContent>
             <UpdateProfileForm />

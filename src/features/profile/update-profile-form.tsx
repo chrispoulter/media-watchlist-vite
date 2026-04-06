@@ -16,9 +16,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 
 const updateProfileSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  dateOfBirth: z.string().min(1, "Date of birth is required"),
+  name: z.string().min(1, "Name is required"),
 });
 
 type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
@@ -32,19 +30,14 @@ export function UpdateProfileForm() {
   const form = useForm<UpdateProfileFormValues>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
-      firstName: user?.name.split(" ")[0] ?? "", // user?.firstName ?? "",
-      lastName: user?.name.split(" ")[1] ?? "", // user?.lastName ?? "",
-      dateOfBirth: "", // user?.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split("T")[0] : "",
+      name: user?.name ?? "",
     },
   });
 
   const onSubmit = async (values: UpdateProfileFormValues) => {
     setIsLoading(true);
     const { error } = await authClient.updateUser({
-      name: `${values.firstName} ${values.lastName}`,
-      // firstName: values.firstName,
-      // lastName: values.lastName,
-      // dateOfBirth: values.dateOfBirth,
+      name: values.name,
     });
     setIsLoading(false);
 
@@ -59,43 +52,14 @@ export function UpdateProfileForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First name</FormLabel>
-                <FormControl>
-                  <Input autoComplete="given-name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last name</FormLabel>
-                <FormControl>
-                  <Input autoComplete="family-name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
         <FormField
           control={form.control}
-          name="dateOfBirth"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input type="date" autoComplete="bday" {...field} />
+                <Input autoComplete="name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
