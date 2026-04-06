@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MediaCard } from "@/components/MediaCard";
+import { MediaCard } from "@/components/media-card";
 import { useRemoveFromWatchlist } from "./queries";
 import type { WatchlistItem } from "@/types";
 

@@ -1,10 +1,9 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { Navigate, Outlet } from "react-router-dom";
+import { LoadingSpinner } from "@/components/loading-spinner";
 import { authClient } from "@/lib/auth-client";
 
-export function RequireAuth() {
+export function RequireGuest() {
   const { data: session, isPending } = authClient.useSession();
-  const location = useLocation();
 
   if (isPending) {
     return (
@@ -14,8 +13,8 @@ export function RequireAuth() {
     );
   }
 
-  if (!session) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  if (session) {
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Plus, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MediaCard } from "@/components/MediaCard";
+import { MediaCard } from "@/components/media-card";
 import { useAddToWatchlist } from "@/features/watchlist/queries";
 import type { SearchResult, WatchlistItem } from "@/types";
 
