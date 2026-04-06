@@ -4,8 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TwoFactorForm } from "@/features/auth/two-factor-form";
 import { RecoveryCodeForm } from "@/features/auth/recovery-code-form";
 
+type TwoFactorMode = "totp" | "recovery";
+
 export function TwoFactorPage() {
-  const [mode, setMode] = useState<"totp" | "recovery">("totp");
+  const [mode, setMode] = useState<TwoFactorMode>("totp");
 
   return (
     <>

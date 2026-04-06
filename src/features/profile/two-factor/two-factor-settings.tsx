@@ -11,17 +11,17 @@ import { TwoFactorVerify } from "./two-factor-verify";
 import { TwoFactorQRCode } from "./two-factor-qr-code";
 import { authClient } from "@/lib/auth-client";
 
-export function TwoFactorSettings() {
-  const [step, setStep] = useState<
-    | "idle"
-    | "confirm-enable"
-    | "qr"
-    | "verify"
-    | "confirm-disable"
-    | "backup-codes"
-    | "confirm-backup-codes"
-  >("idle");
+type TwoFactorStep =
+  | "idle"
+  | "confirm-enable"
+  | "qr"
+  | "verify"
+  | "confirm-disable"
+  | "backup-codes"
+  | "confirm-backup-codes";
 
+export function TwoFactorSettings() {
+  const [step, setStep] = useState<TwoFactorStep>("idle");
   const [totpUri, setTotpUri] = useState<string>("");
   const [backupCodes, setBackupCodes] = useState<string[]>([]);
   const { data: session } = authClient.useSession();
