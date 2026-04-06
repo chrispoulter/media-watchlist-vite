@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { RootLayout } from "@/components/layout/RootLayout";
+import { RootLayout } from "@/components/RootLayout";
 import { RequireAuth } from "@/components/RequireAuth";
 import { RequireGuest } from "@/components/RequireGuest";
 
