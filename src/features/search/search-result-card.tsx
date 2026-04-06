@@ -61,7 +61,7 @@ export function SearchResultCard({ result }: SearchResultCardProps) {
             <Button
               size="sm"
               variant={confirming ? "destructive" : "outline"}
-              className="mb-2 w-full"
+              className="w-full"
               onClick={handleRemove}
               disabled={isRemoving}
             >
