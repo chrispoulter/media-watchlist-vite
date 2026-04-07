@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { accountsKeys } from "../profile/profile-queries";
 import { authClient } from "@/lib/auth-client";
 
 export const sessionKeys = {
@@ -44,7 +45,7 @@ export function useSignOut() {
     mutationFn: () => authClient.signOut(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: sessionKeys.all });
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: accountsKeys.all });
     },
   });
 }
