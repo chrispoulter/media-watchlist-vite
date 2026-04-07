@@ -13,7 +13,7 @@ Connects to [media-watchlist-api](https://github.com/chrispoulter/media-watchlis
 - **[React Hook Form](https://react-hook-form.com/)** + **[Zod](https://zod.dev/)** for forms and validation
 - **[better-auth](https://better-auth.com/)** for authentication (cookie-based sessions)
 - **[React Router v7](https://reactrouter.com/)** for client-side routing
-- **[Axios](https://axios-http.com/)** for API requests
+- **[ky](https://github.com/sindresorhus/ky)** for API requests
 - **[Sonner](https://sonner.emilkowal.ski/)** for toast notifications
 
 ## Features
@@ -43,7 +43,7 @@ Connects to [media-watchlist-api](https://github.com/chrispoulter/media-watchlis
 
 ## Prerequisites
 
-- **Node 22+**
+- **Node 24+**
 - **media-watchlist-api** running (see its README for setup)
 
 ## Getting Started
@@ -110,44 +110,31 @@ The nginx config includes `try_files $uri /index.html` for SPA routing and aggre
 
 ## CI/CD
 
-Two GitHub Actions workflows are included:
+A single GitHub Actions workflow (`ci.yml`) runs on every push and pull request across all branches.
 
-| Workflow         | Trigger                                         | Steps                                                       |
-| ---------------- | ----------------------------------------------- | ----------------------------------------------------------- |
-| `ci-dev.yml`     | Push to any branch except `main`; PRs to `main` | Type check → lint → format check                            |
-| `ci-release.yml` | Push to `main`                                  | Type check → lint → format check → build → deploy to Render |
+| Step         | Command                |
+| ------------ | ---------------------- |
+| Type check   | `npx tsc --noEmit`     |
+| Lint         | `npm run lint`         |
+| Format check | `npm run format:check` |
 
-### Required GitHub Secrets
-
-| Secret              | Description                           |
-| ------------------- | ------------------------------------- |
-| `VITE_API_URL`      | Production API base URL               |
-| `RENDER_API_KEY`    | Render API key for triggering deploys |
-| `RENDER_SERVICE_ID` | Render static site service ID         |
+No secrets or deployment steps are configured.
 
 ## Project Structure
 
 ```
 src/
-├── lib/
-│   ├── auth-client.ts      # better-auth client singleton
-│   ├── api.ts              # axios instance (withCredentials: true)
-│   └── utils.ts            # shadcn cn() helper
-├── types/index.ts          # shared TypeScript types
+├── lib/                    # ky client, better-auth singleton, utilities
+├── types/                  # shared TypeScript types
 ├── components/
 │   ├── ui/                 # shadcn/ui generated components
-│   ├── layout/             # RootLayout, Header, UserMenu
-│   ├── auth/               # RequireAuth, RequireGuest route guards
-│   └── shared/             # LoadingSpinner, ErrorMessage, MediaCard
+│   └── ...                 # layout, route guards, shared UI
 ├── pages/
-│   ├── auth/               # Login, Register, TwoFactor, ForgotPassword, ResetPassword
-│   ├── WatchlistPage.tsx
-│   ├── SearchPage.tsx
-│   └── profile/
-│       └── ProfilePage.tsx # Tabs: Profile / Security / Danger Zone
+│   ├── auth/               # login, register, two-factor, forgot/reset password
+│   └── profile/            # profile, security, and danger zone tabs
 └── features/
-    ├── auth/               # Zod schemas + form components
-    ├── profile/            # Profile update forms, 2FA settings, delete dialog
+    ├── auth/               # form components + React Query hooks
+    ├── profile/            # profile forms, linked accounts, 2FA settings
     ├── watchlist/          # React Query hooks, grid, item cards
-    └── search/             # Debounced search bar, result cards
+    └── search/             # debounced search bar, result cards
 ```
