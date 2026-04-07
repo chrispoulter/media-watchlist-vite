@@ -37,9 +37,9 @@ function LinkedAccountsSkeleton() {
 }
 
 export function SecurityTab() {
-  const { data: accounts = [], isPending } = useAccounts();
+  const { data: accounts, isPending } = useAccounts();
 
-  const hasCredentialAccount = accounts.some((a) => a.providerId === "credential");
+  const hasCredentialAccount = accounts?.some((a) => a.providerId === "credential");
 
   return (
     <>

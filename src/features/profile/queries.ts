@@ -21,8 +21,12 @@ export function useAccounts() {
     queryKey: accountsKeys.all,
     queryFn: async () => {
       const { data, error } = await authClient.listAccounts();
-      if (error) throw new Error(error.message ?? "Failed to load accounts");
-      return (data ?? []) as Account[];
+
+      if (error) {
+        throw new Error(error.message ?? "Failed to load accounts");
+      }
+
+      return data;
     },
   });
 }
@@ -72,7 +76,6 @@ export function useDeleteUser() {
     mutationFn: () => authClient.deleteUser(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: sessionKeys.all });
-      queryClient.invalidateQueries({ queryKey: accountsKeys.all });
     },
   });
 }

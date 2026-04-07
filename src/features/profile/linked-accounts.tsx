@@ -5,15 +5,15 @@ import { authProviders } from "@/lib/auth-providers";
 import { useAccounts, useLinkSocial, useUnlinkAccount } from "@/features/profile/queries";
 
 export function LinkedAccounts() {
-  const { data: accounts = [] } = useAccounts();
+  const { data: accounts } = useAccounts();
 
   const { mutate: linkSocial, isPending: isLinking, variables: linkingProvider } = useLinkSocial();
 
   const { mutateAsync: unlinkAccount, isPending: isUnlinking } = useUnlinkAccount();
 
-  const isLinked = (providerId: string) => accounts.some((a) => a.providerId === providerId);
+  const isLinked = (providerId: string) => accounts?.some((a) => a.providerId === providerId);
 
-  const canUnlink = (providerId: string) => accounts.some((a) => a.providerId !== providerId);
+  const canUnlink = (providerId: string) => accounts?.some((a) => a.providerId !== providerId);
 
   const handleConnect = (providerId: string) => linkSocial(providerId);
 
