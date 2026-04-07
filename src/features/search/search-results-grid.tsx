@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSearch } from "./queries";
+import { useSearch } from "./search-queries";
 import { SearchBar } from "./search-bar";
 import { SearchResultCard } from "./search-result-card";
 

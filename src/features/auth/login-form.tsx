@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useSignIn } from "@/features/auth/queries";
+import { useSignIn } from "@/features/auth/auth-queries";
 
 const loginSchema = z.object({
   email: z.email("Invalid email address"),

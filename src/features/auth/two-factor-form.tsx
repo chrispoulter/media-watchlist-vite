@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { useVerifyTotpLogin } from "@/features/auth/queries";
+import { useVerifyTotpLogin } from "@/features/auth/auth-queries";
 
 const twoFactorSchema = z.object({
   code: z.string().length(6, "Code must be 6 digits"),

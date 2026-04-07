@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useSignUp } from "@/features/auth/queries";
+import { useSignUp } from "@/features/auth/auth-queries";
 
 const registerSchema = z
   .object({

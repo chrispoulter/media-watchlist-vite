@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
-import { sessionKeys } from "@/features/auth/queries";
+import { sessionKeys } from "@/features/auth/auth-queries";
 
 export const accountsKeys = {
   all: ["accounts"] as const,

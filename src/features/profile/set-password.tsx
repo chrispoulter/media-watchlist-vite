@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { useSession } from "@/features/auth/queries";
-import { useSetPasswordReset } from "@/features/profile/queries";
+import { useSession } from "@/features/auth/auth-queries";
+import { useSetPasswordReset } from "@/features/profile/profile-queries";
 
 export function SetPassword() {
   const [sent, setSent] = useState(false);

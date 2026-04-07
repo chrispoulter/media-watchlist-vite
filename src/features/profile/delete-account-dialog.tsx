@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useDeleteUser } from "@/features/profile/queries";
+import { useDeleteUser } from "@/features/profile/profile-queries";
 
 export function DeleteAccountDialog() {
   const [isOpen, setIsOpen] = useState(false);

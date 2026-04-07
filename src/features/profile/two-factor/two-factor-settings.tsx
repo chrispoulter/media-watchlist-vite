@@ -9,7 +9,7 @@ import { TwoFactorConfirmEnable } from "./two-factor-confirm-enable";
 import { TwoFactorConfirmBackupCodes } from "./two-factor-confirm-backup-codes";
 import { TwoFactorVerify } from "./two-factor-verify";
 import { TwoFactorQRCode } from "./two-factor-qr-code";
-import { useSession } from "@/features/auth/queries";
+import { useSession } from "@/features/auth/auth-queries";
 
 type TwoFactorStep =
   | "idle"

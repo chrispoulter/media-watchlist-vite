@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { useVerifyTotpSetup } from "@/features/profile/queries";
+import { useVerifyTotpSetup } from "@/features/profile/profile-queries";
 
 const verifyTotpSchema = z.object({
   code: z.string().length(6, "Code must be 6 digits"),

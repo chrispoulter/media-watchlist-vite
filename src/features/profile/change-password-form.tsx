@@ -12,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useChangePassword } from "@/features/profile/queries";
+import { useChangePassword } from "@/features/profile/profile-queries";
 
 const changePasswordSchema = z
   .object({

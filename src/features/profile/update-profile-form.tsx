@@ -12,8 +12,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useSession } from "@/features/auth/queries";
-import { useUpdateUser } from "@/features/profile/queries";
+import { useSession } from "@/features/auth/auth-queries";
+import { useUpdateUser } from "@/features/profile/profile-queries";
 
 const updateProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),

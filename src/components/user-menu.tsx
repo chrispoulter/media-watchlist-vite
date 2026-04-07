@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useSession, useSignOut } from "@/features/auth/queries";
+import { useSession, useSignOut } from "@/features/auth/auth-queries";
 
 export function UserMenu() {
   const navigate = useNavigate();

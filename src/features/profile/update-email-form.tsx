@@ -15,8 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useSession } from "@/features/auth/queries";
-import { useChangeEmail } from "@/features/profile/queries";
+import { useSession } from "@/features/auth/auth-queries";
+import { useChangeEmail } from "@/features/profile/profile-queries";
 
 const verificationErrorMessages: Record<string, string> = {
   USER_NOT_FOUND: "This verification link has already been used or has expired.",

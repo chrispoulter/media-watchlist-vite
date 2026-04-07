@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useVerifyBackupCode } from "@/features/auth/queries";
+import { useVerifyBackupCode } from "@/features/auth/auth-queries";
 
 const recoveryCodeSchema = z.object({
   code: z.string().min(1, "Recovery code is required"),

@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { LoadingSpinner } from "@/components/loading-spinner";
-import { useSession } from "@/features/auth/queries";
+import { useSession } from "@/features/auth/auth-queries";
 
 export function RequireGuest() {
   const { data: session, isPending } = useSession();

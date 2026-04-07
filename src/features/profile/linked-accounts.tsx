@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { authProviders } from "@/lib/auth-providers";
-import { useAccounts, useLinkSocial, useUnlinkAccount } from "@/features/profile/queries";
+import { useAccounts, useLinkSocial, useUnlinkAccount } from "@/features/profile/profile-queries";
 
 export function LinkedAccounts() {
   const { data: accounts } = useAccounts();

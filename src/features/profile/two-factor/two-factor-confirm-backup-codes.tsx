@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useGenerateBackupCodes } from "@/features/profile/queries";
+import { useGenerateBackupCodes } from "@/features/profile/profile-queries";
 
 const generateBackupCodesSchema = z.object({
   password: z.string().min(1, "Password is required"),

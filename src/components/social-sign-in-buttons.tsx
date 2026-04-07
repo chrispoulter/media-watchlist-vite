@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useSocialSignIn } from "@/features/auth/queries";
+import { useSocialSignIn } from "@/features/auth/auth-queries";
 import { authProviders } from "@/lib/auth-providers";
 
 export function SocialSignInButtons() {

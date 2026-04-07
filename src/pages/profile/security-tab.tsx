@@ -4,7 +4,7 @@ import { ChangePasswordForm } from "@/features/profile/change-password-form";
 import { SetPassword } from "@/features/profile/set-password";
 import { TwoFactorSettings } from "@/features/profile/two-factor/two-factor-settings";
 import { LinkedAccounts } from "@/features/profile/linked-accounts";
-import { useAccounts } from "@/features/profile/queries";
+import { useAccounts } from "@/features/profile/profile-queries";
 
 function ChangePasswordCardSkeleton() {
   return (

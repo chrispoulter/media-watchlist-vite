@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSession } from "@/features/auth/queries";
+import { useSession } from "@/features/auth/auth-queries";
 import { UserMenu } from "./user-menu";
 import { cn } from "@/lib/utils";
 

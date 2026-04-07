@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useResetPassword } from "@/features/auth/queries";
+import { useResetPassword } from "@/features/auth/auth-queries";
 
 const resetPasswordSchema = z
   .object({
