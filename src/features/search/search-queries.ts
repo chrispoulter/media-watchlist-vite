@@ -17,7 +17,5 @@ export function useSearch(query: string) {
         })
         .json<SearchResult[]>(),
     enabled: query.trim().length >= 2,
-    staleTime: 60_000,
-    refetchOnWindowFocus: false,
   });
 }
