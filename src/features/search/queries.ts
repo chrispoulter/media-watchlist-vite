@@ -12,7 +12,7 @@ export function useSearch(query: string) {
     queryFn: ({ signal }) =>
       api
         .get("/api/search", {
-          searchParams: { q: query },
+          searchParams: { query },
           signal,
         })
         .json<SearchResult[]>(),
