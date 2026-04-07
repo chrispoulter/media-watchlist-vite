@@ -6,16 +6,6 @@ export const accountsKeys = {
   all: ["accounts"] as const,
 };
 
-export type Account = {
-  id: string;
-  providerId: string;
-  accountId: string;
-  userId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  scopes: string[];
-};
-
 export function useAccounts() {
   return useQuery({
     queryKey: accountsKeys.all,
