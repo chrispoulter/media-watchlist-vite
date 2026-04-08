@@ -23,7 +23,7 @@ export function MediaCard({
   const posterUrl = posterPath ? `https://image.tmdb.org/t/p/w300${posterPath}` : fallback;
 
   return (
-    <div className="bg-card text-card-foreground flex flex-row rounded-xl border shadow-sm">
+    <div className="bg-card text-card-foreground flex flex-row overflow-hidden rounded-xl border shadow-sm">
       <img
         src={posterUrl}
         alt={title}
