@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { searchKeys } from "../search/search-queries";
 import { api } from "@/lib/api";
 import type { WatchlistItem, SearchResult } from "@/types";
-import { searchKeys } from "../search/search-queries";
 
 export const watchlistKeys = {
   all: ["watchlist"] as const,
