@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MediaCard } from "@/components/media-card";
-import { useAddToWatchlist, useRemoveFromWatchlist } from "@/features/watchlist/queries";
+import { useAddToWatchlist, useRemoveFromWatchlist } from "@/features/watchlist/watchlist-queries";
 import type { SearchResult } from "@/types";
 
 interface SearchResultCardProps {

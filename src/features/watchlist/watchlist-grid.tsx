@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { WatchlistItemCard } from "./watchlist-item-card";
-import { useWatchlist } from "./queries";
+import { useWatchlist } from "./watchlist-queries";
 
 export function WatchlistGrid() {
   const { data: items, isLoading, error } = useWatchlist();
