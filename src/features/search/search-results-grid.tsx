@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSearch } from "./search-queries";
 import { SearchBar } from "./search-bar";
@@ -7,16 +7,11 @@ import { SearchResultCard } from "./search-result-card";
 export function SearchResultsGrid() {
   const [searchQuery, setSearchQuery] = useState("");
   const searchEnabled = searchQuery.trim().length >= 2;
-
   const { data: searchResults, isLoading, error } = useSearch(searchQuery, searchEnabled);
-
-  const handleSearch = useCallback((query: string) => {
-    setSearchQuery(query);
-  }, []);
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={setSearchQuery} />
 
       {searchEnabled ? (
         isLoading ? (
