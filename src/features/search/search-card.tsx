@@ -86,4 +86,4 @@ function SearchCardComponent({ result }: SearchCardProps) {
   );
 }
 
-export const TvShowCard = memo(SearchCardComponent);
+export const SearchCard = memo(SearchCardComponent);
