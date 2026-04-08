@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { WatchlistItem, SearchResult } from "@/types";
+import { searchKeys } from "../search/search-queries";
 
 export const watchlistKeys = {
   all: ["watchlist"] as const,
@@ -21,7 +22,7 @@ export function useAddToWatchlist() {
       api.post("/api/watchlist", { json: item }).json<WatchlistItem>(),
     onSuccess: (created, variables) => {
       queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
-      queryClient.setQueriesData<SearchResult[]>({ queryKey: ["search"] }, (old) =>
+      queryClient.setQueriesData<SearchResult[]>({ queryKey: searchKeys.all }, (old) =>
         old?.map((r) =>
           r.tmdbId === variables.tmdbId && r.mediaType === variables.mediaType
             ? { ...r, watchlistItemId: created.id }
@@ -38,8 +39,10 @@ export function useRemoveFromWatchlist() {
   return useMutation({
     mutationFn: (id: number) => api.delete(`/api/watchlist/${id}`),
     onSuccess: (_, id) => {
-      queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
-      queryClient.setQueriesData<SearchResult[]>({ queryKey: ["search"] }, (old) =>
+      queryClient.setQueryData<WatchlistItem[]>(watchlistKeys.all, (old) =>
+        old?.filter((item) => item.id !== id)
+      );
+      queryClient.setQueriesData<SearchResult[]>({ queryKey: searchKeys.all }, (old) =>
         old?.map((r) => (r.watchlistItemId === id ? { ...r, watchlistItemId: undefined } : r))
       );
     },

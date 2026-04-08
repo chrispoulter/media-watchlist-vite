@@ -3,6 +3,7 @@ import type { SearchResult } from "@/types";
 import { api } from "@/lib/api";
 
 export const searchKeys = {
+  all: ["search"] as const,
   results: (query: string) => ["search", query] as const,
 };
 
