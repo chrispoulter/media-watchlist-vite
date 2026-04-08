@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { LoadingSpinner } from "@/components/loading-spinner";
 import { useSession } from "@/features/auth/auth-queries";
+import { Spinner } from "./ui/spinner";
 
 export function RequireGuest() {
   const { data: session, isPending } = useSession();
@@ -8,7 +8,7 @@ export function RequireGuest() {
   if (isPending) {
     return (
       <div className="flex flex-1 items-center justify-center">
-        <LoadingSpinner />
+        <Spinner className="text-muted-foreground h-6 w-6" />
       </div>
     );
   }
