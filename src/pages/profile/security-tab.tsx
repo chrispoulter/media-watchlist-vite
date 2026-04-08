@@ -6,36 +6,6 @@ import { TwoFactorSettings } from "@/features/profile/two-factor/two-factor-sett
 import { LinkedAccounts } from "@/features/profile/linked-accounts";
 import { useAccounts } from "@/features/profile/profile-queries";
 
-function ChangePasswordCardSkeleton() {
-  return (
-    <Card>
-      <CardHeader>
-        <Skeleton className="h-6 w-36" />
-        <Skeleton className="mt-1 h-4 w-52" />
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          <Skeleton className="h-10 w-full" />
-          <Skeleton className="h-10 w-full" />
-          <Skeleton className="h-10 w-full" />
-          <Skeleton className="h-9 w-24" />
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function LinkedAccountsSkeleton() {
-  return (
-    <div className="space-y-4">
-      <Skeleton className="h-6 w-40" />
-      <Skeleton className="h-10 w-full" />
-      <Skeleton className="h-10 w-full" />
-      <Skeleton className="h-10 w-full" />
-    </div>
-  );
-}
-
 export function SecurityTab() {
   const { data: accounts, isPending } = useAccounts();
 
@@ -46,7 +16,20 @@ export function SecurityTab() {
       <title>Security | Media Watchlist</title>
       <div className="space-y-6">
         {isPending ? (
-          <ChangePasswordCardSkeleton />
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-6 w-36" />
+              <Skeleton className="mt-1 h-4 w-52" />
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-9 w-24" />
+              </div>
+            </CardContent>
+          </Card>
         ) : (
           <Card>
             <CardHeader>
@@ -80,7 +63,18 @@ export function SecurityTab() {
               Connect your account to a third-party provider for passwordless sign-in
             </CardDescription>
           </CardHeader>
-          <CardContent>{isPending ? <LinkedAccountsSkeleton /> : <LinkedAccounts />}</CardContent>
+          <CardContent>
+            {isPending ? (
+              <div className="space-y-4">
+                <Skeleton className="h-6 w-40" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+            ) : (
+              <LinkedAccounts />
+            )}
+          </CardContent>
         </Card>
       </div>
     </>

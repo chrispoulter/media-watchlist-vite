@@ -6,7 +6,7 @@ export const searchKeys = {
   results: (query: string) => ["search", query] as const,
 };
 
-export function useSearch(query: string) {
+export function useSearch(query: string, enabled = true) {
   return useQuery({
     queryKey: searchKeys.results(query),
     queryFn: ({ signal }) =>
@@ -16,6 +16,6 @@ export function useSearch(query: string) {
           signal,
         })
         .json<SearchResult[]>(),
-    enabled: query.trim().length >= 2,
+    enabled,
   });
 }
