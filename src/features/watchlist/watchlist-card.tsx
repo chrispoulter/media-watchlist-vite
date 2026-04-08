@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ interface WatchlistCardProps {
   item: WatchlistItem;
 }
 
-export function WatchlistCard({ item }: WatchlistCardProps) {
+export function WatchlistCardComponent({ item }: WatchlistCardProps) {
   const [confirming, setConfirming] = useState(false);
   const { mutate: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
 
@@ -50,3 +50,5 @@ export function WatchlistCard({ item }: WatchlistCardProps) {
     />
   );
 }
+
+export const WatchlistCard = memo(WatchlistCardComponent);

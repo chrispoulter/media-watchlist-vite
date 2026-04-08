@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { toast } from "sonner";
 import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ interface SearchCardProps {
   result: SearchResult;
 }
 
-export function SearchCard({ result }: SearchCardProps) {
+function SearchCardComponent({ result }: SearchCardProps) {
   const [confirming, setConfirming] = useState(false);
 
   const { mutate: addToWatchlist, isPending: isAdding } = useAddToWatchlist();
@@ -85,3 +85,5 @@ export function SearchCard({ result }: SearchCardProps) {
     />
   );
 }
+
+export const TvShowCard = memo(SearchCardComponent);
