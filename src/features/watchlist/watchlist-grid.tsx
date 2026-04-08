@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { WatchlistItemCard } from "./watchlist-item-card";
+import { WatchlistCard } from "./watchlist-card";
 import { useWatchlist } from "./watchlist-queries";
 
 export function WatchlistGrid() {
@@ -10,7 +10,7 @@ export function WatchlistGrid() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-4">
         {Array.from({ length: 10 }).map((_, i) => (
           <div key={i} className="space-y-2">
             <Skeleton className="aspect-2/3 w-full rounded-lg" />
@@ -48,9 +48,9 @@ export function WatchlistGrid() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-4">
       {items.map((item) => (
-        <WatchlistItemCard key={item.id} item={item} />
+        <WatchlistCard key={item.id} item={item} />
       ))}
     </div>
   );

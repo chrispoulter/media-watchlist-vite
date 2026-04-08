@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSearch } from "./search-queries";
 import { SearchBar } from "./search-bar";
-import { SearchResultCard } from "./search-result-card";
+import { SearchCard } from "./search-card";
 
-export function SearchResultsGrid() {
+export function SearchGrid() {
   const [searchQuery, setSearchQuery] = useState("");
   const searchEnabled = searchQuery.trim().length >= 2;
   const { data: searchResults, isLoading, error } = useSearch(searchQuery, searchEnabled);
@@ -15,7 +15,7 @@ export function SearchResultsGrid() {
 
       {searchEnabled ? (
         isLoading ? (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-4">
             {Array.from({ length: 10 }).map((_, i) => (
               <div key={i} className="space-y-2">
                 <Skeleton className="aspect-2/3 w-full rounded-lg" />
@@ -33,9 +33,9 @@ export function SearchResultsGrid() {
             <p>No results found. Try a different search term.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-4">
             {searchResults.map((result) => (
-              <SearchResultCard key={`${result.mediaType}-${result.tmdbId}`} result={result} />
+              <SearchCard key={`${result.mediaType}-${result.tmdbId}`} result={result} />
             ))}
           </div>
         )

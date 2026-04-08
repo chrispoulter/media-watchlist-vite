@@ -1,4 +1,4 @@
-import { SearchResultsGrid } from "@/features/search/search-results-grid";
+import { SearchGrid } from "@/features/search/search-grid";
 
 export function SearchPage() {
   return (
@@ -11,7 +11,7 @@ export function SearchPage() {
             Find movies and TV shows to add to your watchlist
           </p>
         </div>
-        <SearchResultsGrid />
+        <SearchGrid />
       </div>
     </>
   );

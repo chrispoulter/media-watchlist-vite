@@ -6,11 +6,11 @@ import { MediaCard } from "@/components/media-card";
 import { useAddToWatchlist, useRemoveFromWatchlist } from "@/features/watchlist/watchlist-queries";
 import type { SearchResult } from "@/types";
 
-interface SearchResultCardProps {
+interface SearchCardProps {
   result: SearchResult;
 }
 
-export function SearchResultCard({ result }: SearchResultCardProps) {
+export function SearchCard({ result }: SearchCardProps) {
   const [confirming, setConfirming] = useState(false);
 
   const { mutate: addToWatchlist, isPending: isAdding } = useAddToWatchlist();
@@ -65,7 +65,7 @@ export function SearchResultCard({ result }: SearchResultCardProps) {
               onClick={handleRemove}
               disabled={isRemoving}
             >
-              <Trash2 className="mr-1.5 h-3.5 w-3.5" />
+              <Trash2 />
               {confirming ? "Confirm remove" : "Remove"}
             </Button>
           ) : (
@@ -76,7 +76,7 @@ export function SearchResultCard({ result }: SearchResultCardProps) {
               onClick={handleAdd}
               disabled={isAdding}
             >
-              <Plus className="mr-1.5 h-3.5 w-3.5" />
+              <Plus />
               Add to Watchlist
             </Button>
           )}

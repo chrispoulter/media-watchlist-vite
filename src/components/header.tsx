@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { Film, Search, BookMarked, Menu } from "lucide-react";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,

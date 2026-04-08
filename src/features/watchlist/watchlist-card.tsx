@@ -6,11 +6,11 @@ import { MediaCard } from "@/components/media-card";
 import { useRemoveFromWatchlist } from "./watchlist-queries";
 import type { WatchlistItem } from "@/types";
 
-interface WatchlistItemCardProps {
+interface WatchlistCardProps {
   item: WatchlistItem;
 }
 
-export function WatchlistItemCard({ item }: WatchlistItemCardProps) {
+export function WatchlistCard({ item }: WatchlistCardProps) {
   const [confirming, setConfirming] = useState(false);
   const { mutate: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
 
@@ -43,7 +43,7 @@ export function WatchlistItemCard({ item }: WatchlistItemCardProps) {
           onClick={handleRemove}
           disabled={isRemoving}
         >
-          <Trash2 className="mr-1.5 h-3.5 w-3.5" />
+          <Trash2 />
           {confirming ? "Confirm remove" : "Remove"}
         </Button>
       }
