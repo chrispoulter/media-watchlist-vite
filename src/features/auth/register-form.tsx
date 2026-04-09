@@ -21,7 +21,6 @@ const registerSchema = z
     email: z.email("Invalid email address"),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
-    dateOfBirth: z.string().min(1, "Date of birth is required"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -41,7 +40,6 @@ export function RegisterForm() {
       email: "",
       password: "",
       confirmPassword: "",
-      dateOfBirth: "",
     },
   });
 
