@@ -20,7 +20,7 @@ export function MediaCard({
 }: MediaCardProps) {
   const year = releaseDate ? new Date(releaseDate).getFullYear() : undefined;
   const fallback = mediaType === "tv" ? "/default-tv-show.svg" : "/default-movie.svg";
-  const posterUrl = posterPath ? `https://image.tmdb.org/t/p/w300${posterPath}` : fallback;
+  const posterUrl = posterPath || fallback;
 
   return (
     <div className="bg-card text-card-foreground flex flex-row overflow-hidden rounded-xl border shadow-sm">
