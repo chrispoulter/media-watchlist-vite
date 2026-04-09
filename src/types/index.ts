@@ -2,20 +2,20 @@ export type MediaType = "movie" | "tv";
 
 export interface WatchlistItem {
   id: number;
-  tmdbId: number;
+  providerId: number;
   mediaType: MediaType;
   title: string;
-  posterPath?: string;
+  posterUrl?: string;
   overview?: string;
   releaseDate?: string;
   addedAt: string;
 }
 
 export interface SearchResult {
-  tmdbId: number;
+  providerId: number;
   mediaType: MediaType;
   title: string;
-  posterPath?: string;
+  posterUrl?: string;
   overview?: string;
   releaseDate?: string;
   watchlistItemId?: number;

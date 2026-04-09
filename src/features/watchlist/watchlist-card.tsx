@@ -31,7 +31,7 @@ export function WatchlistCardComponent({ item }: WatchlistCardProps) {
   return (
     <MediaCard
       title={item.title}
-      posterPath={item.posterPath}
+      posterUrl={item.posterUrl}
       overview={item.overview}
       releaseDate={item.releaseDate}
       mediaType={item.mediaType}

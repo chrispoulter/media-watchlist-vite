@@ -24,7 +24,7 @@ export function useAddToWatchlist() {
       queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
       queryClient.setQueriesData<SearchResult[]>({ queryKey: searchKeys.all }, (old) =>
         old?.map((r) =>
-          r.tmdbId === variables.tmdbId && r.mediaType === variables.mediaType
+          r.providerId === variables.providerId && r.mediaType === variables.mediaType
             ? { ...r, watchlistItemId: data.id }
             : r
         )

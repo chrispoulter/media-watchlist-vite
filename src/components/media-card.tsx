@@ -3,7 +3,7 @@ import type { MediaType } from "@/types";
 
 interface MediaCardProps {
   title: string;
-  posterPath?: string;
+  posterUrl?: string;
   overview?: string;
   releaseDate?: string;
   mediaType: MediaType;
@@ -12,7 +12,7 @@ interface MediaCardProps {
 
 export function MediaCard({
   title,
-  posterPath,
+  posterUrl,
   overview,
   releaseDate,
   mediaType,
@@ -20,12 +20,11 @@ export function MediaCard({
 }: MediaCardProps) {
   const year = releaseDate ? new Date(releaseDate).getFullYear() : undefined;
   const fallback = mediaType === "tv" ? "/default-tv-show.svg" : "/default-movie.svg";
-  const posterUrl = posterPath || fallback;
 
   return (
     <div className="bg-card text-card-foreground flex flex-row overflow-hidden rounded-xl border shadow-sm">
       <img
-        src={posterUrl}
+        src={posterUrl || fallback}
         alt={title}
         onError={(e) => {
           e.currentTarget.src = fallback;

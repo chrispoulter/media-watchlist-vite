@@ -20,10 +20,10 @@ function SearchCardComponent({ result }: SearchCardProps) {
   const handleAdd = () => {
     addToWatchlist(
       {
-        tmdbId: result.tmdbId,
+        providerId: result.providerId,
         mediaType: result.mediaType,
         title: result.title,
-        posterPath: result.posterPath,
+        posterUrl: result.posterUrl,
         overview: result.overview,
         releaseDate: result.releaseDate,
       },
@@ -51,7 +51,7 @@ function SearchCardComponent({ result }: SearchCardProps) {
   return (
     <MediaCard
       title={result.title}
-      posterPath={result.posterPath}
+      posterUrl={result.posterUrl}
       overview={result.overview}
       releaseDate={result.releaseDate}
       mediaType={result.mediaType}
