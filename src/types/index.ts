@@ -2,7 +2,7 @@ export type MediaType = "movie" | "tv";
 
 export interface WatchlistItem {
   id: number;
-  providerId: number;
+  providerId: string;
   mediaType: MediaType;
   title: string;
   posterUrl?: string;
@@ -12,7 +12,7 @@ export interface WatchlistItem {
 }
 
 export interface SearchResult {
-  providerId: number;
+  providerId: string;
   mediaType: MediaType;
   title: string;
   posterUrl?: string;
