@@ -11,7 +11,7 @@ export const TwoFactorQRCode = ({ totpUri, onDone }: TwoFactorQRCodeProps) => {
     <div className="space-y-4">
       <div>
         <p className="mb-2 text-sm font-medium">Scan this QR code with your authenticator app:</p>
-        <div className="bg-white inline-block rounded-lg border p-4 ">
+        <div className="inline-block rounded-lg border bg-white p-4">
           <QRCodeSVG value={totpUri} size={200} />
         </div>
         <p className="text-muted-foreground mt-2 text-xs">

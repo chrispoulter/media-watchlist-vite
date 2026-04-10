@@ -9,7 +9,7 @@ import { TwoFactorConfirmEnable } from "./two-factor-confirm-enable";
 import { TwoFactorConfirmBackupCodes } from "./two-factor-confirm-backup-codes";
 import { TwoFactorVerify } from "./two-factor-verify";
 import { TwoFactorQRCode } from "./two-factor-qr-code";
-import { useSession } from "@/features/auth/auth-queries";
+import { authClient } from "@/lib/auth-client";
 
 type TwoFactorStep =
   | "idle"
@@ -24,7 +24,7 @@ export function TwoFactorSettings() {
   const [step, setStep] = useState<TwoFactorStep>("idle");
   const [totpUri, setTotpUri] = useState<string>("");
   const [backupCodes, setBackupCodes] = useState<string[]>([]);
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
 
   const twoFactorEnabled = session?.user.twoFactorEnabled;
 

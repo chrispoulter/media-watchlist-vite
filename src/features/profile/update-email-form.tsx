@@ -15,8 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useSession } from "@/features/auth/auth-queries";
 import { useChangeEmail } from "@/features/profile/profile-queries";
+import { authClient } from "@/lib/auth-client";
 
 const verificationErrorMessages: Record<string, string> = {
   USER_NOT_FOUND: "This verification link has already been used or has expired.",
@@ -31,7 +31,7 @@ type UpdateEmailFormValues = z.infer<typeof updateEmailSchema>;
 export function UpdateEmailForm() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [pendingEmail, setPendingEmail] = useState<string | null>(null);
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const { mutateAsync: changeEmail, isPending } = useChangeEmail();
 
   useEffect(() => {
