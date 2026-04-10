@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
 
 export function useSignIn() {
@@ -16,8 +16,10 @@ export function useSignUp() {
 }
 
 export function useSignOut() {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => authClient.signOut(),
+    onSuccess: () => queryClient.clear(),
   });
 }
 
