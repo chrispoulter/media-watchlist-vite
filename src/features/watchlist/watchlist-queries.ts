@@ -21,7 +21,9 @@ export function useAddToWatchlist() {
     mutationFn: (item: Omit<WatchlistItem, "id" | "addedAt">) =>
       api.post("/api/watchlist", { json: item }).json<WatchlistItem>(),
     onSuccess: (data, variables) => {
-      queryClient.invalidateQueries({ queryKey: watchlistKeys.all });
+      queryClient.setQueryData<WatchlistItem[]>(watchlistKeys.all, (old) =>
+        old ? [...old, data] : [data]
+      );
       queryClient.setQueriesData<SearchResult[]>({ queryKey: searchKeys.all }, (old) =>
         old?.map((r) =>
           r.providerId === variables.providerId && r.mediaType === variables.mediaType
