@@ -9,7 +9,11 @@ export function LinkedAccounts() {
 
   const { mutate: linkSocial, isPending: isLinking, variables: linkingProvider } = useLinkSocial();
 
-  const { mutateAsync: unlinkAccount, isPending: isUnlinking } = useUnlinkAccount();
+  const {
+    mutateAsync: unlinkAccount,
+    isPending: isUnlinking,
+    variables: unlinkingProvider,
+  } = useUnlinkAccount();
 
   const isLinked = (providerId: string) => accounts?.some((a) => a.providerId === providerId);
 
@@ -33,7 +37,10 @@ export function LinkedAccounts() {
       {authProviders.map((provider) => {
         const linked = isLinked(provider.id);
         const unlinkable = canUnlink(provider.id);
-        const inFlight = (isLinking || isUnlinking) && linkingProvider === provider.id;
+
+        const inFlight =
+          (isLinking && linkingProvider === provider.id) ||
+          (isUnlinking && unlinkingProvider === provider.id);
 
         return (
           <div key={provider.id} className="flex items-center justify-between">
