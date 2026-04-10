@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -43,12 +44,12 @@ export function ForgotPasswordForm() {
 
   if (isSent) {
     return (
-      <div className="space-y-2 text-center">
-        <p className="text-muted-foreground text-sm">
-          If an account with that email exists, we've sent a password reset link.
-        </p>
-        <p className="text-muted-foreground text-sm">Please check your inbox.</p>
-      </div>
+      <Alert>
+        <AlertDescription>
+          <p>If an account with that email exists, we've sent a password reset link.</p>
+          <p>Please check your inbox.</p>
+        </AlertDescription>
+      </Alert>
     );
   }
 

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -53,9 +54,11 @@ export function ResetPasswordForm() {
 
   if (!token) {
     return (
-      <p className="text-destructive text-center text-sm">
-        Invalid or expired reset link. Please request a new one.
-      </p>
+      <Alert variant="destructive">
+        <AlertDescription>
+          Invalid or expired reset link. Please request a new one.
+        </AlertDescription>
+      </Alert>
     );
   }
 
