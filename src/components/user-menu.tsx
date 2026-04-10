@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useSession, useSignOut } from "@/features/auth/auth-queries";
+import { Spinner } from "./ui/spinner";
 
 export function UserMenu() {
   const navigate = useNavigate();
   const { data: session } = useSession();
-  const { mutateAsync: signOut } = useSignOut();
+  const { mutateAsync: signOut, isPending } = useSignOut();
 
   const handleSignOut = async () => {
     await signOut();
@@ -46,9 +47,16 @@ export function UserMenu() {
           Profile
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut}>
-          <LogOut className="mr-2 h-4 w-4" />
-          Sign out
+        <DropdownMenuItem onClick={handleSignOut} disabled={isPending}>
+          {isPending ? (
+            <>
+              <Spinner className="mr-2 h-4 w-4" /> Signing out...
+            </>
+          ) : (
+            <>
+              <LogOut className="mr-2 h-4 w-4" /> Sign out
+            </>
+          )}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
