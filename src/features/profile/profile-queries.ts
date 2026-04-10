@@ -1,24 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
-
-export const accountsKeys = {
-  all: ["accounts"] as const,
-};
-
-export function useAccounts() {
-  return useQuery({
-    queryKey: accountsKeys.all,
-    queryFn: async () => {
-      const { data, error } = await authClient.listAccounts();
-
-      if (error) {
-        throw new Error(error.message ?? "Failed to load accounts");
-      }
-
-      return data;
-    },
-  });
-}
 
 export function useUpdateUser() {
   return useMutation({
@@ -62,8 +43,6 @@ export function useDeleteUser() {
 }
 
 export function useLinkSocial() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (provider: string) =>
       authClient.linkSocial({
@@ -71,20 +50,12 @@ export function useLinkSocial() {
         callbackURL: window.location.href,
         errorCallbackURL: `${window.location.origin}/auth/error`,
       }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: accountsKeys.all });
-    },
   });
 }
 
 export function useUnlinkAccount() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (providerId: string) => authClient.unlinkAccount({ providerId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: accountsKeys.all });
-    },
   });
 }
 

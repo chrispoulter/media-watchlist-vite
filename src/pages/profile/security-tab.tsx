@@ -1,13 +1,24 @@
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChangePasswordForm } from "@/features/profile/change-password-form";
 import { SetPassword } from "@/features/profile/set-password";
 import { TwoFactorSettings } from "@/features/profile/two-factor/two-factor-settings";
 import { LinkedAccounts } from "@/features/profile/linked-accounts";
-import { useAccounts } from "@/features/profile/profile-queries";
+import { authClient } from "@/lib/auth-client";
 
 export function SecurityTab() {
-  const { data: accounts, isPending } = useAccounts();
+  const [accounts, setAccounts] = useState<{ providerId: string }[]>([]);
+  const [isLoadingAccounts, setIsLoadingAccounts] = useState(true);
+
+  useEffect(() => {
+    authClient.listAccounts().then((result) => {
+      if (!result.error) {
+        setAccounts(result.data ?? []);
+      }
+      setIsLoadingAccounts(false);
+    });
+  }, []);
 
   const hasCredentialAccount = accounts?.some((a) => a.providerId === "credential");
 
@@ -15,7 +26,7 @@ export function SecurityTab() {
     <>
       <title>Security | Media Watchlist</title>
       <div className="space-y-6">
-        {isPending ? (
+        {isLoadingAccounts ? (
           <Card>
             <CardHeader>
               <Skeleton className="h-6 w-36" />
@@ -64,15 +75,14 @@ export function SecurityTab() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {isPending ? (
+            {isLoadingAccounts ? (
               <div className="space-y-4">
-                <Skeleton className="h-6 w-40" />
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
               </div>
             ) : (
-              <LinkedAccounts />
+              <LinkedAccounts accounts={accounts} />
             )}
           </CardContent>
         </Card>
