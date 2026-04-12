@@ -7,7 +7,7 @@ export function MediaCardSkeleton() {
       <div className="flex flex-1 flex-col gap-3 p-4">
         <Skeleton className="h-5 w-3/4" />
         <Skeleton className="h-5 w-12 rounded-full" />
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           <Skeleton className="h-3 w-full" />
           <Skeleton className="h-3 w-full" />
           <Skeleton className="h-3 w-2/3" />
