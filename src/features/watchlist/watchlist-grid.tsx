@@ -21,7 +21,7 @@ export function WatchlistGrid() {
 
   if (error) {
     return (
-      <div className="text-muted-foreground py-16 text-center">
+      <div className="text-muted-foreground py-24 text-center">
         <p>Failed to load watchlist. Please try again.</p>
       </div>
     );
@@ -36,7 +36,7 @@ export function WatchlistGrid() {
         </p>
         <Button asChild className="w-full sm:w-auto">
           <Link to="/search">
-            <Search className="mr-2 h-4 w-4" />
+            <Search className="h-4 w-4" />
             Browse titles
           </Link>
         </Button>

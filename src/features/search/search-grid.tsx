@@ -22,11 +22,11 @@ export function SearchGrid() {
             <MediaCardSkeleton />
           </div>
         ) : error ? (
-          <div className="text-muted-foreground py-16 text-center">
+          <div className="text-muted-foreground py-24 text-center">
             <p>Failed to load search results. Please try again.</p>
           </div>
         ) : !searchResults?.length ? (
-          <div className="text-muted-foreground py-16 text-center">
+          <div className="text-muted-foreground py-24 text-center">
             <p>No results found. Try a different search term.</p>
           </div>
         ) : (

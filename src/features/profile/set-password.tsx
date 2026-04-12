@@ -27,13 +27,11 @@ export function SetPassword() {
     return (
       <Alert>
         <AlertDescription>
-          <p className="text-sm">
+          <p>
             We've sent a link to <strong className="break-all">{email}</strong> to set up your
             password.
           </p>
-          <p className="text-muted-foreground text-sm">
-            Once set, you'll be able to sign in with your email address in addition to Google.
-          </p>
+          <p>Once set, you'll be able to sign in with your email address in addition to Google.</p>
         </AlertDescription>
       </Alert>
     );

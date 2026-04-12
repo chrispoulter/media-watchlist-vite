@@ -3,10 +3,10 @@ import { authClient } from "@/lib/auth-client";
 import { Spinner } from "./ui/spinner";
 
 export function RequireAuth() {
-  const { data: session, isPending, isRefetching } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
   const location = useLocation();
 
-  if (isPending || isRefetching) {
+  if (isPending) {
     return (
       <div className="flex flex-1 items-center justify-center">
         <Spinner className="text-muted-foreground h-6 w-6" />
