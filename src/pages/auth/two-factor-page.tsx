@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { TwoFactorForm } from "@/features/auth/two-factor-form";
 import { RecoveryCodeForm } from "@/features/auth/recovery-code-form";
 
@@ -15,8 +15,12 @@ export function TwoFactorPage() {
       <div className="flex flex-1 items-center justify-center">
         <div className="w-full max-w-sm space-y-4">
           <Card>
-            <CardHeader className="space-y-1 text-center">
+            <CardHeader>
               <CardTitle className="text-2xl">Two-factor authentication</CardTitle>
+              <CardDescription>
+                {mode === "totp" && "Enter the 6-digit code from your authenticator app"}
+                {mode === "recovery" && "Enter one of your backup recovery codes"}
+              </CardDescription>
             </CardHeader>
             <CardContent>
               {mode === "totp" && <TwoFactorForm onBack={() => setMode("recovery")} />}

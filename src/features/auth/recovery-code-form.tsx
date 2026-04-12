@@ -47,11 +47,7 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <p className="text-muted-foreground text-center text-sm">
-          Enter one of your backup recovery codes
-        </p>
-
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="code"

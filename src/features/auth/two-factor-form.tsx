@@ -47,11 +47,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <p className="text-muted-foreground text-center text-sm">
-          Enter the 6-digit code from your authenticator app
-        </p>
-
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="code"
@@ -59,7 +55,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
             <FormItem className="flex flex-col items-center">
               <FormLabel>Authentication code</FormLabel>
               <FormControl>
-                <InputOTP maxLength={6} autoComplete="one-time-code" {...field}>
+                <InputOTP maxLength={6} autoComplete="one-time-code" autoFocus {...field}>
                   <InputOTPGroup>
                     <InputOTPSlot index={0} />
                     <InputOTPSlot index={1} />
