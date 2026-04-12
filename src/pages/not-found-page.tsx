@@ -7,7 +7,7 @@ export function NotFoundPage() {
     <>
       <title>Page Not Found | Media Watchlist</title>
       <div className="flex flex-1 items-center justify-center">
-        <div className="w-full max-w-sm space-y-4">
+        <div className="w-full max-w-sm">
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">Page not found</CardTitle>

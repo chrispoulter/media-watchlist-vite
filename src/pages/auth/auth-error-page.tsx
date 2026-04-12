@@ -31,7 +31,7 @@ export function AuthErrorPage() {
     <>
       <title>Authentication Error | Media Watchlist</title>
       <div className="flex flex-1 items-center justify-center">
-        <div className="w-full max-w-sm space-y-4">
+        <div className="w-full max-w-sm">
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">Authentication error</CardTitle>

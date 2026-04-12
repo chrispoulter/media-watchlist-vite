@@ -20,18 +20,16 @@ export function ProfileLayout() {
       </div>
 
       <Tabs value={activeTab}>
-        <TabsList>
+        <TabsList variant="line">
           {navItems.map((tab) => (
             <TabsTrigger key={tab.to} value={tab.to} asChild>
               <Link to={tab.to}>{tab.label}</Link>
             </TabsTrigger>
           ))}
         </TabsList>
-
-        <div className="mt-6">
-          <Outlet />
-        </div>
       </Tabs>
+
+      <Outlet />
     </div>
   );
 }

@@ -9,7 +9,7 @@ export function LoginPage() {
     <>
       <title>Login | Media Watchlist</title>
       <div className="flex flex-1 items-center justify-center">
-        <div className="w-full max-w-md space-y-4">
+        <div className="w-full max-w-md space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">Welcome back</CardTitle>
