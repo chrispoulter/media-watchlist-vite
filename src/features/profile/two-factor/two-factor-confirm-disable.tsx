@@ -67,11 +67,11 @@ export function TwoFactorConfirmDisable({ onDisabled, onCancel }: TwoFactorConfi
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" variant="destructive" disabled={isPending}>
-            {isPending ? "Disabling..." : "Disable 2FA"}
-          </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
+          </Button>
+          <Button type="submit" variant="destructive" disabled={isPending}>
+            {isPending ? "Disabling..." : "Disable 2FA"}
           </Button>
         </div>
       </form>

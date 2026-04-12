@@ -68,11 +68,11 @@ export function TwoFactorConfirmEnable({ onTotpSetup, onCancel }: TwoFactorConfi
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Continuing..." : "Continue"}
-          </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Continuing..." : "Continue"}
           </Button>
         </div>
       </form>

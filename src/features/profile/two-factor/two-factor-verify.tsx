@@ -71,11 +71,11 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Verifying..." : "Verify & enable"}
-          </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Back
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Verifying..." : "Verify & enable"}
           </Button>
         </div>
       </form>

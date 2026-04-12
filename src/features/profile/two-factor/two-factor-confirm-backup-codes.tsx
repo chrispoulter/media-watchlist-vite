@@ -69,11 +69,11 @@ export function TwoFactorConfirmBackupCodes({
           )}
         />
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Regenerating..." : "Regenerate codes"}
-          </Button>
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Regenerating..." : "Regenerate codes"}
           </Button>
         </div>
       </form>
