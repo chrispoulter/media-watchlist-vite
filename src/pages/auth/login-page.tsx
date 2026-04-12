@@ -11,7 +11,7 @@ export function LoginPage() {
       <div className="flex flex-1 items-center justify-center">
         <div className="w-full max-w-md space-y-4">
           <Card>
-            <CardHeader className="space-y-1">
+            <CardHeader>
               <CardTitle className="text-2xl">Welcome back</CardTitle>
               <CardDescription>Sign in to your account</CardDescription>
             </CardHeader>

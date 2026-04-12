@@ -33,7 +33,7 @@ export function AuthErrorPage() {
       <div className="flex flex-1 items-center justify-center">
         <div className="w-full max-w-sm space-y-4">
           <Card>
-            <CardHeader className="space-y-1">
+            <CardHeader>
               <CardTitle className="text-2xl">Authentication error</CardTitle>
               <CardDescription>Something went wrong during authentication</CardDescription>
             </CardHeader>

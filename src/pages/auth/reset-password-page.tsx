@@ -9,7 +9,7 @@ export function ResetPasswordPage() {
       <div className="flex flex-1 items-center justify-center">
         <div className="w-full max-w-sm space-y-4">
           <Card>
-            <CardHeader className="space-y-1">
+            <CardHeader>
               <CardTitle className="text-2xl">Reset your password</CardTitle>
               <CardDescription>Enter your new password below</CardDescription>
             </CardHeader>

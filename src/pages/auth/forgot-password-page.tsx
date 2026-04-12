@@ -9,7 +9,7 @@ export function ForgotPasswordPage() {
       <div className="flex flex-1 items-center justify-center">
         <div className="w-full max-w-sm space-y-4">
           <Card>
-            <CardHeader className="space-y-1">
+            <CardHeader>
               <CardTitle className="text-2xl">Forgot your password?</CardTitle>
               <CardDescription>Enter your email and we'll send you a reset link</CardDescription>
             </CardHeader>

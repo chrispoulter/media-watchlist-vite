@@ -9,7 +9,7 @@ export function NotFoundPage() {
       <div className="flex flex-1 items-center justify-center">
         <div className="w-full max-w-sm space-y-4">
           <Card>
-            <CardHeader className="space-y-1">
+            <CardHeader>
               <CardTitle className="text-2xl">Page not found</CardTitle>
               <CardDescription>The page you're looking for doesn't exist.</CardDescription>
             </CardHeader>
