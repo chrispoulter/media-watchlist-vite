@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MediaCardSkeleton } from "@/components/media-card-skeleton";
 import { WatchlistCard } from "./watchlist-card";
@@ -35,10 +34,7 @@ export function WatchlistGrid() {
           Search for movies and TV shows to add them here
         </p>
         <Button asChild className="w-full sm:w-auto">
-          <Link to="/search">
-            <Search className="h-4 w-4" />
-            Browse titles
-          </Link>
+          <Link to="/search">Browse titles</Link>
         </Button>
       </div>
     );
