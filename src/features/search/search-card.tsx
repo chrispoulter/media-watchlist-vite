@@ -12,9 +12,7 @@ interface SearchCardProps {
 
 function SearchCardComponent({ result }: SearchCardProps) {
   const [confirming, setConfirming] = useState(false);
-
   const { mutate: addToWatchlist, isPending: isAdding } = useAddToWatchlist();
-
   const { mutate: removeFromWatchlist, isPending: isRemoving } = useRemoveFromWatchlist();
 
   const handleAdd = () => {

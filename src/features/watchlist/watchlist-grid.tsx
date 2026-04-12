@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MediaCardSkeleton } from "@/components/media-card-skeleton";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Empty,
   EmptyContent,
@@ -29,6 +29,7 @@ export function WatchlistGrid() {
   if (error) {
     return (
       <Alert variant="destructive">
+        <AlertTitle>Error</AlertTitle>
         <AlertDescription>Failed to load watchlist. Please try again.</AlertDescription>
       </Alert>
     );
@@ -36,7 +37,7 @@ export function WatchlistGrid() {
 
   if (!items?.length) {
     return (
-      <Empty>
+      <Empty className="border border-dashed">
         <EmptyHeader>
           <EmptyTitle>Your watchlist is empty</EmptyTitle>
           <EmptyDescription>Search for movies and TV shows to add them here</EmptyDescription>
