@@ -82,7 +82,11 @@ export function UpdateEmailForm() {
             </p>
           </AlertDescription>
         </Alert>
-        <Button variant="outline" onClick={() => setPendingEmail(null)}>
+        <Button
+          variant="outline"
+          onClick={() => setPendingEmail(null)}
+          className="w-full sm:w-auto"
+        >
           Change a different email
         </Button>
       </div>
