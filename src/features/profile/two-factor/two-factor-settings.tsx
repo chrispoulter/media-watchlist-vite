@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { ShieldCheck, ShieldOff } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { TwoFactorEnabled } from "./two-factor-enabled";
 import { TwoFactorBackupCodes } from "./two-factor-backup-codes";
 import { TwoFactorDisabled } from "./two-factor-disabled";
@@ -31,17 +29,6 @@ export function TwoFactorSettings() {
   if (twoFactorEnabled) {
     return (
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <ShieldCheck className="h-5 w-5 text-green-500 dark:text-green-400" />
-          <span className="text-sm font-medium">Two-factor authentication is</span>
-          <Badge
-            variant="secondary"
-            className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-          >
-            Enabled
-          </Badge>
-        </div>
-
         {step === "idle" && (
           <TwoFactorEnabled
             onDisable={() => setStep("confirm-disable")}
@@ -75,12 +62,6 @@ export function TwoFactorSettings() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2">
-        <ShieldOff className="text-muted-foreground h-5 w-5" />
-        <span className="text-sm font-medium">Two-factor authentication is</span>
-        <Badge variant="outline">Disabled</Badge>
-      </div>
-
       {step === "idle" && <TwoFactorDisabled onEnable={() => setStep("confirm-enable")} />}
 
       {step === "confirm-enable" && (

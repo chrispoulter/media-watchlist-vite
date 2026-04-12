@@ -95,12 +95,10 @@ export function UpdateEmailForm() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <p className="text-muted-foreground text-sm">
-          Current email:{" "}
-          <span className="text-foreground font-medium break-all">{session?.user.email}</span>
-        </p>
-      </div>
+      <p className="text-muted-foreground text-sm">
+        Current email:{" "}
+        <span className="text-foreground font-medium break-all">{session?.user.email}</span>
+      </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
