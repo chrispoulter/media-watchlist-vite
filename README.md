@@ -76,7 +76,6 @@ The app will be available at `http://localhost:5173`. API requests are proxied t
 | `npm run preview`      | Preview the production build locally |
 | `npm run lint`         | Run ESLint                           |
 | `npm run format`       | Format all files with Prettier       |
-| `npm run format:check` | Check formatting without writing     |
 
 ## Docker
 
