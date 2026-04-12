@@ -11,13 +11,8 @@ export const api = ky.create({
     beforeError: [
       async ({ error }) => {
         if (error instanceof HTTPError) {
-          const isJson = error.response.headers.get("content-type")?.includes("application/json");
-          if (isJson) {
-            const body = (await error.response.json()) as ApiError;
-            if (typeof body.error === "string") {
-              error.message = body.error;
-            }
-          }
+          const body = error.data as ApiError;
+          error.message = body?.error || error.message;
         }
         return error;
       },
