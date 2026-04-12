@@ -2,11 +2,13 @@ import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { authProviders } from "@/lib/auth-providers";
-import { useAccounts, useLinkSocial, useUnlinkAccount } from "@/features/profile/profile-queries";
+import { useLinkSocial, useUnlinkAccount } from "@/features/profile/profile-queries";
 
-export function LinkedAccounts() {
-  const { data: accounts } = useAccounts();
+interface LinkedAccountsProps {
+  accounts: { providerId: string }[];
+}
 
+export function LinkedAccounts({ accounts }: LinkedAccountsProps) {
   const { mutate: linkSocial, isPending: isLinking, variables: linkingProvider } = useLinkSocial();
 
   const {
@@ -62,24 +64,14 @@ export function LinkedAccounts() {
             </div>
 
             {linked ? (
-              unlinkable ? (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={inFlight}
-                  onClick={() => handleDisconnect(provider.id, provider.label)}
-                >
-                  {inFlight ? "Disconnecting..." : "Disconnect"}
-                </Button>
-              ) : (
-                <span
-                  title={`You need at least one other sign-in method before disconnecting ${provider.label}`}
-                >
-                  <Button variant="outline" size="sm" disabled>
-                    Disconnect
-                  </Button>
-                </span>
-              )
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={inFlight || !unlinkable}
+                onClick={() => handleDisconnect(provider.id, provider.label)}
+              >
+                {inFlight ? "Disconnecting..." : "Disconnect"}
+              </Button>
             ) : (
               <Button
                 variant="outline"

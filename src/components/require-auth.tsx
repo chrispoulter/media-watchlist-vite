@@ -1,9 +1,9 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useSession } from "@/features/auth/auth-queries";
+import { authClient } from "@/lib/auth-client";
 import { Spinner } from "./ui/spinner";
 
 export function RequireAuth() {
-  const { data: session, isPending } = useSession();
+  const { data: session, isPending } = authClient.useSession();
   const location = useLocation();
 
   if (isPending) {

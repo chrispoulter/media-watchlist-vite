@@ -1,14 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { authClient } from "@/lib/auth-client";
-import { sessionKeys } from "@/features/auth/auth-queries";
 
-export const accountsKeys = {
-  all: ["accounts"] as const,
+export const profileKeys = {
+  accounts: ["profile", "accounts"] as const,
 };
 
 export function useAccounts() {
   return useQuery({
-    queryKey: accountsKeys.all,
+    queryKey: profileKeys.accounts,
     queryFn: async () => {
       const { data, error } = await authClient.listAccounts();
 
@@ -22,12 +21,8 @@ export function useAccounts() {
 }
 
 export function useUpdateUser() {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (values: { name: string }) => authClient.updateUser(values),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
-    },
   });
 }
 
@@ -38,15 +33,15 @@ export function useChangeEmail() {
   });
 }
 
+interface ChangePasswordVariables {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export function useChangePassword() {
   return useMutation({
-    mutationFn: ({
-      currentPassword,
-      newPassword,
-    }: {
-      currentPassword: string;
-      newPassword: string;
-    }) => authClient.changePassword({ currentPassword, newPassword, revokeOtherSessions: true }),
+    mutationFn: ({ currentPassword, newPassword }: ChangePasswordVariables) =>
+      authClient.changePassword({ currentPassword, newPassword, revokeOtherSessions: true }),
   });
 }
 
@@ -61,23 +56,23 @@ export function useSetPasswordReset() {
 }
 
 export function useDeleteUser() {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => authClient.deleteUser(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
-    },
   });
 }
 
 export function useLinkSocial() {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (provider: string) =>
       authClient.linkSocial({
-        provider: provider as Parameters<typeof authClient.linkSocial>[0]["provider"],
+        provider,
         callbackURL: window.location.href,
         errorCallbackURL: `${window.location.origin}/auth/error`,
       }),
+    // NOTE: linkSocial redirects for OAuth; onSuccess only fires on error paths.
+    // Successful link re-fetches naturally when callbackURL remounts the page.
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: profileKeys.accounts }),
   });
 }
 
@@ -85,9 +80,7 @@ export function useUnlinkAccount() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (providerId: string) => authClient.unlinkAccount({ providerId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: accountsKeys.all });
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: profileKeys.accounts }),
   });
 }
 
@@ -98,22 +91,14 @@ export function useEnableTwoFactor() {
 }
 
 export function useDisableTwoFactor() {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (password: string) => authClient.twoFactor.disable({ password }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
-    },
   });
 }
 
 export function useVerifyTotpSetup() {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (code: string) => authClient.twoFactor.verifyTotp({ code }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
-    },
   });
 }
 

@@ -7,9 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSession } from "@/features/auth/auth-queries";
 import { UserMenu } from "./user-menu";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
 
 const navItems = [
   { to: "/", label: "Watchlist", icon: BookMarked },
@@ -17,7 +17,7 @@ const navItems = [
 ];
 
 export function Header() {
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
 
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">

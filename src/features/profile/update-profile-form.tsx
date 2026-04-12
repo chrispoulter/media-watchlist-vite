@@ -12,8 +12,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useSession } from "@/features/auth/auth-queries";
 import { useUpdateUser } from "@/features/profile/profile-queries";
+import { authClient } from "@/lib/auth-client";
 
 const updateProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -22,7 +22,7 @@ const updateProfileSchema = z.object({
 type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export function UpdateProfileForm() {
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const { mutateAsync: updateUser, isPending } = useUpdateUser();
 
   const user = session?.user;

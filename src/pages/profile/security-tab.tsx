@@ -7,7 +7,7 @@ import { LinkedAccounts } from "@/features/profile/linked-accounts";
 import { useAccounts } from "@/features/profile/profile-queries";
 
 export function SecurityTab() {
-  const { data: accounts, isPending } = useAccounts();
+  const { data: accounts = [], isLoading } = useAccounts();
 
   const hasCredentialAccount = accounts?.some((a) => a.providerId === "credential");
 
@@ -15,7 +15,7 @@ export function SecurityTab() {
     <>
       <title>Security | Media Watchlist</title>
       <div className="space-y-6">
-        {isPending ? (
+        {isLoading ? (
           <Card>
             <CardHeader>
               <Skeleton className="h-6 w-36" />
@@ -64,15 +64,14 @@ export function SecurityTab() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {isPending ? (
+            {isLoading ? (
               <div className="space-y-4">
-                <Skeleton className="h-6 w-40" />
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-10 w-full" />
               </div>
             ) : (
-              <LinkedAccounts />
+              <LinkedAccounts accounts={accounts} />
             )}
           </CardContent>
         </Card>

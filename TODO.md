@@ -1,10 +1,17 @@
 # TODO
 
-- check error handling and loading states
-- loading state on redirect
+- field based form components
+- use empty component
+- error page consistency
+- alert dialog
+- tabs 
+- header layout. just a search icon?
+
+- custom use session hook
+- custom image sizes from custom sources, aspect ratio component
 - global error handling
 - software version
-- header layout. just a search icon?
+
 
 ## Bugfixes
 

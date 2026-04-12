@@ -8,12 +8,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useSession, useSignOut } from "@/features/auth/auth-queries";
+import { useSignOut } from "@/features/auth/auth-queries";
 import { Spinner } from "./ui/spinner";
+import { authClient } from "@/lib/auth-client";
 
 export function UserMenu() {
   const navigate = useNavigate();
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const { mutateAsync: signOut, isPending } = useSignOut();
 
   const handleSignOut = async () => {

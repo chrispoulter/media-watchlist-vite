@@ -69,14 +69,13 @@ The app will be available at `http://localhost:5173`. API requests are proxied t
 
 ## Available Scripts
 
-| Script                 | Description                          |
-| ---------------------- | ------------------------------------ |
-| `npm run dev`          | Start Vite dev server with HMR       |
-| `npm run build`        | Type check and build for production  |
-| `npm run preview`      | Preview the production build locally |
-| `npm run lint`         | Run ESLint                           |
-| `npm run format`       | Format all files with Prettier       |
-| `npm run format:check` | Check formatting without writing     |
+| Script            | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start Vite dev server with HMR       |
+| `npm run build`   | Type check and build for production  |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint`    | Run ESLint                           |
+| `npm run format`  | Format all files with Prettier       |
 
 ## Docker
 

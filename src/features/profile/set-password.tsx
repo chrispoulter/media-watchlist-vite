@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { useSession } from "@/features/auth/auth-queries";
 import { useSetPasswordReset } from "@/features/profile/profile-queries";
+import { authClient } from "@/lib/auth-client";
 
 export function SetPassword() {
-  const [sent, setSent] = useState(false);
-  const { data: session } = useSession();
+  const [isSent, setIsSent] = useState(false);
+  const { data: session } = authClient.useSession();
   const { mutateAsync: requestReset, isPending } = useSetPasswordReset();
 
   const email = session?.user.email ?? "";
@@ -19,27 +20,28 @@ export function SetPassword() {
       return;
     }
 
-    setSent(true);
+    setIsSent(true);
   };
 
-  if (sent) {
+  if (isSent) {
     return (
-      <div className="space-y-2">
-        <p className="text-sm">
-          We've sent a link to <strong className="break-all">{email}</strong> to set up your
-          password.
-        </p>
-        <p className="text-muted-foreground text-sm">
-          Once set, you'll be able to sign in with your email address in addition to Google.
-        </p>
-      </div>
+      <Alert>
+        <AlertDescription>
+          <p>
+            We've sent a link to <strong className="break-all">{email}</strong> to set up your
+            password.
+          </p>
+          <p>Once set, you'll be able to sign in with your email address in addition to Google.</p>
+        </AlertDescription>
+      </Alert>
     );
   }
 
   return (
     <div className="space-y-4">
       <p className="text-muted-foreground text-sm">
-        You currently sign in with Google. Add a password to also sign in with your email address.
+        You currently sign in with a linked account. Add a password to also sign in with your email
+        address.
       </p>
       <Button onClick={handleSend} disabled={isPending} className="w-full sm:w-auto">
         {isPending ? "Sending..." : "Send password setup email"}
