@@ -44,7 +44,7 @@ export function SetPassword() {
         address.
       </p>
       <Button onClick={handleSend} disabled={isPending} className="w-full sm:w-auto">
-        {isPending ? "Sending..." : "Send password setup email"}
+        {isPending ? "Setting..." : "Set Password"}
       </Button>
     </div>
   );

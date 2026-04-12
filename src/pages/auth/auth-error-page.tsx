@@ -1,5 +1,4 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,7 +38,6 @@ export function AuthErrorPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
                 <AlertDescription>{message}</AlertDescription>
               </Alert>
               <Button asChild className="w-full">

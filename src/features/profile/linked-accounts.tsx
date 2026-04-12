@@ -1,8 +1,8 @@
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { authProviders } from "@/lib/auth-providers";
 import { useLinkSocial, useUnlinkAccount } from "@/features/profile/profile-queries";
+import { authProviders } from "@/lib/auth-providers";
 
 interface LinkedAccountsProps {
   accounts: { providerId: string }[];
@@ -51,12 +51,7 @@ export function LinkedAccounts({ accounts }: LinkedAccountsProps) {
               <div>
                 <p className="text-sm font-medium">{provider.label}</p>
                 {linked ? (
-                  <Badge
-                    variant="secondary"
-                    className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                  >
-                    Connected
-                  </Badge>
+                  <Badge variant="secondary">Connected</Badge>
                 ) : (
                   <Badge variant="outline">Not connected</Badge>
                 )}
