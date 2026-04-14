@@ -12,7 +12,7 @@ export function TwoFactorEnabled({ onDisable, onGenerateBackupCodes }: TwoFactor
         Disable 2FA
       </Button>
       <Button variant="outline" onClick={onGenerateBackupCodes}>
-        Regenerate backup codes
+        Regenerate Backup Codes
       </Button>
     </div>
   );

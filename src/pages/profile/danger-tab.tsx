@@ -7,7 +7,7 @@ export function DangerTab() {
       <title>Danger Zone | Media Watchlist</title>
       <Card>
         <CardHeader>
-          <CardTitle>Delete account</CardTitle>
+          <CardTitle>Delete Account</CardTitle>
           <CardDescription>
             Permanently delete your account and all associated data. This cannot be undone.
           </CardDescription>

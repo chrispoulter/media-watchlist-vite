@@ -44,7 +44,7 @@ export function UserMenu() {
         <DropdownMenuItem onClick={() => navigate("/profile")}>Profile</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} disabled={isPending}>
-          {isPending ? "  Signing out..." : "Sign out"}
+          {isPending ? "Signing Out..." : "Sign Out"}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

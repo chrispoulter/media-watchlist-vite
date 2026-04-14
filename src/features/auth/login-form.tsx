@@ -117,7 +117,7 @@ export function LoginForm() {
         </div>
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Signing in..." : "Sign in"}
+          {isPending ? "Signing In..." : "Sign In"}
         </Button>
       </form>
     </Form>

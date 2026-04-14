@@ -73,7 +73,7 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
         </Button>
 
         <Button type="button" variant="link" className="w-full" onClick={onBack}>
-          Use authenticator app instead
+          Use Authenticator App Instead
         </Button>
       </form>
     </Form>

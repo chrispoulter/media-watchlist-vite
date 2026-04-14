@@ -104,7 +104,7 @@ export function ResetPasswordForm() {
         />
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Resetting..." : "Reset password"}
+          {isPending ? "Resetting..." : "Reset Password"}
         </Button>
       </form>
     </Form>

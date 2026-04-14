@@ -9,7 +9,7 @@ export function ProfileTab() {
       <div className="space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Personal information</CardTitle>
+            <CardTitle>Personal Information</CardTitle>
             <CardDescription>Update your personal details</CardDescription>
           </CardHeader>
           <CardContent>
@@ -19,7 +19,7 @@ export function ProfileTab() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Email address</CardTitle>
+            <CardTitle>Email Address</CardTitle>
             <CardDescription>
               Update your email address — a verification link will be sent to confirm the change
             </CardDescription>

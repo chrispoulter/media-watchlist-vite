@@ -17,7 +17,7 @@ export const TwoFactorQRCode = ({ totpUri, onDone }: TwoFactorQRCodeProps) => {
         Or enter manually: <code className="font-mono text-xs break-all">{totpUri}</code>
       </p>
       <Button onClick={onDone} className="w-full sm:w-auto">
-        I've scanned the code
+        I've Scanned the Code
       </Button>
     </div>
   );

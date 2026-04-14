@@ -75,7 +75,7 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
             Back
           </Button>
           <Button type="submit" disabled={isPending}>
-            {isPending ? "Verifying..." : "Verify & enable"}
+            {isPending ? "Verifying..." : "Verify & Enable"}
           </Button>
         </div>
       </form>

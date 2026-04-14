@@ -73,7 +73,7 @@ export function TwoFactorConfirmBackupCodes({
             Cancel
           </Button>
           <Button type="submit" disabled={isPending}>
-            {isPending ? "Regenerating..." : "Regenerate codes"}
+            {isPending ? "Regenerating..." : "Regenerate Codes"}
           </Button>
         </div>
       </form>

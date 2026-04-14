@@ -12,7 +12,7 @@ export function RegisterPage() {
         <div className="w-full max-w-md space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Create an account</CardTitle>
+              <CardTitle className="text-2xl">Create an Account</CardTitle>
               <CardDescription>Enter your details to get started</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">

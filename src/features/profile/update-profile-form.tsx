@@ -63,7 +63,7 @@ export function UpdateProfileForm() {
         />
 
         <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
-          {isPending ? "Saving..." : "Save changes"}
+          {isPending ? "Saving..." : "Save Changes"}
         </Button>
       </form>
     </Form>

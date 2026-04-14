@@ -12,7 +12,7 @@ export function LoginPage() {
         <div className="w-full max-w-md space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Welcome back</CardTitle>
+              <CardTitle className="text-2xl">Welcome Back</CardTitle>
               <CardDescription>Sign in to your account</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">

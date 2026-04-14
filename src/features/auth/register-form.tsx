@@ -134,7 +134,7 @@ export function RegisterForm() {
         />
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Creating account..." : "Create account"}
+          {isPending ? "Creating Account..." : "Create Account"}
         </Button>
       </form>
     </Form>

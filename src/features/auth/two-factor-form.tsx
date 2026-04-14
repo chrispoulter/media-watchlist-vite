@@ -76,7 +76,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
         </Button>
 
         <Button type="button" variant="link" className="w-full" onClick={onBack}>
-          Use recovery code instead
+          Use Recovery Code Instead
         </Button>
       </form>
     </Form>

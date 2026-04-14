@@ -87,7 +87,7 @@ export function UpdateEmailForm() {
           onClick={() => setPendingEmail(null)}
           className="w-full sm:w-auto"
         >
-          Change a different email
+          Use a Different Email
         </Button>
       </div>
     );
@@ -121,7 +121,7 @@ export function UpdateEmailForm() {
           />
 
           <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
-            {isPending ? "Sending verification..." : "Update email"}
+            {isPending ? "Sending Verification..." : "Update Email"}
           </Button>
         </form>
       </Form>

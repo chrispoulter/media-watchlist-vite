@@ -43,7 +43,7 @@ export function SecurityTab() {
         ) : (
           <Card>
             <CardHeader>
-              <CardTitle>{hasCredentialAccount ? "Change password" : "Password"}</CardTitle>
+              <CardTitle>{hasCredentialAccount ? "Change Password" : "Password"}</CardTitle>
               <CardDescription>
                 {hasCredentialAccount ? "Update your password" : "Add a password to your account"}
               </CardDescription>
@@ -56,7 +56,7 @@ export function SecurityTab() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Two-factor authentication</CardTitle>
+            <CardTitle>Two-Factor Authentication</CardTitle>
             <CardDescription>
               Add an extra layer of security to your account using an authenticator app
             </CardDescription>
@@ -68,7 +68,7 @@ export function SecurityTab() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Linked accounts</CardTitle>
+            <CardTitle>Linked Accounts</CardTitle>
             <CardDescription>
               Connect your account to a third-party provider for passwordless sign-in
             </CardDescription>
