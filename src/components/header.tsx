@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { Film, Search, BookMarked, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
   DropdownMenu,
@@ -12,8 +12,8 @@ import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 
 const navItems = [
-  { to: "/", label: "Watchlist", icon: BookMarked },
-  { to: "/search", label: "Search", icon: Search },
+  { to: "/", label: "Watchlist" },
+  { to: "/search", label: "Search" },
 ];
 
 export function Header() {
@@ -22,29 +22,27 @@ export function Header() {
   return (
     <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2 font-semibold">
-          <Film className="h-5 w-5" />
-          <span>Media Watchlist</span>
+        <Link to="/" className="font-semibold">
+          Media Watchlist
         </Link>
 
         {session && (
           <div className="flex items-center">
             {/* Desktop nav */}
             <nav className="hidden items-center gap-1 sm:flex">
-              {navItems.map(({ to, label, icon: Icon }) => (
+              {navItems.map(({ to, label }) => (
                 <NavLink
                   key={to}
                   to={to}
                   className={({ isActive }) =>
                     cn(
-                      "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                      "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                       isActive
                         ? "bg-secondary text-secondary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                     )
                   }
                 >
-                  <Icon className="h-4 w-4" />
                   {label}
                 </NavLink>
               ))}
@@ -58,12 +56,9 @@ export function Header() {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center">
-                {navItems.map(({ to, label, icon: Icon }) => (
+                {navItems.map(({ to, label }) => (
                   <DropdownMenuItem key={to} asChild>
-                    <Link to={to}>
-                      <Icon className="h-4 w-4" />
-                      {label}
-                    </Link>
+                    <Link to={to}>{label}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>

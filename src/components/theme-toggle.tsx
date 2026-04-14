@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Sun, Moon, Monitor } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,21 +26,18 @@ export function ThemeToggleComponent() {
           onClick={() => setTheme("light")}
           className={theme === "light" ? "text-foreground" : "text-muted-foreground"}
         >
-          <Sun className="mr-2 h-4 w-4" />
           Light
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("dark")}
           className={theme === "dark" ? "text-foreground" : "text-muted-foreground"}
         >
-          <Moon className="mr-2 h-4 w-4" />
           Dark
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("system")}
           className={theme === "system" ? "text-foreground" : "text-muted-foreground"}
         >
-          <Monitor className="mr-2 h-4 w-4" />
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

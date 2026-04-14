@@ -1,6 +1,5 @@
 import { memo, useState } from "react";
 import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MediaCard } from "@/components/media-card";
 import { useRemoveFromWatchlist } from "./watchlist-queries";
@@ -43,7 +42,6 @@ export function WatchlistCardComponent({ item }: WatchlistCardProps) {
           onClick={handleRemove}
           disabled={isRemoving}
         >
-          <Trash2 />
           {confirming ? "Confirm remove" : "Remove"}
         </Button>
       }

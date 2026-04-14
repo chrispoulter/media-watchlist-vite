@@ -1,6 +1,5 @@
 import { memo, useState } from "react";
 import { toast } from "sonner";
-import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MediaCard } from "@/components/media-card";
 import { useAddToWatchlist, useRemoveFromWatchlist } from "@/features/watchlist/watchlist-queries";
@@ -63,7 +62,6 @@ function SearchCardComponent({ result }: SearchCardProps) {
               onClick={handleRemove}
               disabled={isRemoving}
             >
-              <Trash2 />
               {confirming ? "Confirm remove" : "Remove"}
             </Button>
           ) : (
@@ -74,7 +72,6 @@ function SearchCardComponent({ result }: SearchCardProps) {
               onClick={handleAdd}
               disabled={isAdding}
             >
-              <Plus />
               Add to Watchlist
             </Button>
           )}

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { LogOut, Settings } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useSignOut } from "@/features/auth/auth-queries";
-import { Spinner } from "./ui/spinner";
 import { authClient } from "@/lib/auth-client";
 
 export function UserMenu() {
@@ -43,21 +41,10 @@ export function UserMenu() {
           <p className="text-muted-foreground truncate text-xs">{session?.user?.email}</p>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => navigate("/profile")}>
-          <Settings className="mr-2 h-4 w-4" />
-          Profile
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => navigate("/profile")}>Profile</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} disabled={isPending}>
-          {isPending ? (
-            <>
-              <Spinner className="mr-2 h-4 w-4" /> Signing out...
-            </>
-          ) : (
-            <>
-              <LogOut className="mr-2 h-4 w-4" /> Sign out
-            </>
-          )}
+          {isPending ? "  Signing out..." : "Sign out"}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
