@@ -26,9 +26,8 @@ export function Header() {
           Media Watchlist
         </Link>
 
-        {session && (
-          <div className="flex items-center">
-            {/* Desktop nav */}
+        <div className="flex items-center gap-2">
+          {session && (
             <nav className="hidden items-center gap-1 sm:flex">
               {navItems.map(({ to, label }) => (
                 <NavLink
@@ -47,15 +46,15 @@ export function Header() {
                 </NavLink>
               ))}
             </nav>
-
-            {/* Mobile hamburger */}
+          )}
+          {session && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="text-muted-foreground hover:bg-secondary/50 hover:text-foreground flex items-center justify-center rounded-md p-2 transition-colors focus:outline-none sm:hidden">
                   <Menu className="h-5 w-5" />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="center">
+              <DropdownMenuContent align="end">
                 {navItems.map(({ to, label }) => (
                   <DropdownMenuItem key={to} asChild>
                     <Link to={to}>{label}</Link>
@@ -63,10 +62,7 @@ export function Header() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        )}
-
-        <div className="flex items-center gap-2">
+          )}
           <ThemeToggle />
           <UserMenu />
         </div>
