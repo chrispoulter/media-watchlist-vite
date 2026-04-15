@@ -7,8 +7,8 @@ interface TwoFactorEnabledProps {
 
 export function TwoFactorEnabled({ onDisable, onGenerateBackupCodes }: TwoFactorEnabledProps) {
   return (
-    <div className="flex flex-col gap-2 sm:flex-row">
-      <Button variant="outline" onClick={onDisable}>
+    <div className="flex flex-col-reverse gap-2 sm:flex-row">
+      <Button variant="destructive" onClick={onDisable}>
         Disable 2FA
       </Button>
       <Button variant="outline" onClick={onGenerateBackupCodes}>

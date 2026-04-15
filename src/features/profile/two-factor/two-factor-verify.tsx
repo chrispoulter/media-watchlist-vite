@@ -70,7 +70,7 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
             </FormItem>
           )}
         />
-        <div className="flex flex-col gap-2 sm:flex-row">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row">
           <Button type="button" variant="outline" onClick={onCancel}>
             Back
           </Button>
