@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,9 +51,10 @@ export function Header() {
           {session && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="text-muted-foreground hover:bg-secondary/50 hover:text-foreground flex items-center justify-center rounded-md p-2 transition-colors focus:outline-none sm:hidden">
+                <Button variant="ghost" size="icon" className="sm:hidden">
                   <Menu className="h-5 w-5" />
-                </button>
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {navItems.map(({ to, label }) => (
