@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,13 +28,13 @@ export function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="focus:outline-none">
-          <Avatar className="h-8 w-8 cursor-pointer">
-            <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+        <Button variant="ghost" size="icon" className="rounded-full">
+          <Avatar>
+            <AvatarFallback className="bg-primary text-primary-foreground">
               {session?.user?.name?.[0]?.toUpperCase()}
             </AvatarFallback>
           </Avatar>
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <div className="px-2 py-1.5">
