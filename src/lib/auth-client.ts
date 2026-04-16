@@ -15,8 +15,4 @@ export const authClient = createAuthClient({
 export type Session = typeof authClient.$Infer.Session;
 
 // Extended user type including additional fields from the API
-export type AppUser = Session["user"] & {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-};
+export type AppUser = Session["user"] & {};
