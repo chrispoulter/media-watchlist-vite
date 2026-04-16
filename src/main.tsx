@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
+import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "@/components/ui/sonner";
 import { queryClient } from "@/lib/query-client";
 import App from "./app.tsx";
@@ -19,7 +20,15 @@ createRoot(document.getElementById("root")!).render(
           enableSystem
           disableTransitionOnChange
         >
-          <App />
+          <ErrorBoundary
+            fallback={
+              <div className="flex min-h-screen items-center justify-center p-8 text-center">
+                Something went wrong. Please refresh the page.
+              </div>
+            }
+          >
+            <App />
+          </ErrorBoundary>
         </ThemeProvider>
       </BrowserRouter>
       <Toaster invert />
