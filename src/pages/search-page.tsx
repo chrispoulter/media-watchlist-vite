@@ -1,7 +1,6 @@
 import { SearchGrid } from "@/features/search/search-grid";
 
 export function SearchPage() {
-  throw new Error("Search page is not implemented yet");
   return (
     <>
       <title>Search | Media Watchlist</title>
