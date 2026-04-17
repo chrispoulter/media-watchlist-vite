@@ -1,7 +1,6 @@
 # TODO
 
 - field based form components
-- software version
 
 ## Bugfixes
 
