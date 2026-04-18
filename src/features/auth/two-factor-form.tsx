@@ -40,7 +40,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup className="gap-4">
+      <FieldGroup>
         <Controller
           control={form.control}
           name="code"

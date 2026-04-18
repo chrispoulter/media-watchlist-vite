@@ -41,7 +41,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup className="gap-4">
+      <FieldGroup>
         <Controller
           control={form.control}
           name="email"

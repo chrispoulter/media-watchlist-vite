@@ -93,7 +93,7 @@ export function UpdateEmailForm() {
         <span className="text-foreground font-medium break-all">{session?.user.email}</span>
       </p>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FieldGroup className="gap-4">
+        <FieldGroup>
           <Controller
             control={form.control}
             name="newEmail"
