@@ -54,7 +54,7 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <Controller
           control={form.control}
           name="name"
@@ -130,7 +130,7 @@ export function RegisterForm() {
           )}
         />
 
-        <Field>
+        <Field orientation="horizontal">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Creating Account..." : "Create Account"}
           </Button>

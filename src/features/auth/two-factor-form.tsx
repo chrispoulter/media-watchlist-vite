@@ -40,7 +40,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <Controller
           control={form.control}
           name="code"
@@ -68,7 +68,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
           )}
         />
 
-        <Field>
+        <Field orientation="horizontal">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Verifying..." : "Verify"}
           </Button>

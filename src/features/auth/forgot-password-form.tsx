@@ -48,7 +48,7 @@ export function ForgotPasswordForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <Controller
           control={form.control}
           name="email"
@@ -68,7 +68,7 @@ export function ForgotPasswordForm() {
           )}
         />
 
-        <Field>
+        <Field orientation="horizontal">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Sending..." : "Send Reset Link"}
           </Button>

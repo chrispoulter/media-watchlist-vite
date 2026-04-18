@@ -41,7 +41,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <Controller
           control={form.control}
           name="email"
@@ -107,7 +107,7 @@ export function LoginForm() {
           </a>
         </div>
 
-        <Field>
+        <Field orientation="horizontal">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Signing In..." : "Sign In"}
           </Button>

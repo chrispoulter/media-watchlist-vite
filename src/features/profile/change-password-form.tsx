@@ -45,7 +45,7 @@ export function ChangePasswordForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <Controller
           control={form.control}
           name="currentPassword"
@@ -103,7 +103,7 @@ export function ChangePasswordForm() {
           )}
         />
 
-        <Field>
+        <Field orientation="horizontal">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Changing..." : "Change Password"}
           </Button>

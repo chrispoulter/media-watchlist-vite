@@ -93,7 +93,7 @@ export function UpdateEmailForm() {
         <span className="text-foreground font-medium break-all">{session?.user.email}</span>
       </p>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FieldGroup>
+        <FieldGroup className="gap-4">
           <Controller
             control={form.control}
             name="newEmail"
@@ -113,7 +113,7 @@ export function UpdateEmailForm() {
             )}
           />
 
-          <Field>
+          <Field orientation="horizontal">
             <Button type="submit" disabled={isPending}>
               {isPending ? "Sending Verification..." : "Update Email"}
             </Button>

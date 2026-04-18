@@ -57,7 +57,7 @@ export function ResetPasswordForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <Controller
           control={form.control}
           name="newPassword"
@@ -96,7 +96,7 @@ export function ResetPasswordForm() {
           )}
         />
 
-        <Field>
+        <Field orientation="horizontal">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Resetting..." : "Reset Password"}
           </Button>

@@ -42,7 +42,7 @@ export function TwoFactorConfirmBackupCodes({
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <Controller
           control={form.control}
           name="password"
