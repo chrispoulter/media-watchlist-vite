@@ -1,18 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { useVerifyBackupCode } from "@/features/auth/auth-queries";
 
 const recoveryCodeSchema = z.object({
@@ -46,36 +39,36 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <FieldGroup>
+        <Controller
           control={form.control}
           name="code"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Recovery code</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  className="font-mono"
-                  placeholder="xxxxx-xxxxx"
-                  autoFocus
-                  autoComplete="off"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="recovery-code">Recovery code</FieldLabel>
+              <Input
+                id="recovery-code"
+                className="font-mono"
+                placeholder="xxxxx-xxxxx"
+                autoFocus
+                autoComplete="off"
+                aria-invalid={fieldState.invalid}
+                {...field}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
+      </FieldGroup>
 
-        <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Verifying..." : "Verify"}
-        </Button>
+      <Button type="submit" className="w-full" disabled={isPending}>
+        {isPending ? "Verifying..." : "Verify"}
+      </Button>
 
-        <Button type="button" variant="link" className="w-full" onClick={onBack}>
-          Use Authenticator App Instead
-        </Button>
-      </form>
-    </Form>
+      <Button type="button" variant="link" className="w-full" onClick={onBack}>
+        Use Authenticator App Instead
+      </Button>
+    </form>
   );
 }

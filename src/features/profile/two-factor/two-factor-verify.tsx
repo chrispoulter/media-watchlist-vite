@@ -1,16 +1,9 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useVerifyTotpSetup } from "@/features/profile/profile-queries";
 
@@ -46,39 +39,42 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <FieldGroup>
+        <Controller
           control={form.control}
           name="code"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Enter the 6-digit code from your app</FormLabel>
-              <FormControl>
-                <InputOTP maxLength={6} autoComplete="one-time-code" {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel>Enter the 6-digit code from your app</FieldLabel>
+              <InputOTP
+                maxLength={6}
+                autoComplete="one-time-code"
+                aria-invalid={fieldState.invalid}
+                {...field}
+              >
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
-        <div className="flex flex-col-reverse gap-2 sm:flex-row">
-          <Button type="button" variant="outline" onClick={onCancel}>
-            Back
-          </Button>
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Verifying..." : "Verify & Enable"}
-          </Button>
-        </div>
-      </form>
-    </Form>
+      </FieldGroup>
+      <div className="flex flex-col-reverse gap-2 sm:flex-row">
+        <Button type="button" variant="outline" onClick={onCancel}>
+          Back
+        </Button>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Verifying..." : "Verify & Enable"}
+        </Button>
+      </div>
+    </form>
   );
 }

@@ -1,20 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { useChangeEmail } from "@/features/profile/profile-queries";
 import { authClient } from "@/lib/auth-client";
 
@@ -99,32 +92,32 @@ export function UpdateEmailForm() {
         Current email:{" "}
         <span className="text-foreground font-medium break-all">{session?.user.email}</span>
       </p>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FieldGroup>
+          <Controller
             control={form.control}
             name="newEmail"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>New email address</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="new@example.com"
-                    autoComplete="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="email-newEmail">New email address</FieldLabel>
+                <Input
+                  id="email-newEmail"
+                  type="email"
+                  placeholder="new@example.com"
+                  autoComplete="email"
+                  aria-invalid={fieldState.invalid}
+                  {...field}
+                />
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
             )}
           />
+        </FieldGroup>
 
-          <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
-            {isPending ? "Sending Verification..." : "Update Email"}
-          </Button>
-        </form>
-      </Form>
+        <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
+          {isPending ? "Sending Verification..." : "Update Email"}
+        </Button>
+      </form>
     </div>
   );
 }

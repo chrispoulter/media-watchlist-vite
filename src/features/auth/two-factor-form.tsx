@@ -1,17 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useVerifyTotpLogin } from "@/features/auth/auth-queries";
 
@@ -46,39 +39,43 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <FieldGroup>
+        <Controller
           control={form.control}
           name="code"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>Authentication code</FormLabel>
-              <FormControl>
-                <InputOTP maxLength={6} autoComplete="one-time-code" autoFocus {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field className="items-center" data-invalid={fieldState.invalid}>
+              <FieldLabel>Authentication code</FieldLabel>
+              <InputOTP
+                maxLength={6}
+                autoComplete="one-time-code"
+                autoFocus
+                aria-invalid={fieldState.invalid}
+                {...field}
+              >
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
+      </FieldGroup>
 
-        <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Verifying..." : "Verify"}
-        </Button>
+      <Button type="submit" className="w-full" disabled={isPending}>
+        {isPending ? "Verifying..." : "Verify"}
+      </Button>
 
-        <Button type="button" variant="link" className="w-full" onClick={onBack}>
-          Use Recovery Code Instead
-        </Button>
-      </form>
-    </Form>
+      <Button type="button" variant="link" className="w-full" onClick={onBack}>
+        Use Recovery Code Instead
+      </Button>
+    </form>
   );
 }
