@@ -114,9 +114,11 @@ export function UpdateEmailForm() {
           />
         </FieldGroup>
 
-        <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
-          {isPending ? "Sending Verification..." : "Update Email"}
-        </Button>
+        <Field>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Sending Verification..." : "Update Email"}
+          </Button>
+        </Field>
       </form>
     </div>
   );

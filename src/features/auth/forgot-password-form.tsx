@@ -69,9 +69,11 @@ export function ForgotPasswordForm() {
         />
       </FieldGroup>
 
-      <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Sending..." : "Send Reset Link"}
-      </Button>
+      <Field>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Sending..." : "Send Reset Link"}
+        </Button>
+      </Field>
     </form>
   );
 }

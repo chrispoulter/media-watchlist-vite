@@ -97,9 +97,11 @@ export function ResetPasswordForm() {
         />
       </FieldGroup>
 
-      <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Resetting..." : "Reset Password"}
-      </Button>
+      <Field>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Resetting..." : "Reset Password"}
+        </Button>
+      </Field>
     </form>
   );
 }

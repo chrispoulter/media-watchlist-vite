@@ -59,9 +59,11 @@ export function UpdateProfileForm() {
         />
       </FieldGroup>
 
-      <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
-        {isPending ? "Saving..." : "Save Changes"}
-      </Button>
+      <Field>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Saving..." : "Save Changes"}
+        </Button>
+      </Field>
     </form>
   );
 }

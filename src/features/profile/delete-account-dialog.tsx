@@ -34,7 +34,7 @@ export function DeleteAccountDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive" className="w-full sm:w-auto">
+        <Button variant="destructive">
           Delete Account
         </Button>
       </DialogTrigger>

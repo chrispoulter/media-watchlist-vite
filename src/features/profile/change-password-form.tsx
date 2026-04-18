@@ -104,9 +104,11 @@ export function ChangePasswordForm() {
         />
       </FieldGroup>
 
-      <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
-        {isPending ? "Changing..." : "Change Password"}
-      </Button>
+      <Field>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Changing..." : "Change Password"}
+        </Button>
+      </Field>
     </form>
   );
 }
