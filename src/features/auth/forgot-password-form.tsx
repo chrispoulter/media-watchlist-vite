@@ -67,13 +67,13 @@ export function ForgotPasswordForm() {
             </Field>
           )}
         />
-      </FieldGroup>
 
-      <Field>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Sending..." : "Send Reset Link"}
-        </Button>
-      </Field>
+        <Field>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Sending..." : "Send Reset Link"}
+          </Button>
+        </Field>
+      </FieldGroup>
     </form>
   );
 }

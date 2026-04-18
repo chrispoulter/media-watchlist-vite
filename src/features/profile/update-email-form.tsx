@@ -112,13 +112,13 @@ export function UpdateEmailForm() {
               </Field>
             )}
           />
-        </FieldGroup>
 
-        <Field>
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Sending Verification..." : "Update Email"}
-          </Button>
-        </Field>
+          <Field>
+            <Button type="submit" disabled={isPending}>
+              {isPending ? "Sending Verification..." : "Update Email"}
+            </Button>
+          </Field>
+        </FieldGroup>
       </form>
     </div>
   );

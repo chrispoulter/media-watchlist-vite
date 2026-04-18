@@ -95,13 +95,13 @@ export function ResetPasswordForm() {
             </Field>
           )}
         />
-      </FieldGroup>
 
-      <Field>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Resetting..." : "Reset Password"}
-        </Button>
-      </Field>
+        <Field>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Resetting..." : "Reset Password"}
+          </Button>
+        </Field>
+      </FieldGroup>
     </form>
   );
 }

@@ -102,13 +102,13 @@ export function ChangePasswordForm() {
             </Field>
           )}
         />
-      </FieldGroup>
 
-      <Field>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Changing..." : "Change Password"}
-        </Button>
-      </Field>
+        <Field>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Changing..." : "Change Password"}
+          </Button>
+        </Field>
+      </FieldGroup>
     </form>
   );
 }

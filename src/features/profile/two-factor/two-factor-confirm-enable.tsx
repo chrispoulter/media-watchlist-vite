@@ -60,15 +60,16 @@ export function TwoFactorConfirmEnable({ onTotpSetup, onCancel }: TwoFactorConfi
             </Field>
           )}
         />
+
+        <Field orientation="horizontal">
+          <Button type="button" variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Continuing..." : "Continue"}
+          </Button>
+        </Field>
       </FieldGroup>
-      <Field orientation="horizontal">
-        <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Continuing..." : "Continue"}
-        </Button>
-      </Field>
     </form>
   );
 }

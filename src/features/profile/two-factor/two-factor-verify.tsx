@@ -66,15 +66,16 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
             </Field>
           )}
         />
+
+        <Field orientation="horizontal">
+          <Button type="button" variant="outline" onClick={onCancel}>
+            Back
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Verifying..." : "Verify & Enable"}
+          </Button>
+        </Field>
       </FieldGroup>
-      <Field orientation="horizontal">
-        <Button type="button" variant="outline" onClick={onCancel}>
-          Back
-        </Button>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Verifying..." : "Verify & Enable"}
-        </Button>
-      </Field>
     </form>
   );
 }

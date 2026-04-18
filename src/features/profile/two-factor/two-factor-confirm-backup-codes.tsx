@@ -61,15 +61,16 @@ export function TwoFactorConfirmBackupCodes({
             </Field>
           )}
         />
+
+        <Field orientation="horizontal">
+          <Button type="button" variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Regenerating..." : "Regenerate Codes"}
+          </Button>
+        </Field>
       </FieldGroup>
-      <Field orientation="horizontal">
-        <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Regenerating..." : "Regenerate Codes"}
-        </Button>
-      </Field>
     </form>
   );
 }

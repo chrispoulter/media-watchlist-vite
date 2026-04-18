@@ -129,13 +129,13 @@ export function RegisterForm() {
             </Field>
           )}
         />
-      </FieldGroup>
 
-      <Field>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Creating Account..." : "Create Account"}
-        </Button>
-      </Field>
+        <Field>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Creating Account..." : "Create Account"}
+          </Button>
+        </Field>
+      </FieldGroup>
     </form>
   );
 }

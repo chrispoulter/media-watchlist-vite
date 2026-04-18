@@ -59,15 +59,16 @@ export function TwoFactorConfirmDisable({ onDisabled, onCancel }: TwoFactorConfi
             </Field>
           )}
         />
+
+        <Field orientation="horizontal">
+          <Button type="button" variant="outline" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" variant="destructive" disabled={isPending}>
+            {isPending ? "Disabling..." : "Disable 2FA"}
+          </Button>
+        </Field>
       </FieldGroup>
-      <Field orientation="horizontal">
-        <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button type="submit" variant="destructive" disabled={isPending}>
-          {isPending ? "Disabling..." : "Disable 2FA"}
-        </Button>
-      </Field>
     </form>
   );
 }

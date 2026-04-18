@@ -79,40 +79,40 @@ export function LoginForm() {
             </Field>
           )}
         />
+
+        <div className="flex items-center justify-between">
+          <Controller
+            control={form.control}
+            name="rememberMe"
+            render={({ field }) => (
+              <Field orientation="horizontal">
+                <input
+                  type="checkbox"
+                  id="login-rememberMe"
+                  checked={field.value}
+                  onChange={field.onChange}
+                  className="border-input h-4 w-4 rounded"
+                />
+                <FieldLabel htmlFor="login-rememberMe" className="cursor-pointer font-normal">
+                  Remember me
+                </FieldLabel>
+              </Field>
+            )}
+          />
+          <a
+            href="/forgot-password"
+            className="text-muted-foreground text-sm underline-offset-4 hover:underline"
+          >
+            Forgot password?
+          </a>
+        </div>
+
+        <Field>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Signing In..." : "Sign In"}
+          </Button>
+        </Field>
       </FieldGroup>
-
-      <div className="flex items-center justify-between">
-        <Controller
-          control={form.control}
-          name="rememberMe"
-          render={({ field }) => (
-            <Field orientation="horizontal">
-              <input
-                type="checkbox"
-                id="login-rememberMe"
-                checked={field.value}
-                onChange={field.onChange}
-                className="border-input h-4 w-4 rounded"
-              />
-              <FieldLabel htmlFor="login-rememberMe" className="cursor-pointer font-normal">
-                Remember me
-              </FieldLabel>
-            </Field>
-          )}
-        />
-        <a
-          href="/forgot-password"
-          className="text-muted-foreground text-sm underline-offset-4 hover:underline"
-        >
-          Forgot password?
-        </a>
-      </div>
-
-      <Field>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Signing In..." : "Sign In"}
-        </Button>
-      </Field>
     </form>
   );
 }
