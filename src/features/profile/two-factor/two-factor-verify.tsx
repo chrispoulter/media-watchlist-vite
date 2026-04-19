@@ -25,6 +25,8 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
   const form = useForm<VerifyTotpFormValues>({
     resolver: zodResolver(verifyTotpSchema),
     defaultValues: { code: "" },
+    // HACK: prevent auto-focus on the otp input which breaks error state render
+    shouldFocusError: false,
   });
 
   const onSubmit = async (values: VerifyTotpFormValues) => {
@@ -52,6 +54,7 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
                 maxLength={6}
                 pattern={REGEXP_ONLY_DIGITS}
                 autoComplete="one-time-code"
+                autoFocus
                 aria-invalid={fieldState.invalid}
                 {...field}
               >
