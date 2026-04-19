@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
@@ -51,7 +51,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
               <InputOTP
                 id="two-factor-code"
                 maxLength={6}
-                pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                pattern={REGEXP_ONLY_DIGITS}
                 autoComplete="one-time-code"
                 autoFocus
                 aria-invalid={fieldState.invalid}
