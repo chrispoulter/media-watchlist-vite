@@ -1,17 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useVerifyTotpLogin } from "@/features/auth/auth-queries";
 
@@ -32,6 +26,8 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
   const form = useForm<TwoFactorFormValues>({
     resolver: zodResolver(twoFactorSchema),
     defaultValues: { code: "" },
+    // HACK: prevent RHF from auto-focusing the first invalid field on submit, which breaks error state render
+    shouldFocusError: false,
   });
 
   const onSubmit = async (values: TwoFactorFormValues) => {
@@ -46,39 +42,44 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      <FieldGroup>
+        <Controller
           control={form.control}
           name="code"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-center">
-              <FormLabel>Authentication code</FormLabel>
-              <FormControl>
-                <InputOTP maxLength={6} autoComplete="one-time-code" autoFocus {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid} className="items-center *:w-auto">
+              <FieldLabel htmlFor="two-factor-code">Authentication code</FieldLabel>
+              <InputOTP
+                id="two-factor-code"
+                maxLength={6}
+                pattern={REGEXP_ONLY_DIGITS}
+                autoComplete="one-time-code"
+                autoFocus
+                aria-invalid={fieldState.invalid}
+                {...field}
+              >
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isPending}>
+        <Button type="submit" disabled={isPending}>
           {isPending ? "Verifying..." : "Verify"}
         </Button>
-
-        <Button type="button" variant="link" className="w-full" onClick={onBack}>
+        <Button type="button" variant="link" onClick={onBack}>
           Use Recovery Code Instead
         </Button>
-      </form>
-    </Form>
+      </FieldGroup>
+    </form>
   );
 }
