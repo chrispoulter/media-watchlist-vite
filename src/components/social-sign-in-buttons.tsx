@@ -9,19 +9,17 @@ export function SocialSignInButtons() {
     <>
       {authProviders.map((provider) => {
         const isProviderPending = isPending && variables === provider.id;
+
         return (
           <Button
             key={provider.id}
             variant="outline"
             className="w-full"
-            type="button"
             disabled={isProviderPending}
             onClick={() => signIn(provider.id)}
           >
             {provider.icon}
-            <span className="ml-2">
-              {isProviderPending ? "Connecting..." : `Continue with ${provider.label}`}
-            </span>
+            {isProviderPending ? "Connecting..." : `Continue with ${provider.label}`}
           </Button>
         );
       })}
