@@ -62,7 +62,7 @@ export function TwoFactorConfirmBackupCodes({
           )}
         />
 
-        <Field orientation="horizontal">
+        <Field orientation="responsive">
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>

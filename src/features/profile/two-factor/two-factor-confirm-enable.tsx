@@ -61,7 +61,7 @@ export function TwoFactorConfirmEnable({ onTotpSetup, onCancel }: TwoFactorConfi
           )}
         />
 
-        <Field orientation="horizontal">
+        <Field orientation="responsive">
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>

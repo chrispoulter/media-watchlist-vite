@@ -113,7 +113,7 @@ export function UpdateEmailForm() {
             )}
           />
 
-          <Field orientation="horizontal">
+          <Field orientation="responsive">
             <Button type="submit" disabled={isPending}>
               {isPending ? "Sending Verification..." : "Update Email"}
             </Button>
