@@ -13,6 +13,7 @@ export function SocialSignInButtons() {
         return (
           <Button
             key={provider.id}
+            type="button"
             variant="outline"
             className="w-full"
             disabled={isProviderPending}
