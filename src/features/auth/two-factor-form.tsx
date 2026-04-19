@@ -26,7 +26,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
   const form = useForm<TwoFactorFormValues>({
     resolver: zodResolver(twoFactorSchema),
     defaultValues: { code: "" },
-    // HACK: prevent auto-focus on the otp input which breaks error state render
+    // HACK: prevent RHF from auto-focusing the first invalid field on submit, which breaks error state render
     shouldFocusError: false,
   });
 
