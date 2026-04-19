@@ -49,7 +49,6 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
               <FieldLabel htmlFor="recovery-code">Recovery code</FieldLabel>
               <Input
                 id="recovery-code"
-                className="font-mono"
                 placeholder="xxxxx-xxxxx"
                 autoFocus
                 autoComplete="off"
@@ -61,7 +60,7 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
           )}
         />
 
-        <Field orientation="horizontal">
+        <Field>
           <Button type="submit" disabled={isPending}>
             {isPending ? "Verifying..." : "Verify"}
           </Button>

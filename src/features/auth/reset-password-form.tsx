@@ -96,7 +96,7 @@ export function ResetPasswordForm() {
           )}
         />
 
-        <Field orientation="horizontal">
+        <Field>
           <Button type="submit" disabled={isPending}>
             {isPending ? "Resetting..." : "Reset Password"}
           </Button>

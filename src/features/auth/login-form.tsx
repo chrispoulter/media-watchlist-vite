@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { useSignIn } from "@/features/auth/auth-queries";
@@ -86,14 +87,13 @@ export function LoginForm() {
             name="rememberMe"
             render={({ field }) => (
               <Field orientation="horizontal">
-                <input
-                  type="checkbox"
-                  id="login-rememberMe"
+                <Checkbox
+                  id="login-remember-me"
+                  name={field.name}
                   checked={field.value}
-                  onChange={field.onChange}
-                  className="border-input h-4 w-4 rounded"
+                  onCheckedChange={field.onChange}
                 />
-                <FieldLabel htmlFor="login-rememberMe" className="cursor-pointer font-normal">
+                <FieldLabel htmlFor="login-remember-me" className="font-normal">
                   Remember me
                 </FieldLabel>
               </Field>
@@ -101,13 +101,13 @@ export function LoginForm() {
           />
           <a
             href="/forgot-password"
-            className="text-muted-foreground text-sm underline-offset-4 hover:underline"
+            className="text-muted-foreground text-sm whitespace-nowrap underline-offset-4 hover:underline"
           >
             Forgot password?
           </a>
         </div>
 
-        <Field orientation="horizontal">
+        <Field>
           <Button type="submit" disabled={isPending}>
             {isPending ? "Signing In..." : "Sign In"}
           </Button>

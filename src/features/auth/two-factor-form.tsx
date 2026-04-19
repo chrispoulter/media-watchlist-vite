@@ -45,9 +45,10 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
           control={form.control}
           name="code"
           render={({ field, fieldState }) => (
-            <Field className="items-center" data-invalid={fieldState.invalid}>
-              <FieldLabel>Authentication code</FieldLabel>
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="two-factor-code">Authentication code</FieldLabel>
               <InputOTP
+                id="two-factor-code"
                 maxLength={6}
                 autoComplete="one-time-code"
                 autoFocus
@@ -68,7 +69,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
           )}
         />
 
-        <Field orientation="horizontal">
+        <Field>
           <Button type="submit" disabled={isPending}>
             {isPending ? "Verifying..." : "Verify"}
           </Button>

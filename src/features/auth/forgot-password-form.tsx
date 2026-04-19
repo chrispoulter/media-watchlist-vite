@@ -68,7 +68,7 @@ export function ForgotPasswordForm() {
           )}
         />
 
-        <Field orientation="horizontal">
+        <Field>
           <Button type="submit" disabled={isPending}>
             {isPending ? "Sending..." : "Send Reset Link"}
           </Button>
