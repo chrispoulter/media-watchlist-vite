@@ -103,7 +103,7 @@ export function ChangePasswordForm() {
           )}
         />
 
-        <Field orientation="responsive">
+        <Field orientation="responsive" className="flex-col-reverse">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Changing..." : "Change Password"}
           </Button>

@@ -62,7 +62,7 @@ export function TwoFactorConfirmBackupCodes({
           )}
         />
 
-        <Field orientation="responsive">
+        <Field orientation="responsive" className="flex-col-reverse">
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>

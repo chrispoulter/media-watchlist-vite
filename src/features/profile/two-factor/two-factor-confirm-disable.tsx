@@ -60,7 +60,7 @@ export function TwoFactorConfirmDisable({ onDisabled, onCancel }: TwoFactorConfi
           )}
         />
 
-        <Field orientation="responsive">
+        <Field orientation="responsive" className="flex-col-reverse">
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>

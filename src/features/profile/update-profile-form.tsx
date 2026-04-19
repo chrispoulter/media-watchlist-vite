@@ -58,7 +58,7 @@ export function UpdateProfileForm() {
           )}
         />
 
-        <Field orientation="responsive">
+        <Field orientation="responsive" className="flex-col-reverse">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Saving..." : "Save Changes"}
           </Button>

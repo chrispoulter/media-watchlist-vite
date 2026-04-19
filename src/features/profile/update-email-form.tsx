@@ -113,7 +113,7 @@ export function UpdateEmailForm() {
             )}
           />
 
-          <Field orientation="responsive">
+          <Field orientation="responsive" className="flex-col-reverse">
             <Button type="submit" disabled={isPending}>
               {isPending ? "Sending Verification..." : "Update Email"}
             </Button>
