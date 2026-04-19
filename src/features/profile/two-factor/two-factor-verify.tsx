@@ -49,8 +49,11 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
           name="code"
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel>Enter the 6-digit code from your app</FieldLabel>
+              <FieldLabel htmlFor="two-factor-code">
+                Enter the 6-digit code from your app
+              </FieldLabel>
               <InputOTP
+                id="two-factor-code"
                 maxLength={6}
                 pattern={REGEXP_ONLY_DIGITS}
                 autoComplete="one-time-code"
