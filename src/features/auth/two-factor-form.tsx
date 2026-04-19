@@ -48,7 +48,7 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
           control={form.control}
           name="code"
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
+            <Field data-invalid={fieldState.invalid} className="items-center *:w-auto">
               <FieldLabel htmlFor="two-factor-code">Authentication code</FieldLabel>
               <InputOTP
                 id="two-factor-code"
