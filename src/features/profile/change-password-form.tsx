@@ -103,11 +103,11 @@ export function ChangePasswordForm() {
           )}
         />
 
-        <Field orientation="responsive" className="flex-col-reverse">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row">
           <Button type="submit" disabled={isPending}>
             {isPending ? "Changing..." : "Change Password"}
           </Button>
-        </Field>
+        </div>
       </FieldGroup>
     </form>
   );

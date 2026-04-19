@@ -71,14 +71,12 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
           )}
         />
 
-        <Field>
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Verifying..." : "Verify"}
-          </Button>
-          <Button type="button" variant="link" onClick={onBack}>
-            Use Recovery Code Instead
-          </Button>
-        </Field>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Verifying..." : "Verify"}
+        </Button>
+        <Button type="button" variant="link" onClick={onBack}>
+          Use Recovery Code Instead
+        </Button>
       </FieldGroup>
     </form>
   );

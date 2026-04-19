@@ -69,14 +69,14 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
           )}
         />
 
-        <Field orientation="responsive" className="flex-col-reverse">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row">
           <Button type="button" variant="outline" onClick={onCancel}>
             Back
           </Button>
           <Button type="submit" disabled={isPending}>
             {isPending ? "Verifying..." : "Verify & Enable"}
           </Button>
-        </Field>
+        </div>
       </FieldGroup>
     </form>
   );

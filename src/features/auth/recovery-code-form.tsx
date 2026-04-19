@@ -60,14 +60,12 @@ export function RecoveryCodeForm({ onBack }: RecoveryCodeFormProps) {
           )}
         />
 
-        <Field>
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Verifying..." : "Verify"}
-          </Button>
-          <Button type="button" variant="link" onClick={onBack}>
-            Use Authenticator App Instead
-          </Button>
-        </Field>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Verifying..." : "Verify"}
+        </Button>
+        <Button type="button" variant="link" onClick={onBack}>
+          Use Authenticator App Instead
+        </Button>
       </FieldGroup>
     </form>
   );

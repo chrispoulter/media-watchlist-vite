@@ -107,11 +107,9 @@ export function LoginForm() {
           </a>
         </div>
 
-        <Field>
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Signing In..." : "Sign In"}
-          </Button>
-        </Field>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Signing In..." : "Sign In"}
+        </Button>
       </FieldGroup>
     </form>
   );
