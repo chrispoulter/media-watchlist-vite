@@ -102,7 +102,7 @@ The multi-stage `Dockerfile` builds a static site served by nginx. Pass the API 
 ```bash
 docker build --target production \
   --build-arg VITE_API_URL=https://your-api.example.com \
-  -t media-watchlist-frontend .
+  -t media-watchlist-vite .
 ```
 
 The nginx config includes `try_files $uri /index.html` for SPA routing and aggressive caching for static assets.
