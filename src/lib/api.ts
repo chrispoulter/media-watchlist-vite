@@ -7,7 +7,7 @@ type ApiError = {
 };
 
 export const api = ky.create({
-  prefix: import.meta.env.VITE_API_URL as string,
+  prefix: '/api',
   credentials: "include",
   hooks: {
     afterResponse: [

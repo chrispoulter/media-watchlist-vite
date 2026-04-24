@@ -4,7 +4,7 @@ services:
     build:
       context: .
     environment:
-      VITE_API_URL: http://localhost:3000
+      VITE_API_URL: http://media-watchlist-api:3000
     ports:
       - 5173:80
 
