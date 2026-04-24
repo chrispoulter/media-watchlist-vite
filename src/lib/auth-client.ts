@@ -1,9 +1,9 @@
 import { createAuthClient } from "better-auth/react";
 import { twoFactorClient } from "better-auth/client/plugins";
-import { API_URL } from "@/lib/config";
+import { config } from "@/lib/config";
 
 export const authClient = createAuthClient({
-  baseURL: API_URL,
+  baseURL: config.apiUrl,
   plugins: [
     twoFactorClient({
       onTwoFactorRedirect() {
