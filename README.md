@@ -81,31 +81,45 @@ The app will be available at `http://localhost:5173`. API requests are proxied t
 
 ### Development
 
-The frontend docker-compose uses an external Docker network shared with the API stack. Create the network first if it doesn't exist:
+`docker compose up` starts the full stack:
 
-```bash
-docker network create media-watchlist-network
+| Service          | URL                   |
+| ---------------- | --------------------- |
+| Frontend (nginx) | http://localhost:5173 |
+| API              | http://localhost:3000 |
+| Mailpit UI       | http://localhost:8025 |
+
+Create a `.env` file in the project root with the required secrets before starting:
+
+```env
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+TMDB_API_READ_TOKEN=...
 ```
-
-Then start the frontend dev container:
 
 ```bash
 docker compose up
 ```
 
-The dev server runs on port `5173` with volume mounts for hot-reload.
+`VITE_API_URL` is set automatically to the API service inside the compose network.
 
 ### Production
 
-The multi-stage `Dockerfile` builds a static site served by nginx. Pass the API URL at build time:
+Build the image (nginx serves the static site):
 
 ```bash
-docker build --target production \
-  --build-arg VITE_API_URL=https://your-api.example.com \
-  -t media-watchlist-vite .
+docker build -t media-watchlist-vite .
 ```
 
-The nginx config includes `try_files $uri /index.html` for SPA routing and aggressive caching for static assets.
+Run with the API URL supplied at runtime:
+
+```bash
+docker run -p 80:80 \
+  -e VITE_API_URL=https://your-api.example.com \
+  media-watchlist-vite
+```
+
+The nginx config proxies `/api` requests to `VITE_API_URL`, serves the SPA via `try_files $uri /index.html`, and caches static assets aggressively.
 
 ## CI/CD
 
