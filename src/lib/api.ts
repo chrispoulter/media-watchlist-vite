@@ -7,7 +7,7 @@ type ApiError = {
 };
 
 export const api = ky.create({
-  prefix: '/api',
+  prefix: "/api",
   credentials: "include",
   hooks: {
     afterResponse: [
