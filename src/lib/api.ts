@@ -1,13 +1,14 @@
 import ky, { HTTPError } from "ky";
 import { authClient } from "@/lib/auth-client";
 import { queryClient } from "@/lib/query-client";
+import { API_URL } from "@/lib/config";
 
 type ApiError = {
   error?: string;
 };
 
 export const api = ky.create({
-  prefix: import.meta.env.VITE_API_URL as string,
+  prefix: API_URL,
   credentials: "include",
   hooks: {
     afterResponse: [
