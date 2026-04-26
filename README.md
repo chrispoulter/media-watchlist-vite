@@ -119,7 +119,7 @@ docker run -p 80:80 \
   media-watchlist-vite
 ```
 
-The nginx config proxies `/api` requests to `VITE_API_URL`, serves the SPA via `try_files $uri /index.html`, and caches static assets aggressively.
+At container startup, `VITE_API_URL` is injected into `env.js` by the entrypoint script. The app reads it at runtime via `window.__ENV__`, so the same image runs in any environment without rebuilding. nginx serves the SPA via `try_files $uri /index.html`.
 
 ## CI/CD
 
