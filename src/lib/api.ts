@@ -8,7 +8,7 @@ type ApiError = {
 };
 
 export const api = ky.create({
-  prefix: config.apiUrl,
+  prefix: config.VITE_API_URL,
   credentials: "include",
   hooks: {
     afterResponse: [

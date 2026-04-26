@@ -3,7 +3,7 @@ import { twoFactorClient } from "better-auth/client/plugins";
 import { config } from "@/lib/config";
 
 export const authClient = createAuthClient({
-  baseURL: config.apiUrl,
+  baseURL: config.VITE_API_URL,
   plugins: [
     twoFactorClient({
       onTwoFactorRedirect() {
