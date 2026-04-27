@@ -24,7 +24,7 @@ dist-ssr
 *.sln
 *.sw?
 
-.claude/settings.local.json
+.claude
 .eslintcache
 .env*
 !.env.example
