@@ -108,7 +108,7 @@ docker compose up
 Build the image (nginx serves the static site):
 
 ```bash
-docker build -t media-watchlist-vite .
+docker build -t media-watchlist-web .
 ```
 
 Run with the API URL supplied at runtime:
@@ -116,7 +116,7 @@ Run with the API URL supplied at runtime:
 ```bash
 docker run -p 80:80 \
   -e VITE_API_URL=https://your-api.example.com \
-  media-watchlist-vite
+  media-watchlist-web
 ```
 
 At container startup, `VITE_API_URL` is injected into `env.js` by the entrypoint script. The app reads it at runtime via `window.__ENV__`, so the same image runs in any environment without rebuilding. nginx serves the SPA via `try_files $uri /index.html`.

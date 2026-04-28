@@ -1,6 +1,6 @@
 services:
-  media-watchlist-vite:
-    image: media-watchlist-vite:latest
+  media-watchlist-web:
+    image: media-watchlist-web:latest
     build:
       context: .
     environment:
