@@ -1,28 +1,28 @@
-import { useNavigate } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { useSignOut } from '@/features/auth/auth-queries'
-import { authClient } from '@/lib/auth-client'
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useSignOut } from '@/features/auth/auth-queries';
+import { authClient } from '@/lib/auth-client';
 
 export function UserMenu() {
-    const navigate = useNavigate()
-    const { data: session } = authClient.useSession()
-    const { mutateAsync: signOut, isPending } = useSignOut()
+    const navigate = useNavigate();
+    const { data: session } = authClient.useSession();
+    const { mutateAsync: signOut, isPending } = useSignOut();
 
     const handleSignOut = async () => {
-        await signOut()
-        navigate('/login')
-    }
+        await signOut();
+        navigate('/login');
+    };
 
     if (!session) {
-        return null
+        return null;
     }
 
     return (
@@ -55,5 +55,5 @@ export function UserMenu() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-    )
+    );
 }

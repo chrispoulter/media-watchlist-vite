@@ -1,4 +1,4 @@
-import { SearchGrid } from '@/features/search/search-grid'
+import { SearchGrid } from '@/features/search/search-grid';
 
 export function SearchPage() {
     return (
@@ -16,5 +16,5 @@ export function SearchPage() {
                 <SearchGrid />
             </div>
         </>
-    )
+    );
 }

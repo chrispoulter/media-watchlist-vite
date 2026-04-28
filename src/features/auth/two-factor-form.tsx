@@ -1,54 +1,54 @@
-import { useNavigate } from 'react-router-dom'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { REGEXP_ONLY_DIGITS } from 'input-otp'
-import { Button } from '@/components/ui/button'
+import { useNavigate } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { REGEXP_ONLY_DIGITS } from 'input-otp';
+import { Button } from '@/components/ui/button';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
+} from '@/components/ui/field';
 import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
-} from '@/components/ui/input-otp'
-import { useVerifyTotpLogin } from '@/features/auth/auth-queries'
+} from '@/components/ui/input-otp';
+import { useVerifyTotpLogin } from '@/features/auth/auth-queries';
 
 const twoFactorSchema = z.object({
     code: z.string().length(6, 'Code must be 6 digits'),
-})
+});
 
-type TwoFactorFormValues = z.infer<typeof twoFactorSchema>
+type TwoFactorFormValues = z.infer<typeof twoFactorSchema>;
 
 interface TwoFactorFormProps {
-    onBack?: () => void
+    onBack?: () => void;
 }
 
 export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
-    const navigate = useNavigate()
-    const { mutateAsync: verifyTotp, isPending } = useVerifyTotpLogin()
+    const navigate = useNavigate();
+    const { mutateAsync: verifyTotp, isPending } = useVerifyTotpLogin();
 
     const form = useForm<TwoFactorFormValues>({
         resolver: zodResolver(twoFactorSchema),
         defaultValues: { code: '' },
         // HACK: prevent RHF from auto-focusing the first invalid field on submit, which breaks error state render
         shouldFocusError: false,
-    })
+    });
 
     const onSubmit = async (values: TwoFactorFormValues) => {
-        const { error } = await verifyTotp(values.code)
+        const { error } = await verifyTotp(values.code);
 
         if (error) {
-            toast.error(error.message ?? 'Invalid code')
-            return
+            toast.error(error.message ?? 'Invalid code');
+            return;
         }
 
-        navigate('/')
-    }
+        navigate('/');
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -97,5 +97,5 @@ export function TwoFactorForm({ onBack }: TwoFactorFormProps) {
                 </Button>
             </FieldGroup>
         </form>
-    )
+    );
 }

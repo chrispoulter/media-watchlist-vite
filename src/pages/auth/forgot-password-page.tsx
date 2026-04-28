@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
-import { ForgotPasswordForm } from '@/features/auth/forgot-password-form'
+} from '@/components/ui/card';
+import { ForgotPasswordForm } from '@/features/auth/forgot-password-form';
 
 export function ForgotPasswordPage() {
     return (
@@ -39,5 +39,5 @@ export function ForgotPasswordPage() {
                 </div>
             </div>
         </>
-    )
+    );
 }

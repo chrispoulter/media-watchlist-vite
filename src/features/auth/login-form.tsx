@@ -1,49 +1,49 @@
-import { useNavigate, useLocation } from 'react-router-dom'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useSignIn } from '@/features/auth/auth-queries'
+} from '@/components/ui/field';
+import { useSignIn } from '@/features/auth/auth-queries';
 
 const loginSchema = z.object({
     email: z.email('Invalid email address'),
     password: z.string().min(1, 'Password is required'),
     rememberMe: z.boolean(),
-})
+});
 
-type LoginFormValues = z.infer<typeof loginSchema>
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
-    const navigate = useNavigate()
-    const location = useLocation()
-    const { mutateAsync: signIn, isPending } = useSignIn()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { mutateAsync: signIn, isPending } = useSignIn();
 
-    const from = location.state?.from?.pathname ?? '/'
+    const from = location.state?.from?.pathname ?? '/';
 
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
         defaultValues: { email: '', password: '', rememberMe: false },
-    })
+    });
 
     const onSubmit = async (values: LoginFormValues) => {
-        const { error } = await signIn(values)
+        const { error } = await signIn(values);
 
         if (error) {
-            toast.error(error.message ?? 'Sign in failed')
-            return
+            toast.error(error.message ?? 'Sign in failed');
+            return;
         }
 
-        navigate(from, { replace: true })
-    }
+        navigate(from, { replace: true });
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -126,5 +126,5 @@ export function LoginForm() {
                 </Button>
             </FieldGroup>
         </form>
-    )
+    );
 }

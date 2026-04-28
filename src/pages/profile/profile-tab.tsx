@@ -4,9 +4,9 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
-import { UpdateProfileForm } from '@/features/profile/update-profile-form'
-import { UpdateEmailForm } from '@/features/profile/update-email-form'
+} from '@/components/ui/card';
+import { UpdateProfileForm } from '@/features/profile/update-profile-form';
+import { UpdateEmailForm } from '@/features/profile/update-email-form';
 
 export function ProfileTab() {
     return (
@@ -39,5 +39,5 @@ export function ProfileTab() {
                 </Card>
             </div>
         </>
-    )
+    );
 }

@@ -1,11 +1,11 @@
-import ky, { HTTPError } from 'ky'
-import { authClient } from '@/lib/auth-client'
-import { queryClient } from '@/lib/query-client'
-import { config } from '@/lib/config'
+import ky, { HTTPError } from 'ky';
+import { authClient } from '@/lib/auth-client';
+import { queryClient } from '@/lib/query-client';
+import { config } from '@/lib/config';
 
 type ApiError = {
-    error?: string
-}
+    error?: string;
+};
 
 export const api = ky.create({
     prefix: config.VITE_API_URL,
@@ -15,21 +15,21 @@ export const api = ky.create({
             async ({ response }) => {
                 switch (response.status) {
                     case 401:
-                        await authClient.signOut()
-                        queryClient.clear()
-                        break
+                        await authClient.signOut();
+                        queryClient.clear();
+                        break;
                 }
-                return response
+                return response;
             },
         ],
         beforeError: [
             async ({ error }) => {
                 if (error instanceof HTTPError) {
-                    const body = error.data as ApiError
-                    error.message = body?.error || error.message
+                    const body = error.data as ApiError;
+                    error.message = body?.error || error.message;
                 }
-                return error
+                return error;
             },
         ],
     },
-})
+});

@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function MediaCardSkeleton() {
     return (
@@ -15,5 +15,5 @@ export function MediaCardSkeleton() {
                 <Skeleton className="mt-auto h-9 w-full rounded-md" />
             </div>
         </div>
-    )
+    );
 }

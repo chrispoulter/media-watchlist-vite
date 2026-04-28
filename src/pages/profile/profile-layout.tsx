@@ -1,17 +1,17 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const navItems = [
     { to: '/profile', label: 'Profile' },
     { to: '/profile/security', label: 'Security' },
     { to: '/profile/danger', label: 'Danger zone' },
-]
+];
 
 export function ProfileLayout() {
-    const { pathname } = useLocation()
+    const { pathname } = useLocation();
 
     const activeTab =
-        navItems.find((t) => t.to === pathname)?.to ?? navItems[0].to
+        navItems.find((t) => t.to === pathname)?.to ?? navItems[0].to;
 
     return (
         <div className="space-y-6">
@@ -34,5 +34,5 @@ export function ProfileLayout() {
 
             <Outlet />
         </div>
-    )
+    );
 }

@@ -4,21 +4,21 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
-import { ChangePasswordForm } from '@/features/profile/change-password-form'
-import { SetPassword } from '@/features/profile/set-password'
-import { TwoFactorSettings } from '@/features/profile/two-factor/two-factor-settings'
-import { LinkedAccounts } from '@/features/profile/linked-accounts'
-import { useAccounts } from '@/features/profile/profile-queries'
-import { authProviders } from '@/lib/auth-providers'
+} from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ChangePasswordForm } from '@/features/profile/change-password-form';
+import { SetPassword } from '@/features/profile/set-password';
+import { TwoFactorSettings } from '@/features/profile/two-factor/two-factor-settings';
+import { LinkedAccounts } from '@/features/profile/linked-accounts';
+import { useAccounts } from '@/features/profile/profile-queries';
+import { authProviders } from '@/lib/auth-providers';
 
 export function SecurityTab() {
-    const { data: accounts = [], isLoading } = useAccounts()
+    const { data: accounts = [], isLoading } = useAccounts();
 
     const hasCredentialAccount = accounts?.some(
         (a) => a.providerId === 'credential'
-    )
+    );
 
     return (
         <>
@@ -110,5 +110,5 @@ export function SecurityTab() {
                 </Card>
             </div>
         </>
-    )
+    );
 }

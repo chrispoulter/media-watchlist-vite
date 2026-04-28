@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { TwoFactorEnabled } from './two-factor-enabled'
-import { TwoFactorBackupCodes } from './two-factor-backup-codes'
-import { TwoFactorDisabled } from './two-factor-disabled'
-import { TwoFactorConfirmDisable } from './two-factor-confirm-disable'
-import { TwoFactorConfirmEnable } from './two-factor-confirm-enable'
-import { TwoFactorConfirmBackupCodes } from './two-factor-confirm-backup-codes'
-import { TwoFactorVerify } from './two-factor-verify'
-import { TwoFactorQRCode } from './two-factor-qr-code'
-import { authClient } from '@/lib/auth-client'
+import { useState } from 'react';
+import { TwoFactorEnabled } from './two-factor-enabled';
+import { TwoFactorBackupCodes } from './two-factor-backup-codes';
+import { TwoFactorDisabled } from './two-factor-disabled';
+import { TwoFactorConfirmDisable } from './two-factor-confirm-disable';
+import { TwoFactorConfirmEnable } from './two-factor-confirm-enable';
+import { TwoFactorConfirmBackupCodes } from './two-factor-confirm-backup-codes';
+import { TwoFactorVerify } from './two-factor-verify';
+import { TwoFactorQRCode } from './two-factor-qr-code';
+import { authClient } from '@/lib/auth-client';
 
 type TwoFactorStep =
     | 'idle'
@@ -16,15 +16,15 @@ type TwoFactorStep =
     | 'verify'
     | 'confirm-disable'
     | 'backup-codes'
-    | 'confirm-backup-codes'
+    | 'confirm-backup-codes';
 
 export function TwoFactorSettings() {
-    const [step, setStep] = useState<TwoFactorStep>('idle')
-    const [totpUri, setTotpUri] = useState<string>('')
-    const [backupCodes, setBackupCodes] = useState<string[]>([])
-    const { data: session } = authClient.useSession()
+    const [step, setStep] = useState<TwoFactorStep>('idle');
+    const [totpUri, setTotpUri] = useState<string>('');
+    const [backupCodes, setBackupCodes] = useState<string[]>([]);
+    const { data: session } = authClient.useSession();
 
-    const twoFactorEnabled = session?.user.twoFactorEnabled
+    const twoFactorEnabled = session?.user.twoFactorEnabled;
 
     if (twoFactorEnabled) {
         return (
@@ -41,8 +41,8 @@ export function TwoFactorSettings() {
                 {step === 'confirm-backup-codes' && (
                     <TwoFactorConfirmBackupCodes
                         onRegenerated={(newCodes) => {
-                            setBackupCodes(newCodes)
-                            setStep('backup-codes')
+                            setBackupCodes(newCodes);
+                            setStep('backup-codes');
                         }}
                         onCancel={() => setStep('idle')}
                     />
@@ -62,7 +62,7 @@ export function TwoFactorSettings() {
                     />
                 )}
             </div>
-        )
+        );
     }
 
     return (
@@ -74,9 +74,9 @@ export function TwoFactorSettings() {
             {step === 'confirm-enable' && (
                 <TwoFactorConfirmEnable
                     onTotpSetup={(uri, codes) => {
-                        setTotpUri(uri)
-                        setBackupCodes(codes)
-                        setStep('qr')
+                        setTotpUri(uri);
+                        setBackupCodes(codes);
+                        setStep('qr');
                     }}
                     onCancel={() => setStep('idle')}
                 />
@@ -92,7 +92,7 @@ export function TwoFactorSettings() {
             {step === 'verify' && (
                 <TwoFactorVerify
                     onSuccess={() => {
-                        setStep('backup-codes')
+                        setStep('backup-codes');
                     }}
                     onCancel={() => setStep('qr')}
                 />
@@ -105,5 +105,5 @@ export function TwoFactorSettings() {
                 />
             )}
         </div>
-    )
+    );
 }

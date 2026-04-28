@@ -1,27 +1,27 @@
-import { useState } from 'react'
-import { toast } from 'sonner'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { useSetPasswordReset } from '@/features/profile/profile-queries'
-import { authClient } from '@/lib/auth-client'
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { useSetPasswordReset } from '@/features/profile/profile-queries';
+import { authClient } from '@/lib/auth-client';
 
 export function SetPassword() {
-    const [isSent, setIsSent] = useState(false)
-    const { data: session } = authClient.useSession()
-    const { mutateAsync: requestReset, isPending } = useSetPasswordReset()
+    const [isSent, setIsSent] = useState(false);
+    const { data: session } = authClient.useSession();
+    const { mutateAsync: requestReset, isPending } = useSetPasswordReset();
 
-    const email = session?.user.email ?? ''
+    const email = session?.user.email ?? '';
 
     const handleSend = async () => {
-        const { error } = await requestReset(email)
+        const { error } = await requestReset(email);
 
         if (error) {
-            toast.error(error.message ?? 'Failed to send password setup email')
-            return
+            toast.error(error.message ?? 'Failed to send password setup email');
+            return;
         }
 
-        setIsSent(true)
-    }
+        setIsSent(true);
+    };
 
     if (isSent) {
         return (
@@ -38,7 +38,7 @@ export function SetPassword() {
                     </p>
                 </AlertDescription>
             </Alert>
-        )
+        );
     }
 
     return (
@@ -55,5 +55,5 @@ export function SetPassword() {
                 {isPending ? 'Setting...' : 'Set Password'}
             </Button>
         </div>
-    )
+    );
 }

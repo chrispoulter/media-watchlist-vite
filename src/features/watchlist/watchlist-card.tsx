@@ -1,24 +1,24 @@
-import { memo, useState } from 'react'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { MediaCard } from '@/components/media-card'
-import { useRemoveFromWatchlist } from './watchlist-queries'
-import type { WatchlistItem } from '@/types'
+import { memo, useState } from 'react';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { MediaCard } from '@/components/media-card';
+import { useRemoveFromWatchlist } from './watchlist-queries';
+import type { WatchlistItem } from '@/types';
 
 interface WatchlistCardProps {
-    item: WatchlistItem
+    item: WatchlistItem;
 }
 
 export function WatchlistCardComponent({ item }: WatchlistCardProps) {
-    const [confirming, setConfirming] = useState(false)
+    const [confirming, setConfirming] = useState(false);
     const { mutate: removeFromWatchlist, isPending: isRemoving } =
-        useRemoveFromWatchlist()
+        useRemoveFromWatchlist();
 
     const handleRemove = () => {
         if (!confirming) {
-            setConfirming(true)
-            setTimeout(() => setConfirming(false), 3000)
-            return
+            setConfirming(true);
+            setTimeout(() => setConfirming(false), 3000);
+            return;
         }
 
         removeFromWatchlist(item.id, {
@@ -27,8 +27,8 @@ export function WatchlistCardComponent({ item }: WatchlistCardProps) {
             onError: (err) =>
                 toast.error(err.message ?? 'Failed to remove from watchlist'),
             onSettled: () => setConfirming(false),
-        })
-    }
+        });
+    };
 
     return (
         <MediaCard
@@ -49,7 +49,7 @@ export function WatchlistCardComponent({ item }: WatchlistCardProps) {
                 </Button>
             }
         />
-    )
+    );
 }
 
-export const WatchlistCard = memo(WatchlistCardComponent)
+export const WatchlistCard = memo(WatchlistCardComponent);

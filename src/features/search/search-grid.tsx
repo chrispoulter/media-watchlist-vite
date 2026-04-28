@@ -1,24 +1,24 @@
-import { useState } from 'react'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { useState } from 'react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
     Empty,
     EmptyHeader,
     EmptyTitle,
     EmptyDescription,
-} from '@/components/ui/empty'
-import { MediaCardSkeleton } from '@/components/media-card-skeleton'
-import { useSearch } from './search-queries'
-import { SearchBar } from './search-bar'
-import { SearchCard } from './search-card'
+} from '@/components/ui/empty';
+import { MediaCardSkeleton } from '@/components/media-card-skeleton';
+import { useSearch } from './search-queries';
+import { SearchBar } from './search-bar';
+import { SearchCard } from './search-card';
 
 export function SearchGrid() {
-    const [searchQuery, setSearchQuery] = useState('')
-    const searchEnabled = searchQuery.trim().length >= 2
+    const [searchQuery, setSearchQuery] = useState('');
+    const searchEnabled = searchQuery.trim().length >= 2;
     const {
         data: searchResults,
         isLoading,
         error,
-    } = useSearch(searchQuery, searchEnabled)
+    } = useSearch(searchQuery, searchEnabled);
 
     return (
         <>
@@ -69,5 +69,5 @@ export function SearchGrid() {
                 </Empty>
             )}
         </>
-    )
+    );
 }

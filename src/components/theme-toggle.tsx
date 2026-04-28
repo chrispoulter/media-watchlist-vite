@@ -1,16 +1,16 @@
-import { memo } from 'react'
-import { Sun, Moon } from 'lucide-react'
-import { useTheme } from 'next-themes'
-import { Button } from '@/components/ui/button'
+import { memo } from 'react';
+import { Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu';
 
 export function ThemeToggleComponent() {
-    const { theme, setTheme } = useTheme()
+    const { theme, setTheme } = useTheme();
 
     return (
         <DropdownMenu>
@@ -54,7 +54,7 @@ export function ThemeToggleComponent() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-    )
+    );
 }
 
-export const ThemeToggle = memo(ThemeToggleComponent)
+export const ThemeToggle = memo(ThemeToggleComponent);

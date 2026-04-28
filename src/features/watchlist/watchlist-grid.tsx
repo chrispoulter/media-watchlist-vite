@@ -1,19 +1,19 @@
-import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { MediaCardSkeleton } from '@/components/media-card-skeleton'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { MediaCardSkeleton } from '@/components/media-card-skeleton';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
     Empty,
     EmptyContent,
     EmptyDescription,
     EmptyHeader,
     EmptyTitle,
-} from '@/components/ui/empty'
-import { WatchlistCard } from './watchlist-card'
-import { useWatchlist } from './watchlist-queries'
+} from '@/components/ui/empty';
+import { WatchlistCard } from './watchlist-card';
+import { useWatchlist } from './watchlist-queries';
 
 export function WatchlistGrid() {
-    const { data: items, isLoading, error } = useWatchlist()
+    const { data: items, isLoading, error } = useWatchlist();
 
     if (isLoading) {
         return (
@@ -23,7 +23,7 @@ export function WatchlistGrid() {
                 <MediaCardSkeleton />
                 <MediaCardSkeleton />
             </div>
-        )
+        );
     }
 
     if (error) {
@@ -34,7 +34,7 @@ export function WatchlistGrid() {
                     Failed to load watchlist. Please try again.
                 </AlertDescription>
             </Alert>
-        )
+        );
     }
 
     if (!items?.length) {
@@ -52,7 +52,7 @@ export function WatchlistGrid() {
                     </Button>
                 </EmptyContent>
             </Empty>
-        )
+        );
     }
 
     return (
@@ -61,5 +61,5 @@ export function WatchlistGrid() {
                 <WatchlistCard key={item.id} item={item} />
             ))}
         </div>
-    )
+    );
 }

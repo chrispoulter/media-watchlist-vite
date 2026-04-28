@@ -1,44 +1,44 @@
-import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useForgotPassword } from '@/features/auth/auth-queries'
+} from '@/components/ui/field';
+import { useForgotPassword } from '@/features/auth/auth-queries';
 
 const forgotPasswordSchema = z.object({
     email: z.email('Invalid email address'),
-})
+});
 
-type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>
+type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 export function ForgotPasswordForm() {
-    const [isSent, setIsSent] = useState(false)
-    const { mutateAsync: forgotPassword, isPending } = useForgotPassword()
+    const [isSent, setIsSent] = useState(false);
+    const { mutateAsync: forgotPassword, isPending } = useForgotPassword();
 
     const form = useForm<ForgotPasswordFormValues>({
         resolver: zodResolver(forgotPasswordSchema),
         defaultValues: { email: '' },
-    })
+    });
 
     const onSubmit = async (values: ForgotPasswordFormValues) => {
-        const { error } = await forgotPassword(values.email)
+        const { error } = await forgotPassword(values.email);
 
         if (error) {
-            toast.error(error.message ?? 'Failed to send reset email')
-            return
+            toast.error(error.message ?? 'Failed to send reset email');
+            return;
         }
 
-        setIsSent(true)
-    }
+        setIsSent(true);
+    };
 
     if (isSent) {
         return (
@@ -51,7 +51,7 @@ export function ForgotPasswordForm() {
                     <p>Please check your inbox.</p>
                 </AlertDescription>
             </Alert>
-        )
+        );
     }
 
     return (
@@ -85,5 +85,5 @@ export function ForgotPasswordForm() {
                 </Button>
             </FieldGroup>
         </form>
-    )
+    );
 }

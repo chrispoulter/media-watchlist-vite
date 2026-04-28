@@ -1,9 +1,9 @@
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 
 interface TwoFactorBackupCodesProps {
-    backupCodes: string[]
-    onDone: () => void
+    backupCodes: string[];
+    onDone: () => void;
 }
 
 export function TwoFactorBackupCodes({
@@ -11,9 +11,9 @@ export function TwoFactorBackupCodes({
     onDone,
 }: TwoFactorBackupCodesProps) {
     const handleCopyAllCodes = () => {
-        navigator.clipboard.writeText(backupCodes.join('\n'))
-        toast.success('Backup codes copied to clipboard')
-    }
+        navigator.clipboard.writeText(backupCodes.join('\n'));
+        toast.success('Backup codes copied to clipboard');
+    };
 
     return (
         <div className="space-y-4">
@@ -40,5 +40,5 @@ export function TwoFactorBackupCodes({
                 </Button>
             </div>
         </div>
-    )
+    );
 }

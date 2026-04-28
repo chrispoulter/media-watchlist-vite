@@ -1,13 +1,13 @@
-import { Link, useSearchParams } from 'react-router-dom'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
+import { Link, useSearchParams } from 'react-router-dom';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
+} from '@/components/ui/card';
 
 const ERROR_MESSAGES: Record<string, string> = {
     "email_doesn't_match":
@@ -24,15 +24,15 @@ const ERROR_MESSAGES: Record<string, string> = {
         'No email address was returned by Google. Please ensure your Google account has a verified email.',
     oauth_provider_not_found:
         'The requested sign-in provider is not configured. Please contact support.',
-}
+};
 
 const DEFAULT_MESSAGE =
-    'An unexpected authentication error occurred. Please try again.'
+    'An unexpected authentication error occurred. Please try again.';
 
 export function AuthErrorPage() {
-    const [searchParams] = useSearchParams()
-    const error = searchParams.get('error') ?? ''
-    const message = ERROR_MESSAGES[error] ?? DEFAULT_MESSAGE
+    const [searchParams] = useSearchParams();
+    const error = searchParams.get('error') ?? '';
+    const message = ERROR_MESSAGES[error] ?? DEFAULT_MESSAGE;
 
     return (
         <>
@@ -60,5 +60,5 @@ export function AuthErrorPage() {
                 </div>
             </div>
         </>
-    )
+    );
 }

@@ -1,26 +1,26 @@
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useGenerateBackupCodes } from '@/features/profile/profile-queries'
+} from '@/components/ui/field';
+import { useGenerateBackupCodes } from '@/features/profile/profile-queries';
 
 const generateBackupCodesSchema = z.object({
     password: z.string().min(1, 'Password is required'),
-})
+});
 
-type GenerateBackupCodesFormValues = z.infer<typeof generateBackupCodesSchema>
+type GenerateBackupCodesFormValues = z.infer<typeof generateBackupCodesSchema>;
 
 interface TwoFactorConfirmBackupCodesProps {
-    onRegenerated: (newCodes: string[]) => void
-    onCancel: () => void
+    onRegenerated: (newCodes: string[]) => void;
+    onCancel: () => void;
 }
 
 export function TwoFactorConfirmBackupCodes({
@@ -28,25 +28,25 @@ export function TwoFactorConfirmBackupCodes({
     onCancel,
 }: TwoFactorConfirmBackupCodesProps) {
     const { mutateAsync: generateBackupCodes, isPending } =
-        useGenerateBackupCodes()
+        useGenerateBackupCodes();
 
     const form = useForm<GenerateBackupCodesFormValues>({
         resolver: zodResolver(generateBackupCodesSchema),
         defaultValues: { password: '' },
-    })
+    });
 
     const onSubmit = async (values: GenerateBackupCodesFormValues) => {
-        const result = await generateBackupCodes(values.password)
+        const result = await generateBackupCodes(values.password);
 
         if (result.error) {
             toast.error(
                 result.error.message ?? 'Failed to regenerate backup codes'
-            )
-            return
+            );
+            return;
         }
 
-        onRegenerated(result.data?.backupCodes ?? [])
-    }
+        onRegenerated(result.data?.backupCodes ?? []);
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -84,5 +84,5 @@ export function TwoFactorConfirmBackupCodes({
                 </div>
             </FieldGroup>
         </form>
-    )
+    );
 }

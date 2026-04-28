@@ -1,14 +1,15 @@
-import { Button } from '@/components/ui/button'
-import { useSocialSignIn } from '@/features/auth/auth-queries'
-import { authProviders } from '@/lib/auth-providers'
+import { Button } from '@/components/ui/button';
+import { useSocialSignIn } from '@/features/auth/auth-queries';
+import { authProviders } from '@/lib/auth-providers';
 
 export function SocialSignInButtons() {
-    const { mutate: signIn, isPending, variables } = useSocialSignIn()
+    const { mutate: signIn, isPending, variables } = useSocialSignIn();
 
     return (
         <>
             {authProviders.map((provider) => {
-                const isProviderPending = isPending && variables === provider.id
+                const isProviderPending =
+                    isPending && variables === provider.id;
 
                 return (
                     <Button
@@ -24,8 +25,8 @@ export function SocialSignInButtons() {
                             ? 'Connecting...'
                             : `Continue with ${provider.label}`}
                     </Button>
-                )
+                );
             })}
         </>
-    )
+    );
 }

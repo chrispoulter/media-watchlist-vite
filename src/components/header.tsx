@@ -1,24 +1,24 @@
-import { Link, NavLink } from 'react-router-dom'
-import { Menu } from 'lucide-react'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { Button } from '@/components/ui/button'
+import { Link, NavLink } from 'react-router-dom';
+import { Menu } from 'lucide-react';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { UserMenu } from './user-menu'
-import { cn } from '@/lib/utils'
-import { authClient } from '@/lib/auth-client'
+} from '@/components/ui/dropdown-menu';
+import { UserMenu } from './user-menu';
+import { cn } from '@/lib/utils';
+import { authClient } from '@/lib/auth-client';
 
 const navItems = [
     { to: '/', label: 'Watchlist' },
     { to: '/search', label: 'Search' },
-]
+];
 
 export function Header() {
-    const { data: session } = authClient.useSession()
+    const { data: session } = authClient.useSession();
 
     return (
         <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
@@ -74,5 +74,5 @@ export function Header() {
                 </div>
             </div>
         </header>
-    )
+    );
 }

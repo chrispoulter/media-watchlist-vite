@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
-import { SocialSignInButtons } from '@/components/social-sign-in-buttons'
-import { RegisterForm } from '@/features/auth/register-form'
+} from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { SocialSignInButtons } from '@/components/social-sign-in-buttons';
+import { RegisterForm } from '@/features/auth/register-form';
 
 export function RegisterPage() {
     return (
@@ -51,5 +51,5 @@ export function RegisterPage() {
                 </div>
             </div>
         </>
-    )
+    );
 }

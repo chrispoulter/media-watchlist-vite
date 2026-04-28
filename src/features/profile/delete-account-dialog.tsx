@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import {
     Dialog,
     DialogContent,
@@ -10,26 +10,26 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '@/components/ui/dialog'
-import { useDeleteUser } from '@/features/profile/profile-queries'
+} from '@/components/ui/dialog';
+import { useDeleteUser } from '@/features/profile/profile-queries';
 
 export function DeleteAccountDialog() {
-    const [isOpen, setIsOpen] = useState(false)
-    const navigate = useNavigate()
-    const { mutateAsync: deleteUser, isPending } = useDeleteUser()
+    const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
+    const { mutateAsync: deleteUser, isPending } = useDeleteUser();
 
     const handleDelete = async () => {
-        const { error } = await deleteUser()
+        const { error } = await deleteUser();
 
         if (error) {
-            toast.error(error.message ?? 'Failed to delete account')
-            return
+            toast.error(error.message ?? 'Failed to delete account');
+            return;
         }
 
-        setIsOpen(false)
-        toast.success('Account deleted')
-        navigate('/login')
-    }
+        setIsOpen(false);
+        toast.success('Account deleted');
+        navigate('/login');
+    };
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -60,5 +60,5 @@ export function DeleteAccountDialog() {
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-    )
+    );
 }

@@ -1,32 +1,32 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { authClient } from '@/lib/auth-client'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { authClient } from '@/lib/auth-client';
 
 export function useSignIn() {
     return useMutation({
         mutationFn: (values: {
-            email: string
-            password: string
-            rememberMe: boolean
+            email: string;
+            password: string;
+            rememberMe: boolean;
         }) => authClient.signIn.email(values),
-    })
+    });
 }
 
 export function useSignUp() {
     return useMutation({
         mutationFn: (values: {
-            email: string
-            password: string
-            name: string
+            email: string;
+            password: string;
+            name: string;
         }) => authClient.signUp.email(values),
-    })
+    });
 }
 
 export function useSignOut() {
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
     return useMutation({
         mutationFn: () => authClient.signOut(),
         onSuccess: () => queryClient.clear(),
-    })
+    });
 }
 
 export function useSocialSignIn() {
@@ -39,20 +39,20 @@ export function useSocialSignIn() {
                 callbackURL: `${window.location.origin}/`,
                 errorCallbackURL: `${window.location.origin}/auth/error`,
             }),
-    })
+    });
 }
 
 export function useVerifyTotpLogin() {
     return useMutation({
         mutationFn: (code: string) => authClient.twoFactor.verifyTotp({ code }),
-    })
+    });
 }
 
 export function useVerifyBackupCode() {
     return useMutation({
         mutationFn: (code: string) =>
             authClient.twoFactor.verifyBackupCode({ code }),
-    })
+    });
 }
 
 export function useForgotPassword() {
@@ -62,7 +62,7 @@ export function useForgotPassword() {
                 email,
                 redirectTo: `${window.location.origin}/reset-password`,
             }),
-    })
+    });
 }
 
 export function useResetPassword() {
@@ -71,8 +71,8 @@ export function useResetPassword() {
             newPassword,
             token,
         }: {
-            newPassword: string
-            token: string
+            newPassword: string;
+            token: string;
         }) => authClient.resetPassword({ newPassword, token }),
-    })
+    });
 }

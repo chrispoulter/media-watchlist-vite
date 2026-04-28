@@ -1,24 +1,24 @@
-import { memo, useEffect, useState } from 'react'
-import { Search } from 'lucide-react'
+import { memo, useEffect, useState } from 'react';
+import { Search } from 'lucide-react';
 import {
     InputGroup,
     InputGroupAddon,
     InputGroupInput,
-} from '@/components/ui/input-group'
+} from '@/components/ui/input-group';
 
 interface SearchBarProps {
-    onSearch: (query: string) => void
+    onSearch: (query: string) => void;
 }
 
 export function SearchBarComponent({ onSearch }: SearchBarProps) {
-    const [query, setQuery] = useState('')
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            onSearch(query)
-        }, 300)
-        return () => clearTimeout(timer)
-    }, [query, onSearch])
+            onSearch(query);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [query, onSearch]);
 
     return (
         <InputGroup>
@@ -32,7 +32,7 @@ export function SearchBarComponent({ onSearch }: SearchBarProps) {
                 <Search />
             </InputGroupAddon>
         </InputGroup>
-    )
+    );
 }
 
-export const SearchBar = memo(SearchBarComponent)
+export const SearchBar = memo(SearchBarComponent);

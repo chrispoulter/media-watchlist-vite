@@ -1,17 +1,17 @@
-import { useNavigate } from 'react-router-dom'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { useNavigate } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useSignUp } from '@/features/auth/auth-queries'
+} from '@/components/ui/field';
+import { useSignUp } from '@/features/auth/auth-queries';
 
 const registerSchema = z
     .object({
@@ -23,13 +23,13 @@ const registerSchema = z
     .refine((data) => data.password === data.confirmPassword, {
         message: 'Passwords do not match',
         path: ['confirmPassword'],
-    })
+    });
 
-type RegisterFormValues = z.infer<typeof registerSchema>
+type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
-    const navigate = useNavigate()
-    const { mutateAsync: signUp, isPending } = useSignUp()
+    const navigate = useNavigate();
+    const { mutateAsync: signUp, isPending } = useSignUp();
 
     const form = useForm<RegisterFormValues>({
         resolver: zodResolver(registerSchema),
@@ -39,23 +39,23 @@ export function RegisterForm() {
             password: '',
             confirmPassword: '',
         },
-    })
+    });
 
     const onSubmit = async (values: RegisterFormValues) => {
         const { error } = await signUp({
             email: values.email,
             password: values.password,
             name: values.name,
-        })
+        });
 
         if (error) {
-            toast.error(error.message ?? 'Registration failed')
-            return
+            toast.error(error.message ?? 'Registration failed');
+            return;
         }
 
-        toast.success('Account created! Welcome.')
-        navigate('/')
-    }
+        toast.success('Account created! Welcome.');
+        navigate('/');
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -156,5 +156,5 @@ export function RegisterForm() {
                 </Button>
             </FieldGroup>
         </form>
-    )
+    );
 }

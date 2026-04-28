@@ -1,4 +1,4 @@
-import { WatchlistGrid } from '@/features/watchlist/watchlist-grid'
+import { WatchlistGrid } from '@/features/watchlist/watchlist-grid';
 
 export function WatchlistPage() {
     return (
@@ -13,5 +13,5 @@ export function WatchlistPage() {
                 <WatchlistGrid />
             </div>
         </>
-    )
+    );
 }

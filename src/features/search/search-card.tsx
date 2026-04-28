@@ -1,22 +1,22 @@
-import { memo, useState } from 'react'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { MediaCard } from '@/components/media-card'
+import { memo, useState } from 'react';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { MediaCard } from '@/components/media-card';
 import {
     useAddToWatchlist,
     useRemoveFromWatchlist,
-} from '@/features/watchlist/watchlist-queries'
-import type { SearchResult } from '@/types'
+} from '@/features/watchlist/watchlist-queries';
+import type { SearchResult } from '@/types';
 
 interface SearchCardProps {
-    result: SearchResult
+    result: SearchResult;
 }
 
 function SearchCardComponent({ result }: SearchCardProps) {
-    const [confirming, setConfirming] = useState(false)
-    const { mutate: addToWatchlist, isPending: isAdding } = useAddToWatchlist()
+    const [confirming, setConfirming] = useState(false);
+    const { mutate: addToWatchlist, isPending: isAdding } = useAddToWatchlist();
     const { mutate: removeFromWatchlist, isPending: isRemoving } =
-        useRemoveFromWatchlist()
+        useRemoveFromWatchlist();
 
     const handleAdd = () => {
         addToWatchlist(
@@ -34,14 +34,14 @@ function SearchCardComponent({ result }: SearchCardProps) {
                 onError: (err) =>
                     toast.error(err.message ?? 'Failed to add to watchlist'),
             }
-        )
-    }
+        );
+    };
 
     const handleRemove = () => {
         if (!confirming) {
-            setConfirming(true)
-            setTimeout(() => setConfirming(false), 3000)
-            return
+            setConfirming(true);
+            setTimeout(() => setConfirming(false), 3000);
+            return;
         }
 
         removeFromWatchlist(result.watchlistItemId!, {
@@ -50,8 +50,8 @@ function SearchCardComponent({ result }: SearchCardProps) {
             onError: (err) =>
                 toast.error(err.message ?? 'Failed to remove from watchlist'),
             onSettled: () => setConfirming(false),
-        })
-    }
+        });
+    };
 
     return (
         <MediaCard
@@ -86,7 +86,7 @@ function SearchCardComponent({ result }: SearchCardProps) {
                 </>
             }
         />
-    )
+    );
 }
 
-export const SearchCard = memo(SearchCardComponent)
+export const SearchCard = memo(SearchCardComponent);

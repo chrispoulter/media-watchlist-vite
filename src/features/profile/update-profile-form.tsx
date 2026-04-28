@@ -1,47 +1,47 @@
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useUpdateUser } from '@/features/profile/profile-queries'
-import { authClient } from '@/lib/auth-client'
+} from '@/components/ui/field';
+import { useUpdateUser } from '@/features/profile/profile-queries';
+import { authClient } from '@/lib/auth-client';
 
 const updateProfileSchema = z.object({
     name: z.string().min(1, 'Name is required'),
-})
+});
 
-type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>
+type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;
 
 export function UpdateProfileForm() {
-    const { data: session } = authClient.useSession()
-    const { mutateAsync: updateUser, isPending } = useUpdateUser()
+    const { data: session } = authClient.useSession();
+    const { mutateAsync: updateUser, isPending } = useUpdateUser();
 
-    const user = session?.user
+    const user = session?.user;
 
     const form = useForm<UpdateProfileFormValues>({
         resolver: zodResolver(updateProfileSchema),
         defaultValues: {
             name: user?.name ?? '',
         },
-    })
+    });
 
     const onSubmit = async (values: UpdateProfileFormValues) => {
-        const { error } = await updateUser({ name: values.name })
+        const { error } = await updateUser({ name: values.name });
 
         if (error) {
-            toast.error(error.message ?? 'Failed to update profile')
-            return
+            toast.error(error.message ?? 'Failed to update profile');
+            return;
         }
 
-        toast.success('Profile updated')
-    }
+        toast.success('Profile updated');
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -72,5 +72,5 @@ export function UpdateProfileForm() {
                 </div>
             </FieldGroup>
         </form>
-    )
+    );
 }

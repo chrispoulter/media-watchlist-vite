@@ -1,16 +1,16 @@
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useChangePassword } from '@/features/profile/profile-queries'
+} from '@/components/ui/field';
+import { useChangePassword } from '@/features/profile/profile-queries';
 
 const changePasswordSchema = z
     .object({
@@ -23,12 +23,12 @@ const changePasswordSchema = z
     .refine((data) => data.newPassword === data.confirmPassword, {
         message: 'Passwords do not match',
         path: ['confirmPassword'],
-    })
+    });
 
-type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>
+type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
 
 export function ChangePasswordForm() {
-    const { mutateAsync: changePassword, isPending } = useChangePassword()
+    const { mutateAsync: changePassword, isPending } = useChangePassword();
 
     const form = useForm<ChangePasswordFormValues>({
         resolver: zodResolver(changePasswordSchema),
@@ -37,22 +37,22 @@ export function ChangePasswordForm() {
             newPassword: '',
             confirmPassword: '',
         },
-    })
+    });
 
     const onSubmit = async (values: ChangePasswordFormValues) => {
         const { error } = await changePassword({
             currentPassword: values.currentPassword,
             newPassword: values.newPassword,
-        })
+        });
 
         if (error) {
-            toast.error(error.message ?? 'Failed to change password')
-            return
+            toast.error(error.message ?? 'Failed to change password');
+            return;
         }
 
-        toast.success('Password changed successfully')
-        form.reset()
-    }
+        toast.success('Password changed successfully');
+        form.reset();
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -133,5 +133,5 @@ export function ChangePasswordForm() {
                 </div>
             </FieldGroup>
         </form>
-    )
+    );
 }

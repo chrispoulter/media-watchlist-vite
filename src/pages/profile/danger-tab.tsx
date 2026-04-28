@@ -4,8 +4,8 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
-import { DeleteAccountDialog } from '@/features/profile/delete-account-dialog'
+} from '@/components/ui/card';
+import { DeleteAccountDialog } from '@/features/profile/delete-account-dialog';
 
 export function DangerTab() {
     return (
@@ -24,5 +24,5 @@ export function DangerTab() {
                 </CardContent>
             </Card>
         </>
-    )
+    );
 }

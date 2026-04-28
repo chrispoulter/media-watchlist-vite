@@ -1,68 +1,68 @@
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useChangeEmail } from '@/features/profile/profile-queries'
-import { authClient } from '@/lib/auth-client'
+} from '@/components/ui/field';
+import { useChangeEmail } from '@/features/profile/profile-queries';
+import { authClient } from '@/lib/auth-client';
 
 const verificationErrorMessages: Record<string, string> = {
     USER_NOT_FOUND:
         'This verification link has already been used or has expired.',
-}
+};
 
 const updateEmailSchema = z.object({
     newEmail: z.email('Invalid email address'),
-})
+});
 
-type UpdateEmailFormValues = z.infer<typeof updateEmailSchema>
+type UpdateEmailFormValues = z.infer<typeof updateEmailSchema>;
 
 export function UpdateEmailForm() {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [pendingEmail, setPendingEmail] = useState<string | null>(null)
-    const { data: session } = authClient.useSession()
-    const { mutateAsync: changeEmail, isPending } = useChangeEmail()
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+    const { data: session } = authClient.useSession();
+    const { mutateAsync: changeEmail, isPending } = useChangeEmail();
 
     useEffect(() => {
-        const error = searchParams.get('error')
+        const error = searchParams.get('error');
         if (error) {
             toast.error(
                 verificationErrorMessages[error] ?? 'Email verification failed.'
-            )
+            );
 
             setSearchParams((prev) => {
-                prev.delete('error')
-                return prev
-            })
+                prev.delete('error');
+                return prev;
+            });
         }
-    }, [searchParams, setSearchParams])
+    }, [searchParams, setSearchParams]);
 
     const form = useForm<UpdateEmailFormValues>({
         resolver: zodResolver(updateEmailSchema),
         defaultValues: { newEmail: '' },
-    })
+    });
 
     const onSubmit = async (values: UpdateEmailFormValues) => {
-        const { error } = await changeEmail(values.newEmail)
+        const { error } = await changeEmail(values.newEmail);
 
         if (error) {
-            toast.error(error.message ?? 'Failed to update email')
-            return
+            toast.error(error.message ?? 'Failed to update email');
+            return;
         }
 
-        setPendingEmail(values.newEmail)
-        form.reset()
-    }
+        setPendingEmail(values.newEmail);
+        form.reset();
+    };
 
     if (pendingEmail) {
         return (
@@ -96,7 +96,7 @@ export function UpdateEmailForm() {
                     Use a Different Email
                 </Button>
             </div>
-        )
+        );
     }
 
     return (
@@ -142,5 +142,5 @@ export function UpdateEmailForm() {
                 </FieldGroup>
             </form>
         </div>
-    )
+    );
 }

@@ -1,18 +1,18 @@
-import { useSearchParams, useNavigate } from 'react-router-dom'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
-import { useResetPassword } from '@/features/auth/auth-queries'
+} from '@/components/ui/field';
+import { useResetPassword } from '@/features/auth/auth-queries';
 
 const resetPasswordSchema = z
     .object({
@@ -24,36 +24,36 @@ const resetPasswordSchema = z
     .refine((data) => data.newPassword === data.confirmPassword, {
         message: 'Passwords do not match',
         path: ['confirmPassword'],
-    })
+    });
 
-type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>
+type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
 export function ResetPasswordForm() {
-    const [searchParams] = useSearchParams()
-    const navigate = useNavigate()
-    const { mutateAsync: resetPassword, isPending } = useResetPassword()
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const { mutateAsync: resetPassword, isPending } = useResetPassword();
 
-    const token = searchParams.get('token') ?? ''
+    const token = searchParams.get('token') ?? '';
 
     const form = useForm<ResetPasswordFormValues>({
         resolver: zodResolver(resetPasswordSchema),
         defaultValues: { newPassword: '', confirmPassword: '' },
-    })
+    });
 
     const onSubmit = async (values: ResetPasswordFormValues) => {
         const { error } = await resetPassword({
             newPassword: values.newPassword,
             token,
-        })
+        });
 
         if (error) {
-            toast.error(error.message ?? 'Failed to reset password')
-            return
+            toast.error(error.message ?? 'Failed to reset password');
+            return;
         }
 
-        toast.success('Password reset successfully. Please sign in.')
-        navigate('/login')
-    }
+        toast.success('Password reset successfully. Please sign in.');
+        navigate('/login');
+    };
 
     if (!token) {
         return (
@@ -62,7 +62,7 @@ export function ResetPasswordForm() {
                     Invalid or expired reset link. Please request a new one.
                 </AlertDescription>
             </Alert>
-        )
+        );
     }
 
     return (
@@ -119,5 +119,5 @@ export function ResetPasswordForm() {
                 </Button>
             </FieldGroup>
         </form>
-    )
+    );
 }

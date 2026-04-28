@@ -1,14 +1,14 @@
-import { toast } from 'sonner'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { toast } from 'sonner';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
     useLinkSocial,
     useUnlinkAccount,
-} from '@/features/profile/profile-queries'
-import { authProviders } from '@/lib/auth-providers'
+} from '@/features/profile/profile-queries';
+import { authProviders } from '@/lib/auth-providers';
 
 interface LinkedAccountsProps {
-    accounts: { providerId: string }[]
+    accounts: { providerId: string }[];
 }
 
 export function LinkedAccounts({ accounts }: LinkedAccountsProps) {
@@ -16,44 +16,44 @@ export function LinkedAccounts({ accounts }: LinkedAccountsProps) {
         mutate: linkSocial,
         isPending: isLinking,
         variables: linkingProvider,
-    } = useLinkSocial()
+    } = useLinkSocial();
 
     const {
         mutateAsync: unlinkAccount,
         isPending: isUnlinking,
         variables: unlinkingProvider,
-    } = useUnlinkAccount()
+    } = useUnlinkAccount();
 
     const isLinked = (providerId: string) =>
-        accounts?.some((a) => a.providerId === providerId)
+        accounts?.some((a) => a.providerId === providerId);
 
     const canUnlink = (providerId: string) =>
-        accounts?.some((a) => a.providerId !== providerId)
+        accounts?.some((a) => a.providerId !== providerId);
 
-    const handleConnect = (providerId: string) => linkSocial(providerId)
+    const handleConnect = (providerId: string) => linkSocial(providerId);
 
     const handleDisconnect = async (providerId: string, label: string) => {
-        const { error } = await unlinkAccount(providerId)
+        const { error } = await unlinkAccount(providerId);
 
         if (error) {
             toast.error(
                 error.message ?? `Failed to disconnect ${label} account`
-            )
-            return
+            );
+            return;
         }
 
-        toast.success(`${label} account disconnected`)
-    }
+        toast.success(`${label} account disconnected`);
+    };
 
     return (
         <div className="space-y-4">
             {authProviders.map((provider) => {
-                const linked = isLinked(provider.id)
-                const unlinkable = canUnlink(provider.id)
+                const linked = isLinked(provider.id);
+                const unlinkable = canUnlink(provider.id);
 
                 const inFlight =
                     (isLinking && linkingProvider === provider.id) ||
-                    (isUnlinking && unlinkingProvider === provider.id)
+                    (isUnlinking && unlinkingProvider === provider.id);
 
                 return (
                     <div
@@ -101,8 +101,8 @@ export function LinkedAccounts({ accounts }: LinkedAccountsProps) {
                             </Button>
                         )}
                     </div>
-                )
+                );
             })}
         </div>
-    )
+    );
 }

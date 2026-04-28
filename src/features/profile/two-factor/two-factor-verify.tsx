@@ -1,54 +1,54 @@
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { REGEXP_ONLY_DIGITS } from 'input-otp'
-import { Button } from '@/components/ui/button'
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { REGEXP_ONLY_DIGITS } from 'input-otp';
+import { Button } from '@/components/ui/button';
 import {
     Field,
     FieldError,
     FieldGroup,
     FieldLabel,
-} from '@/components/ui/field'
+} from '@/components/ui/field';
 import {
     InputOTP,
     InputOTPGroup,
     InputOTPSlot,
-} from '@/components/ui/input-otp'
-import { useVerifyTotpSetup } from '@/features/profile/profile-queries'
+} from '@/components/ui/input-otp';
+import { useVerifyTotpSetup } from '@/features/profile/profile-queries';
 
 const verifyTotpSchema = z.object({
     code: z.string().length(6, 'Code must be 6 digits'),
-})
+});
 
-type VerifyTotpFormValues = z.infer<typeof verifyTotpSchema>
+type VerifyTotpFormValues = z.infer<typeof verifyTotpSchema>;
 
 interface TwoFactorVerifyProps {
-    onSuccess: () => void
-    onCancel: () => void
+    onSuccess: () => void;
+    onCancel: () => void;
 }
 
 export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
-    const { mutateAsync: verifyTotp, isPending } = useVerifyTotpSetup()
+    const { mutateAsync: verifyTotp, isPending } = useVerifyTotpSetup();
 
     const form = useForm<VerifyTotpFormValues>({
         resolver: zodResolver(verifyTotpSchema),
         defaultValues: { code: '' },
         // HACK: prevent RHF from auto-focusing the first invalid field on submit, which breaks error state render
         shouldFocusError: false,
-    })
+    });
 
     const onSubmit = async (values: VerifyTotpFormValues) => {
-        const result = await verifyTotp(values.code)
+        const result = await verifyTotp(values.code);
 
         if (result.error) {
-            toast.error(result.error.message ?? 'Invalid code')
-            return
+            toast.error(result.error.message ?? 'Invalid code');
+            return;
         }
 
-        toast.success('Two-factor authentication enabled')
-        onSuccess()
-    }
+        toast.success('Two-factor authentication enabled');
+        onSuccess();
+    };
 
     return (
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -96,5 +96,5 @@ export function TwoFactorVerify({ onSuccess, onCancel }: TwoFactorVerifyProps) {
                 </div>
             </FieldGroup>
         </form>
-    )
+    );
 }

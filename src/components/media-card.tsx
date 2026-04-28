@@ -1,13 +1,13 @@
-import { Badge } from '@/components/ui/badge'
-import type { MediaType } from '@/types'
+import { Badge } from '@/components/ui/badge';
+import type { MediaType } from '@/types';
 
 interface MediaCardProps {
-    title: string
-    posterUrl?: string
-    overview?: string
-    releaseDate?: string
-    mediaType: MediaType
-    actions?: React.ReactNode
+    title: string;
+    posterUrl?: string;
+    overview?: string;
+    releaseDate?: string;
+    mediaType: MediaType;
+    actions?: React.ReactNode;
 }
 
 export function MediaCard({
@@ -18,9 +18,9 @@ export function MediaCard({
     mediaType,
     actions,
 }: MediaCardProps) {
-    const year = releaseDate ? new Date(releaseDate).getFullYear() : undefined
+    const year = releaseDate ? new Date(releaseDate).getFullYear() : undefined;
     const fallback =
-        mediaType === 'tv' ? '/default-tv-show.svg' : '/default-movie.svg'
+        mediaType === 'tv' ? '/default-tv-show.svg' : '/default-movie.svg';
 
     return (
         <div className="bg-card text-card-foreground flex flex-row overflow-hidden rounded-xl border shadow-sm">
@@ -28,7 +28,7 @@ export function MediaCard({
                 src={posterUrl || fallback}
                 alt={title}
                 onError={(e) => {
-                    e.currentTarget.src = fallback
+                    e.currentTarget.src = fallback;
                 }}
                 className="h-60 w-40 object-cover"
             />
@@ -41,5 +41,5 @@ export function MediaCard({
                 <div className="mt-auto">{actions}</div>
             </div>
         </div>
-    )
+    );
 }

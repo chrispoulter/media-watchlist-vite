@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 
 interface TwoFactorEnabledProps {
-    onDisable: () => void
-    onGenerateBackupCodes: () => void
+    onDisable: () => void;
+    onGenerateBackupCodes: () => void;
 }
 
 export function TwoFactorEnabled({
@@ -18,5 +18,5 @@ export function TwoFactorEnabled({
                 Regenerate Backup Codes
             </Button>
         </div>
-    )
+    );
 }

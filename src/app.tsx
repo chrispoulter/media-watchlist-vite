@@ -1,21 +1,21 @@
-import { Routes, Route } from 'react-router-dom'
-import { RootLayout } from '@/components/root-layout'
-import { RequireAuth } from '@/components/require-auth'
-import { RequireGuest } from '@/components/require-guest'
+import { Routes, Route } from 'react-router-dom';
+import { RootLayout } from '@/components/root-layout';
+import { RequireAuth } from '@/components/require-auth';
+import { RequireGuest } from '@/components/require-guest';
 
-import { LoginPage } from '@/pages/auth/login-page'
-import { RegisterPage } from '@/pages/auth/register-page'
-import { TwoFactorPage } from '@/pages/auth/two-factor-page'
-import { ForgotPasswordPage } from '@/pages/auth/forgot-password-page'
-import { ResetPasswordPage } from '@/pages/auth/reset-password-page'
-import { AuthErrorPage } from '@/pages/auth/auth-error-page'
-import { WatchlistPage } from '@/pages/watchlist-page'
-import { SearchPage } from '@/pages/search-page'
-import { ProfileLayout } from '@/pages/profile/profile-layout'
-import { ProfileTab } from '@/pages/profile/profile-tab'
-import { SecurityTab } from '@/pages/profile/security-tab'
-import { DangerTab } from '@/pages/profile/danger-tab'
-import { NotFoundPage } from '@/pages/not-found-page'
+import { LoginPage } from '@/pages/auth/login-page';
+import { RegisterPage } from '@/pages/auth/register-page';
+import { TwoFactorPage } from '@/pages/auth/two-factor-page';
+import { ForgotPasswordPage } from '@/pages/auth/forgot-password-page';
+import { ResetPasswordPage } from '@/pages/auth/reset-password-page';
+import { AuthErrorPage } from '@/pages/auth/auth-error-page';
+import { WatchlistPage } from '@/pages/watchlist-page';
+import { SearchPage } from '@/pages/search-page';
+import { ProfileLayout } from '@/pages/profile/profile-layout';
+import { ProfileTab } from '@/pages/profile/profile-tab';
+import { SecurityTab } from '@/pages/profile/security-tab';
+import { DangerTab } from '@/pages/profile/danger-tab';
+import { NotFoundPage } from '@/pages/not-found-page';
 
 export default function App() {
     return (
@@ -50,5 +50,5 @@ export default function App() {
                 <Route path="*" element={<NotFoundPage />} />
             </Route>
         </Routes>
-    )
+    );
 }

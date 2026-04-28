@@ -6,5 +6,5 @@ export function Footer() {
                 <span>v{__APP_VERSION__}</span>
             </div>
         </footer>
-    )
+    );
 }

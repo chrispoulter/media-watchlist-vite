@@ -1,11 +1,11 @@
-import { Outlet, useLocation } from 'react-router-dom'
-import { ErrorBoundary } from 'react-error-boundary'
-import { ErrorPage } from '@/pages/error-page'
-import { Header } from './header'
-import { Footer } from './footer'
+import { Outlet, useLocation } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorPage } from '@/pages/error-page';
+import { Header } from './header';
+import { Footer } from './footer';
 
 export function RootLayout() {
-    const { pathname } = useLocation()
+    const { pathname } = useLocation();
 
     return (
         <div className="bg-background flex min-h-screen flex-col">
@@ -20,5 +20,5 @@ export function RootLayout() {
             </main>
             <Footer />
         </div>
-    )
+    );
 }
