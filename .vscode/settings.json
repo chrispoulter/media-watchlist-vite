@@ -1,8 +1,8 @@
 {
-  "files.exclude": {
-    "**/node_modules": true
-  },
-  "files.associations": {
-    "*.css": "tailwindcss"
-  }
+    "files.exclude": {
+        "**/node_modules": true
+    },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    }
 }
