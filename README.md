@@ -151,3 +151,7 @@ src/
     ├── watchlist/          # React Query hooks, grid, item cards
     └── search/             # debounced search bar, result cards
 ```
+
+## License
+
+[MIT](LICENSE)
