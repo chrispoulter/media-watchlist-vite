@@ -7,7 +7,8 @@ declare global {
 }
 
 const configSchema = z.object({
-    VITE_API_URL: z.url('VITE_API_URL must be a valid URL'),
+    VITE_API_URL: z.url(),
+    VITE_SENTRY_DSN: z.url().optional(),
 });
 
 export const config = configSchema.parse({
