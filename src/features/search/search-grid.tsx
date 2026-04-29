@@ -14,8 +14,9 @@ import { SearchCard } from './search-card';
 export function SearchGrid() {
     const [searchQuery, setSearchQuery] = useState('');
     const searchEnabled = searchQuery.trim().length >= 2;
+
     const {
-        data: searchResults,
+        data: results,
         isLoading,
         error,
     } = useSearch(searchQuery, searchEnabled);
@@ -39,7 +40,7 @@ export function SearchGrid() {
                             Failed to load search results. Please try again.
                         </AlertDescription>
                     </Alert>
-                ) : !searchResults?.length ? (
+                ) : !results?.length ? (
                     <Empty className="border border-dashed">
                         <EmptyHeader>
                             <EmptyTitle>No results found</EmptyTitle>
@@ -50,7 +51,7 @@ export function SearchGrid() {
                     </Empty>
                 ) : (
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-4">
-                        {searchResults.map((result) => (
+                        {results.map((result) => (
                             <SearchCard
                                 key={`${result.mediaType}-${result.providerId}`}
                                 result={result}
