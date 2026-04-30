@@ -6,12 +6,6 @@ export function init() {
         return;
     }
 
-    console.log('Initializing Sentry with DSN:', {
-        dsn: config.VITE_SENTRY_DSN,
-        release,
-        environment,
-    });
-
     Sentry.init({
         dsn: config.VITE_SENTRY_DSN,
         release,

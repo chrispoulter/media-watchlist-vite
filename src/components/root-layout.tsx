@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from '@sentry/react';
 import { ErrorPage } from '@/pages/error-page';
 import { Header } from './header';
 import { Footer } from './footer';
