@@ -8,11 +8,11 @@ import { ErrorBoundary } from '@sentry/react';
 // import { ErrorBoundary } from 'react-error-boundary';
 import { Toaster } from '@/components/ui/sonner';
 import { queryClient } from '@/lib/query-client';
-import { initSentry } from '@/lib/sentry';
+import { init } from '@/lib/instrument';
 import App from './app.tsx';
 import './index.css';
 
-initSentry();
+init();
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
