@@ -3,9 +3,11 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@/pages/error-page';
 import { Header } from './header';
 import { Footer } from './footer';
+import { useSentryUser } from '@/lib/use-sentry-user';
 
 export function RootLayout() {
     const { pathname } = useLocation();
+    useSentryUser();
 
     return (
         <div className="bg-background flex min-h-screen flex-col">

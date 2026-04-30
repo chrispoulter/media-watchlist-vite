@@ -16,6 +16,7 @@ export function init() {
         dsn: config.VITE_SENTRY_DSN,
         release,
         environment,
+        sendDefaultPii: true,
         integrations: [Sentry.browserTracingIntegration()],
         tracesSampleRate: 1.0,
     });
