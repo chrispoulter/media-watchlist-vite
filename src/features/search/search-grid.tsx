@@ -65,15 +65,6 @@ export function SearchGrid() {
                         <EmptyTitle>Start typing to search</EmptyTitle>
                         <EmptyDescription>
                             Search for movies and TV shows to add them here
-                            <button
-                                onClick={() => {
-                                    throw new Error(
-                                        'This is your first error!'
-                                    );
-                                }}
-                            >
-                                Break the world
-                            </button>
                         </EmptyDescription>
                     </EmptyHeader>
                 </Empty>
