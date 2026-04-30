@@ -6,10 +6,11 @@ declare global {
     }
 }
 
-export const release =
+const gitCommitSha =
     import.meta.env.VITE_VERCEL_GIT_COMMIT_SHA ??
-    import.meta.env.VITE_GIT_COMMIT_SHA ??
-    __APP_VERSION__;
+    import.meta.env.VITE_GIT_COMMIT_SHA;
+
+export const release = gitCommitSha?.slice(0, 7) ?? __APP_VERSION__;
 
 export const environment =
     import.meta.env.VITE_VERCEL_ENV ?? import.meta.env.MODE ?? 'development';
