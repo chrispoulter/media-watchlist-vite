@@ -6,7 +6,7 @@ import { Footer } from './footer';
 import { useSentryUser } from '@/lib/use-sentry-user';
 
 export function RootLayout() {
-    const { pathname } = useLocation();
+    // const { pathname } = useLocation();
     useSentryUser();
 
     return (
@@ -14,8 +14,9 @@ export function RootLayout() {
             <Header />
             <main className="container mx-auto flex flex-1 flex-col px-4 py-8">
                 <ErrorBoundary
-                    FallbackComponent={ErrorPage}
-                    resetKeys={[pathname]}
+                    fallback={(props) => <ErrorPage {...props} />}
+                    beforeCapture={(scope) => scope.setTag('section', 'layout')}
+                    // resetKeys={[pathname]}
                 >
                     <Outlet />
                 </ErrorBoundary>

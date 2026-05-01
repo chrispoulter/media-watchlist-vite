@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import type { FallbackProps } from 'react-error-boundary';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,7 +9,11 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 
-export function ErrorPage({ resetErrorBoundary }: FallbackProps) {
+interface ErrorPageProps {
+    resetError: () => void;
+}
+
+export function ErrorPage({ resetError }: ErrorPageProps) {
     return (
         <>
             <title>Error | Media Watchlist</title>
@@ -33,10 +36,7 @@ export function ErrorPage({ resetErrorBoundary }: FallbackProps) {
                                 </AlertDescription>
                             </Alert>
                             <div className="flex flex-col-reverse gap-2">
-                                <Button
-                                    variant="outline"
-                                    onClick={resetErrorBoundary}
-                                >
+                                <Button variant="outline" onClick={resetError}>
                                     Try again
                                 </Button>
                                 <Button asChild>
