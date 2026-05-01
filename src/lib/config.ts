@@ -16,7 +16,7 @@ export const environment =
     import.meta.env.VITE_VERCEL_ENV ?? import.meta.env.MODE ?? 'development';
 
 const configSchema = z.object({
-    VITE_API_URL: z.url('VITE_API_URL must be a valid URL'),
+    VITE_API_URL: z.url(),
 });
 
 export const config = configSchema.parse({
