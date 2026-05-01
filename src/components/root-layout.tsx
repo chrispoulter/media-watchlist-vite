@@ -15,7 +15,7 @@ export function RootLayout() {
             <main className="container mx-auto flex flex-1 flex-col px-4 py-8">
                 <ErrorBoundary
                     fallback={(props) => <ErrorPage {...props} />}
-                    beforeCapture={(scope) => scope.setTag('section', 'layout')}
+                    beforeCapture={(scope) => scope.setTag('section', 'root-layout')}
                     // resetKeys={[pathname]}
                 >
                     <Outlet />
