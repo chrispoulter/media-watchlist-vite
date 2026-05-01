@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { ErrorBoundary } from '@sentry/react';
 import { ErrorPage } from '@/pages/error-page';
 import { Header } from './header';
@@ -6,7 +6,6 @@ import { Footer } from './footer';
 import { useSentryUser } from '@/lib/use-sentry-user';
 
 export function RootLayout() {
-    // const { pathname } = useLocation();
     useSentryUser();
 
     return (
@@ -15,8 +14,9 @@ export function RootLayout() {
             <main className="container mx-auto flex flex-1 flex-col px-4 py-8">
                 <ErrorBoundary
                     fallback={(props) => <ErrorPage {...props} />}
-                    beforeCapture={(scope) => scope.setTag('section', 'root-layout')}
-                    // resetKeys={[pathname]}
+                    beforeCapture={(scope) =>
+                        scope.setTag('section', 'root-layout')
+                    }
                 >
                     <Outlet />
                 </ErrorBoundary>
