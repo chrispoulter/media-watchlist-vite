@@ -1,7 +1,6 @@
-#!/bin/sh
-cat > /usr/share/nginx/html/env.js << EOF
-window.__ENV__ ||= {
-  VITE_API_URL: "${VITE_API_URL}",
-  VITE_SENTRY_DSN: "${VITE_SENTRY_DSN}",
-};
-EOF
+{
+  echo "window.__ENV__ ||= {"
+  echo "  VITE_API_URL: \"${VITE_API_URL}\","
+  [ -n "${VITE_SENTRY_DSN}" ] && echo "  VITE_SENTRY_DSN: \"${VITE_SENTRY_DSN}\","
+  echo "};"
+} > /usr/share/nginx/html/env.js
