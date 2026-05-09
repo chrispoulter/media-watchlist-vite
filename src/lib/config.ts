@@ -17,6 +17,7 @@ export const environment =
 
 const configSchema = z.object({
     VITE_API_URL: z.url(),
+    VITE_SENTRY_DSN: z.url().optional(),
 });
 
 export const config = configSchema.parse({

@@ -4,11 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from 'next-themes';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from '@sentry/react';
 import { Toaster } from '@/components/ui/sonner';
 import { queryClient } from '@/lib/query-client';
+import { init } from '@/lib/instrument';
 import App from './app.tsx';
 import './index.css';
+
+init();
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -25,6 +28,9 @@ createRoot(document.getElementById('root')!).render(
                             <div className="flex min-h-screen items-center justify-center p-8 text-center">
                                 Something went wrong. Please refresh the page.
                             </div>
+                        }
+                        beforeCapture={(scope) =>
+                            scope.setTag('section', 'main')
                         }
                     >
                         <App />
