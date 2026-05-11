@@ -7,7 +7,7 @@ type ApiError = {
     error?: string;
 };
 
-export const api = ky.create({
+export const apiClient = ky.create({
     prefix: config.VITE_API_URL,
     credentials: 'include',
     hooks: {

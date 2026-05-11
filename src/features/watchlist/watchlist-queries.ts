@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { searchKeys } from '../search/search-queries';
-import { api } from '@/lib/api';
+import { apiClient } from '@/lib/api-client';
 import type { WatchlistItem, SearchResult } from '@/types';
 
 export const watchlistKeys = {
@@ -11,7 +11,7 @@ export function useWatchlist() {
     return useQuery({
         queryKey: watchlistKeys.all,
         queryFn: ({ signal }) =>
-            api.get('/api/watchlist', { signal }).json<WatchlistItem[]>(),
+            apiClient.get('/api/watchlist', { signal }).json<WatchlistItem[]>(),
     });
 }
 
@@ -22,7 +22,9 @@ export function useAddToWatchlist() {
 
     return useMutation({
         mutationFn: (item: AddToWatchlistVariables) =>
-            api.post('/api/watchlist', { json: item }).json<WatchlistItem>(),
+            apiClient
+                .post('/api/watchlist', { json: item })
+                .json<WatchlistItem>(),
         onSuccess: (data, variables) => {
             queryClient.setQueryData<WatchlistItem[]>(
                 watchlistKeys.all,
@@ -47,7 +49,7 @@ export function useRemoveFromWatchlist() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (id: number) => api.delete(`/api/watchlist/${id}`),
+        mutationFn: (id: number) => apiClient.delete(`/api/watchlist/${id}`),
         onSuccess: (_, id) => {
             queryClient.setQueryData<WatchlistItem[]>(
                 watchlistKeys.all,
