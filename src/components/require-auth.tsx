@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router';
 import { authClient } from '@/lib/auth-client';
 import { Spinner } from './ui/spinner';
 
