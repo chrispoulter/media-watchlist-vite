@@ -9,7 +9,7 @@ export function SearchPage() {
                     <h1 className="text-2xl font-bold tracking-tight">
                         Search
                     </h1>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-sm text-muted-foreground">
                         Find movies and TV shows to add to your watchlist
                     </p>
                 </div>

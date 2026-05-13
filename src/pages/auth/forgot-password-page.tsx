@@ -28,10 +28,10 @@ export function ForgotPasswordPage() {
                         </CardContent>
                     </Card>
 
-                    <p className="text-muted-foreground text-center text-sm">
+                    <p className="text-center text-sm text-muted-foreground">
                         <Link
                             to="/login"
-                            className="hover:text-foreground underline underline-offset-4"
+                            className="underline underline-offset-4 hover:text-foreground"
                         >
                             Back to sign in
                         </Link>

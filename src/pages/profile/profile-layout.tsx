@@ -17,7 +17,7 @@ export function ProfileLayout() {
         <div className="space-y-6">
             <div>
                 <h1 className="text-2xl font-bold tracking-tight">Profile</h1>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-sm text-muted-foreground">
                     Manage your account settings
                 </p>
             </div>

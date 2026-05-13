@@ -43,7 +43,7 @@ export function SetPassword() {
 
     return (
         <div className="space-y-4">
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
                 You currently sign in with a linked account. Add a password to
                 also sign in with your email address.
             </p>

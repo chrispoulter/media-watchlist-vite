@@ -15,7 +15,7 @@ export const TwoFactorQRCode = ({ totpUri, onDone }: TwoFactorQRCodeProps) => {
             <div className="inline-block rounded-lg border bg-white p-4">
                 <QRCodeSVG value={totpUri} size={200} />
             </div>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
                 Or enter manually:{' '}
                 <code className="font-mono text-xs break-all">{totpUri}</code>
             </p>

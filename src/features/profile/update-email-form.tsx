@@ -67,9 +67,9 @@ export function UpdateEmailForm() {
     if (pendingEmail) {
         return (
             <div className="space-y-4">
-                <p className="text-muted-foreground text-sm">
+                <p className="text-sm text-muted-foreground">
                     Current email:{' '}
-                    <span className="text-foreground font-medium break-all">
+                    <span className="font-medium break-all text-foreground">
                         {session?.user.email}
                     </span>
                 </p>
@@ -101,9 +101,9 @@ export function UpdateEmailForm() {
 
     return (
         <div className="space-y-4">
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sm text-muted-foreground">
                 Current email:{' '}
-                <span className="text-foreground font-medium break-all">
+                <span className="font-medium break-all text-foreground">
                     {session?.user.email}
                 </span>
             </p>
