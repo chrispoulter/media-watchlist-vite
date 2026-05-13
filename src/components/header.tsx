@@ -21,7 +21,7 @@ export function Header() {
     const { data: session } = authClient.useSession();
 
     return (
-        <header className="bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
             <div className="container mx-auto flex h-14 items-center justify-between px-4">
                 <Link to="/" className="font-semibold">
                     Media Watchlist
@@ -39,7 +39,7 @@ export function Header() {
                                             'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
                                             isActive
                                                 ? 'bg-secondary text-secondary-foreground'
-                                                : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                                                : 'text-muted-foreground hover:bg-secondary/50 hover:text-foreground'
                                         )
                                     }
                                 >

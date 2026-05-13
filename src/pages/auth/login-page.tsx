@@ -30,7 +30,7 @@ export function LoginPage() {
 
                             <div className="relative">
                                 <Separator />
-                                <span className="bg-card text-muted-foreground absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 text-xs">
+                                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
                                     or
                                 </span>
                             </div>
@@ -39,11 +39,11 @@ export function LoginPage() {
                         </CardContent>
                     </Card>
 
-                    <p className="text-muted-foreground text-center text-sm">
+                    <p className="text-center text-sm text-muted-foreground">
                         Don't have an account?{' '}
                         <Link
                             to="/register"
-                            className="hover:text-foreground underline underline-offset-4"
+                            className="underline underline-offset-4 hover:text-foreground"
                         >
                             Sign up
                         </Link>
