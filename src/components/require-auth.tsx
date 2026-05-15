@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router';
+import { Spinner } from '@/components/ui/spinner';
 import { authClient } from '@/lib/auth-client';
-import { Spinner } from './ui/spinner';
 
 export function RequireAuth() {
     const { data: session, isPending } = authClient.useSession();
