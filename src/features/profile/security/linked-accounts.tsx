@@ -1,10 +1,7 @@
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-    useLinkSocial,
-    useUnlinkAccount,
-} from '../profile-queries';
+import { useLinkSocial, useUnlinkAccount } from '../profile-queries';
 import { authProviders } from '@/lib/auth-providers';
 
 interface LinkedAccountsProps {
