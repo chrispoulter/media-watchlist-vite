@@ -15,7 +15,8 @@ import { ProfileLayout } from '@/features/profile/profile-layout';
 import { ProfileTab } from '@/features/profile/info/profile-tab';
 import { SecurityTab } from '@/features/profile/security/security-tab';
 import { DangerTab } from '@/features/profile/danger/danger-tab';
-import { NotFoundPage } from '@/not-found-page';
+
+import { NotFoundPage } from './not-found-page';
 
 export default function App() {
     return (
