@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { searchKeys } from '../search/search-queries';
+import { searchKeys } from '@/features/search/search-queries';
 import { apiClient } from '@/lib/api-client';
 import type { WatchlistItem, SearchResult } from '@/types';
 
