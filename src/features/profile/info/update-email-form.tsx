@@ -13,8 +13,8 @@ import {
     FieldGroup,
     FieldLabel,
 } from '@/components/ui/field';
-import { useChangeEmail } from '../profile-queries';
 import { authClient } from '@/lib/auth-client';
+import { useChangeEmail } from '../profile-queries';
 
 const verificationErrorMessages: Record<string, string> = {
     USER_NOT_FOUND:

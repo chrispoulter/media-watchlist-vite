@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { authClient } from '@/lib/auth-client';
 import { TwoFactorEnabled } from './two-factor-enabled';
 import { TwoFactorBackupCodes } from './two-factor-backup-codes';
 import { TwoFactorDisabled } from './two-factor-disabled';
@@ -7,7 +8,6 @@ import { TwoFactorConfirmEnable } from './two-factor-confirm-enable';
 import { TwoFactorConfirmBackupCodes } from './two-factor-confirm-backup-codes';
 import { TwoFactorVerify } from './two-factor-verify';
 import { TwoFactorQRCode } from './two-factor-qr-code';
-import { authClient } from '@/lib/auth-client';
 
 type TwoFactorStep =
     | 'idle'

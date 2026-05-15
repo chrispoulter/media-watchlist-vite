@@ -1,5 +1,4 @@
 import { Link } from 'react-router';
-import { LoginForm } from './login-form';
 import {
     Card,
     CardContent,
@@ -9,6 +8,7 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { SocialSignInButtons } from '@/components/social-sign-in-buttons';
+import { LoginForm } from './login-form';
 
 export function LoginPage() {
     return (

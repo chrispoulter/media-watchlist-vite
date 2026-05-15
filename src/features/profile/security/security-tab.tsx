@@ -6,12 +6,12 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { authProviders } from '@/lib/auth-providers';
+import { useAccounts } from '../profile-queries';
 import { ChangePasswordForm } from './change-password-form';
 import { SetPassword } from './set-password';
 import { TwoFactorSettings } from './two-factor/two-factor-settings';
 import { LinkedAccounts } from './linked-accounts';
-import { useAccounts } from '../profile-queries';
-import { authProviders } from '@/lib/auth-providers';
 
 export function SecurityTab() {
     const { data: accounts = [], isLoading } = useAccounts();

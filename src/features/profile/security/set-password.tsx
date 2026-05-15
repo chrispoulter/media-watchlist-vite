@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { useSetPasswordReset } from '../profile-queries';
 import { authClient } from '@/lib/auth-client';
+import { useSetPasswordReset } from '../profile-queries';
 
 export function SetPassword() {
     const [isSent, setIsSent] = useState(false);

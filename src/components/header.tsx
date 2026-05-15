@@ -8,9 +8,9 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { UserMenu } from './user-menu';
 import { cn } from '@/lib/utils';
 import { authClient } from '@/lib/auth-client';
+import { UserMenu } from './user-menu';
 
 const navItems = [
     { to: '/', label: 'Watchlist' },

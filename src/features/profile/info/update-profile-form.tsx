@@ -10,8 +10,8 @@ import {
     FieldGroup,
     FieldLabel,
 } from '@/components/ui/field';
-import { useUpdateUser } from '../profile-queries';
 import { authClient } from '@/lib/auth-client';
+import { useUpdateUser } from '../profile-queries';
 
 const updateProfileSchema = z.object({
     name: z.string().min(1, 'Name is required'),
