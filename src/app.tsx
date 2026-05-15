@@ -3,19 +3,19 @@ import { RootLayout } from '@/components/root-layout';
 import { RequireAuth } from '@/components/require-auth';
 import { RequireGuest } from '@/components/require-guest';
 
-import { LoginPage } from '@/pages/auth/login-page';
-import { RegisterPage } from '@/pages/auth/register-page';
-import { TwoFactorPage } from '@/pages/auth/two-factor-page';
-import { ForgotPasswordPage } from '@/pages/auth/forgot-password-page';
-import { ResetPasswordPage } from '@/pages/auth/reset-password-page';
-import { AuthErrorPage } from '@/pages/auth/auth-error-page';
-import { WatchlistPage } from '@/pages/watchlist-page';
-import { SearchPage } from '@/pages/search-page';
-import { ProfileLayout } from '@/pages/profile/profile-layout';
-import { ProfileTab } from '@/pages/profile/profile-tab';
-import { SecurityTab } from '@/pages/profile/security-tab';
-import { DangerTab } from '@/pages/profile/danger-tab';
-import { NotFoundPage } from '@/pages/not-found-page';
+import { LoginPage } from '@/features/auth/login/login-page';
+import { RegisterPage } from '@/features/auth/register/register-page';
+import { TwoFactorPage } from '@/features/auth/two-factor/two-factor-page';
+import { ForgotPasswordPage } from '@/features/auth/forgot-password/forgot-password-page';
+import { ResetPasswordPage } from '@/features/auth/reset-password/reset-password-page';
+import { AuthErrorPage } from '@/features/auth/auth-error/auth-error-page';
+import { WatchlistPage } from '@/features/watchlist/watchlist-page';
+import { SearchPage } from '@/features/search/search-page';
+import { ProfileLayout } from '@/features/profile/profile-layout';
+import { ProfileTab } from '@/features/profile/info/profile-tab';
+import { SecurityTab } from '@/features/profile/security/security-tab';
+import { DangerTab } from '@/features/profile/danger/danger-tab';
+import { NotFoundPage } from '@/not-found-page';
 
 export default function App() {
     return (
