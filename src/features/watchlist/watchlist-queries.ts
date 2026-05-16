@@ -3,7 +3,7 @@ import { searchKeys } from '@/features/search/search-queries';
 import { apiClient } from '@/lib/api-client';
 import type { WatchlistItem, SearchResult } from '@/types';
 
-export const watchlistKeys = {
+const watchlistKeys = {
     all: ['watchlist'] as const,
 };
 
