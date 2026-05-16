@@ -6,6 +6,7 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Metadata } from '@/components/metadata';
 import { authProviders } from '@/lib/auth-providers';
 import { useAccounts } from '../profile-queries';
 import { ChangePasswordForm } from './change-password-form';
@@ -22,7 +23,7 @@ export function SecurityTab() {
 
     return (
         <>
-            <title>Security | Media Watchlist</title>
+            <Metadata title="Security" />
             <div className="space-y-6">
                 {isLoading ? (
                     <Card>

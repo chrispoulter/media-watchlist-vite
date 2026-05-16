@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTheme } from './theme-provider';
 
-export function ThemeToggleComponent() {
+export function ModeToggle() {
     const { theme, setTheme } = useTheme();
 
     return (
@@ -56,5 +55,3 @@ export function ThemeToggleComponent() {
         </DropdownMenu>
     );
 }
-
-export const ThemeToggle = memo(ThemeToggleComponent);

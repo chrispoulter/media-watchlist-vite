@@ -7,13 +7,14 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Metadata } from '@/components/metadata';
 import { SocialSignInButtons } from '@/components/social-sign-in-buttons';
 import { RegisterForm } from './register-form';
 
 export function RegisterPage() {
     return (
         <>
-            <title>Register | Media Watchlist</title>
+            <Metadata title="Register" />
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-md space-y-6">
                     <Card>

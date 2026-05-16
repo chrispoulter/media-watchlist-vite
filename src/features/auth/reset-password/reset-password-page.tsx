@@ -6,12 +6,13 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from '@/components/metadata';
 import { ResetPasswordForm } from './reset-password-form';
 
 export function ResetPasswordPage() {
     return (
         <>
-            <title>Reset Password | Media Watchlist</title>
+            <Metadata title="Reset Password" />
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-sm space-y-6">
                     <Card>

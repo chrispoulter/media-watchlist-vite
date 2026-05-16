@@ -5,12 +5,13 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from '@/components/metadata';
 import { DeleteAccountDialog } from './delete-account-dialog';
 
 export function DangerTab() {
     return (
         <>
-            <title>Danger Zone | Media Watchlist</title>
+            <Metadata title="Danger Zone" />
             <Card>
                 <CardHeader>
                     <CardTitle>Delete Account</CardTitle>

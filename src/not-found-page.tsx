@@ -7,11 +7,12 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from '@/components/metadata';
 
 export function NotFoundPage() {
     return (
         <>
-            <title>Page Not Found | Media Watchlist</title>
+            <Metadata title="Page Not Found" />
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-sm">
                     <Card>

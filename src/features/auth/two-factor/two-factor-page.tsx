@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from '@/components/metadata';
 import { TwoFactorForm } from './two-factor-form';
 import { RecoveryCodeForm } from './recovery-code-form';
 
@@ -17,7 +18,7 @@ export function TwoFactorPage() {
 
     return (
         <>
-            <title>Two-Factor Authentication | Media Watchlist</title>
+            <Metadata title="Two-Factor Authentication" />
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-sm space-y-6">
                     <Card>

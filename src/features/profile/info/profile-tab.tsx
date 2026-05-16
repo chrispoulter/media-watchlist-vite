@@ -5,13 +5,14 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from '@/components/metadata';
 import { UpdateProfileForm } from './update-profile-form';
 import { UpdateEmailForm } from './update-email-form';
 
 export function ProfileTab() {
     return (
         <>
-            <title>Profile | Media Watchlist</title>
+            <Metadata title="Profile" />
             <div className="space-y-6">
                 <Card>
                     <CardHeader>

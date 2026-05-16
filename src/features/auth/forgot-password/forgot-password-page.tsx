@@ -6,12 +6,13 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from '@/components/metadata';
 import { ForgotPasswordForm } from './forgot-password-form';
 
 export function ForgotPasswordPage() {
     return (
         <>
-            <title>Forgot Password | Media Watchlist</title>
+            <Metadata title="Forgot Password" />
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-sm space-y-6">
                     <Card>

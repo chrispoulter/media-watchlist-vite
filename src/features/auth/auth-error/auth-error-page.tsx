@@ -8,6 +8,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Metadata } from '@/components/metadata';
 
 const ERROR_MESSAGES: Record<string, string> = {
     "email_doesn't_match":
@@ -36,7 +37,7 @@ export function AuthErrorPage() {
 
     return (
         <>
-            <title>Authentication Error | Media Watchlist</title>
+            <Metadata title="Authentication Error" />
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-sm">
                     <Card>

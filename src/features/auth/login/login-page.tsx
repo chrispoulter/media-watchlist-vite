@@ -8,12 +8,13 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { SocialSignInButtons } from '@/components/social-sign-in-buttons';
+import { Metadata } from '@/components/metadata';
 import { LoginForm } from './login-form';
 
 export function LoginPage() {
     return (
         <>
-            <title>Login | Media Watchlist</title>
+            <Metadata title="Login" />
             <div className="flex flex-1 items-center justify-center">
                 <div className="w-full max-w-md space-y-6">
                     <Card>

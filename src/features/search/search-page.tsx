@@ -1,9 +1,10 @@
+import { Metadata } from '@/components/metadata';
 import { SearchGrid } from './search-grid';
 
 export function SearchPage() {
     return (
         <>
-            <title>Search | Media Watchlist</title>
+            <Metadata title="Search" />
             <div className="space-y-6">
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight">
