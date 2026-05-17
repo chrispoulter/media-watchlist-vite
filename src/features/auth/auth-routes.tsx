@@ -5,7 +5,7 @@ import { RegisterPage } from './register/register-page';
 import { ForgotPasswordPage } from './forgot-password/forgot-password-page';
 import { TwoFactorPage } from './two-factor/two-factor-page';
 import { ResetPasswordPage } from './reset-password/reset-password-page';
-import { AuthErrorPage } from './auth-error/auth-error-page';
+import { AuthErrorPage } from './auth-error-page';
 
 export const authRoutes = (
     <>
